@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -36,38 +36,42 @@ class ViewController: UIViewController {
     }
 
     func validateFields() -> Bool {
-        var pwOk = false
-        if let pw = self.passwordField.text {
-            if pw != "" {
-                pwOk = true
-            }
-        }
+        let pwOk = self.isEmptyOrNil(str: self.passwordField.text)
         if !pwOk {
             print("Password cannot be blank")
         }
         
-        var emailOk = false
-        if let email = self.emailField.text {
-            let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-            
-            let emailPredicate = NSPredicate(format:"SELF MATCHES %@", regex)
-            emailOk = emailPredicate.evaluate(with: email)
-        }
+        let emailOk = self.isValidEmail(emailStr: self.emailField.text)
         if !emailOk {
             print("Invalid email address")
         }
         
         return emailOk && pwOk
     }
+
     
     @IBAction func signupButtonPressed(_ sender: UIButton) {
         if self.validateFields() {
             print("Congratulations!  You entered correct values.")
+            self.performSegue(withIdentifier: "segueToMain", sender: self)
+        }
+    }
+    
+    @IBAction func logout(segue : UIStoryboardSegue) {
+        print("Logged out")
+        self.passwordField.text = ""
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToMain" {
+            if let destVC = segue.destination as? MainViewController {
+                destVC.userEmail = self.emailField.text
+            }
         }
     }
 }
 
-extension ViewController : UITextFieldDelegate {
+extension LoginViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.emailField {
             self.passwordField.becomeFirstResponder()

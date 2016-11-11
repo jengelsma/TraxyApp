@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E2855201DD10DE500224A11 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E28551F1DD10DE500224A11 /* MainViewController.swift */; };
+		9E2855221DD10DF800224A11 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2855211DD10DF800224A11 /* SignUpViewController.swift */; };
+		9E2855241DD1136300224A11 /* UIViewcontroller+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2855231DD1136300224A11 /* UIViewcontroller+Validation.swift */; };
 		9E6541141DCA358C009254CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6541131DCA358C009254CF /* AppDelegate.swift */; };
-		9E6541161DCA358C009254CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6541151DCA358C009254CF /* ViewController.swift */; };
+		9E6541161DCA358C009254CF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6541151DCA358C009254CF /* LoginViewController.swift */; };
 		9E6541191DCA358C009254CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6541171DCA358C009254CF /* Main.storyboard */; };
 		9E65411B1DCA358C009254CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E65411A1DCA358C009254CF /* Assets.xcassets */; };
 		9E65411E1DCA358C009254CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E65411C1DCA358C009254CF /* LaunchScreen.storyboard */; };
@@ -34,9 +37,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E28551F1DD10DE500224A11 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		9E2855211DD10DF800224A11 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		9E2855231DD1136300224A11 /* UIViewcontroller+Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewcontroller+Validation.swift"; sourceTree = "<group>"; };
 		9E6541101DCA358C009254CF /* TraxyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraxyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6541131DCA358C009254CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9E6541151DCA358C009254CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9E6541151DCA358C009254CF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9E6541181DCA358C009254CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E65411A1DCA358C009254CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E65411D1DCA358C009254CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -98,11 +104,14 @@
 			isa = PBXGroup;
 			children = (
 				9E6541131DCA358C009254CF /* AppDelegate.swift */,
-				9E6541151DCA358C009254CF /* ViewController.swift */,
+				9E6541151DCA358C009254CF /* LoginViewController.swift */,
 				9E6541171DCA358C009254CF /* Main.storyboard */,
 				9E65411A1DCA358C009254CF /* Assets.xcassets */,
 				9E65411C1DCA358C009254CF /* LaunchScreen.storyboard */,
 				9E65411F1DCA358C009254CF /* Info.plist */,
+				9E28551F1DD10DE500224A11 /* MainViewController.swift */,
+				9E2855211DD10DF800224A11 /* SignUpViewController.swift */,
+				9E2855231DD1136300224A11 /* UIViewcontroller+Validation.swift */,
 			);
 			path = TraxyApp;
 			sourceTree = "<group>";
@@ -262,7 +271,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E6541161DCA358C009254CF /* ViewController.swift in Sources */,
+				9E2855201DD10DE500224A11 /* MainViewController.swift in Sources */,
+				9E2855241DD1136300224A11 /* UIViewcontroller+Validation.swift in Sources */,
+				9E6541161DCA358C009254CF /* LoginViewController.swift in Sources */,
+				9E2855221DD10DF800224A11 /* SignUpViewController.swift in Sources */,
 				9E6541141DCA358C009254CF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,6 +524,7 @@
 				9E65413A1DCA358C009254CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9E65413B1DCA358C009254CF /* Build configuration list for PBXNativeTarget "TraxyAppTests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +533,7 @@
 				9E65413D1DCA358C009254CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9E65413E1DCA358C009254CF /* Build configuration list for PBXNativeTarget "TraxyAppUITests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +542,7 @@
 				9E6541401DCA358C009254CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
