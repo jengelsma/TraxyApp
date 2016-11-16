@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: TraxyBaseViewController {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -23,6 +23,7 @@ class LoginViewController: UIViewController {
         // make this controller the delegate of the text fields.
         self.emailField.delegate = self
         self.passwordField.delegate = self
+
     }
 
     override func didReceiveMemoryWarning() {

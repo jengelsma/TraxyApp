@@ -10,6 +10,8 @@
 		9E2855201DD10DE500224A11 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E28551F1DD10DE500224A11 /* MainViewController.swift */; };
 		9E2855221DD10DF800224A11 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2855211DD10DF800224A11 /* SignUpViewController.swift */; };
 		9E2855241DD1136300224A11 /* UIViewcontroller+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2855231DD1136300224A11 /* UIViewcontroller+Validation.swift */; };
+		9E29EF211DDB9C7F00A1E622 /* TraxyBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E29EF201DDB9C7F00A1E622 /* TraxyBaseViewController.swift */; };
+		9E29EF231DDB9D9D00A1E622 /* TraxyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E29EF221DDB9D9D00A1E622 /* TraxyButton.swift */; };
 		9E6541141DCA358C009254CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6541131DCA358C009254CF /* AppDelegate.swift */; };
 		9E6541161DCA358C009254CF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6541151DCA358C009254CF /* LoginViewController.swift */; };
 		9E6541191DCA358C009254CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6541171DCA358C009254CF /* Main.storyboard */; };
@@ -40,6 +42,8 @@
 		9E28551F1DD10DE500224A11 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9E2855211DD10DF800224A11 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		9E2855231DD1136300224A11 /* UIViewcontroller+Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewcontroller+Validation.swift"; sourceTree = "<group>"; };
+		9E29EF201DDB9C7F00A1E622 /* TraxyBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyBaseViewController.swift; sourceTree = "<group>"; };
+		9E29EF221DDB9D9D00A1E622 /* TraxyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyButton.swift; sourceTree = "<group>"; };
 		9E6541101DCA358C009254CF /* TraxyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraxyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6541131DCA358C009254CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E6541151DCA358C009254CF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 				9E28551F1DD10DE500224A11 /* MainViewController.swift */,
 				9E2855211DD10DF800224A11 /* SignUpViewController.swift */,
 				9E2855231DD1136300224A11 /* UIViewcontroller+Validation.swift */,
+				9E29EF201DDB9C7F00A1E622 /* TraxyBaseViewController.swift */,
+				9E29EF221DDB9D9D00A1E622 /* TraxyButton.swift */,
 			);
 			path = TraxyApp;
 			sourceTree = "<group>";
@@ -275,6 +281,8 @@
 				9E2855241DD1136300224A11 /* UIViewcontroller+Validation.swift in Sources */,
 				9E6541161DCA358C009254CF /* LoginViewController.swift in Sources */,
 				9E2855221DD10DF800224A11 /* SignUpViewController.swift in Sources */,
+				9E29EF231DDB9D9D00A1E622 /* TraxyButton.swift in Sources */,
+				9E29EF211DDB9C7F00A1E622 /* TraxyBaseViewController.swift in Sources */,
 				9E6541141DCA358C009254CF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

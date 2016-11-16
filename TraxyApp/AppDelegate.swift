@@ -8,6 +8,9 @@
 
 import UIKit
 
+let FOREGROUND_COLOR = UIColor.init(colorLiteralRed: 0.937 , green: 0.820, blue: 0.576, alpha: 1.0)
+let BACKGROUND_COLOR = UIColor.init(colorLiteralRed:0.000, green:0.369, blue:0.420, alpha:1.00)
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -15,7 +18,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        // make the status bar more readable against darker background.
+        application.statusBarStyle = UIStatusBarStyle.lightContent
+        
+        let buttonAppearance = UIButton.appearance()
+        buttonAppearance.backgroundColor = UIColor.clear
+        buttonAppearance.tintColor = FOREGROUND_COLOR
+        
+        let labelAppearance = UILabel.appearance()
+        labelAppearance.textColor = FOREGROUND_COLOR
+        
+        let textFieldAppearance = UITextField.appearance()
+        textFieldAppearance.textColor = FOREGROUND_COLOR
+        textFieldAppearance.backgroundColor = UIColor.clear
+        textFieldAppearance.borderStyle = .roundedRect
+
         return true
     }
 
