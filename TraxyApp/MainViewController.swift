@@ -8,25 +8,57 @@
 
 import UIKit
 
-class MainViewController: TraxyBaseViewController {
-
-    @IBOutlet weak var loginLabel: UILabel!
+class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBOutlet weak var tableView: UITableView!
     
     var userEmail : String?
+    var journals : [Journal]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let email = self.userEmail {
-            self.loginLabel.text = email
-        }
+        
+        let model = JournalModel()
+        self.journals = model.getJournals()
+        
+//        if let email = self.userEmail {
+//            self.loginLabel.text = email
+//        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+    }
+
+    // MARK: - UITableViewDataSource
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let journs = self.journals {
+            return journs.count
+        } else {
+            return 0
+        }
+    }
 
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) 
+        
+        if let journal = self.journals?[indexPath.row] {
+            cell.textLabel?.text = journal.name
+            cell.detailTextLabel?.text = journal.location
+            if let defaultImage = UIImage(named: "logo") {
+                cell.imageView?.image = defaultImage
+            }
+        }
+        
+        return cell
+    }
+    
     /*
     // MARK: - Navigation
 

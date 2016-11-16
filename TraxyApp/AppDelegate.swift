@@ -8,8 +8,15 @@
 
 import UIKit
 
-let FOREGROUND_COLOR = UIColor.init(colorLiteralRed: 0.937 , green: 0.820, blue: 0.576, alpha: 1.0)
-let BACKGROUND_COLOR = UIColor.init(colorLiteralRed:0.000, green:0.369, blue:0.420, alpha:1.00)
+let THEME_COLOR1 = UIColor.init(colorLiteralRed:0.000, green:0.157, blue:0.216, alpha:1.00) // DARK BLUE
+let THEME_COLOR2 = UIColor.init(colorLiteralRed:0.000, green:0.369, blue:0.420, alpha:1.00) // Light Tan
+let THEME_COLOR3 = UIColor.init(colorLiteralRed: 0.937, green: 0.820, blue: 0.576, alpha: 1.0) //Lighter Blue
+let THEME_COLOR4 = UIColor.init(colorLiteralRed:0.576, green:0.596, blue:0.329, alpha:1.00) // Greenish Tan
+let THEME_COLOR5 = UIColor.init(colorLiteralRed:0.251, green:0.286, blue:0.141, alpha:1.00) // Army Green
+
+let THEME_DARK = UIColor.black
+let THEME_LIGHT = UIColor.white
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,16 +31,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let buttonAppearance = UIButton.appearance()
         buttonAppearance.backgroundColor = UIColor.clear
-        buttonAppearance.tintColor = FOREGROUND_COLOR
+        buttonAppearance.tintColor = THEME_COLOR3
         
         let labelAppearance = UILabel.appearance()
-        labelAppearance.textColor = FOREGROUND_COLOR
+        labelAppearance.textColor = THEME_COLOR3
         
         let textFieldAppearance = UITextField.appearance()
-        textFieldAppearance.textColor = FOREGROUND_COLOR
+        textFieldAppearance.textColor = THEME_COLOR3
         textFieldAppearance.backgroundColor = UIColor.clear
         textFieldAppearance.borderStyle = .roundedRect
 
+        let navAppearance = UINavigationBar.appearance()
+        navAppearance.barTintColor = THEME_COLOR2
+        navAppearance.tintColor = THEME_COLOR3
+        navAppearance.isTranslucent = false
+        navAppearance.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         return true
     }
 

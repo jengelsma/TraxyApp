@@ -13,6 +13,6 @@ class TraxyBaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = BACKGROUND_COLOR
+        self.view.backgroundColor = THEME_COLOR2
     }
 }

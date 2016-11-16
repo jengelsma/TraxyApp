@@ -12,7 +12,7 @@ class TraxyButton: UIButton {
     
     override func awakeFromNib() {
         self.layer.borderWidth = 1.0
-        self.layer.borderColor = FOREGROUND_COLOR.cgColor
+        self.layer.borderColor = THEME_COLOR3.cgColor
         self.layer.cornerRadius = 5.0
     }
 }

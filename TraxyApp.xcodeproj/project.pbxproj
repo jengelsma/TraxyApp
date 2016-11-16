@@ -19,6 +19,8 @@
 		9E65411E1DCA358C009254CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E65411C1DCA358C009254CF /* LaunchScreen.storyboard */; };
 		9E6541291DCA358C009254CF /* TraxyAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6541281DCA358C009254CF /* TraxyAppTests.swift */; };
 		9E6541341DCA358C009254CF /* TraxyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6541331DCA358C009254CF /* TraxyAppUITests.swift */; };
+		9ED5618D1DDCCDF0004EAC43 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED5618C1DDCCDF0004EAC43 /* Journal.swift */; };
+		9ED5618F1DDCCEFF004EAC43 /* JournalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED5618E1DDCCEFF004EAC43 /* JournalModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		9E65412F1DCA358C009254CF /* TraxyAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TraxyAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6541331DCA358C009254CF /* TraxyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraxyAppUITests.swift; sourceTree = "<group>"; };
 		9E6541351DCA358C009254CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9ED5618C1DDCCDF0004EAC43 /* Journal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
+		9ED5618E1DDCCEFF004EAC43 /* JournalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,17 +111,11 @@
 		9E6541121DCA358C009254CF /* TraxyApp */ = {
 			isa = PBXGroup;
 			children = (
-				9E6541131DCA358C009254CF /* AppDelegate.swift */,
-				9E6541151DCA358C009254CF /* LoginViewController.swift */,
-				9E6541171DCA358C009254CF /* Main.storyboard */,
-				9E65411A1DCA358C009254CF /* Assets.xcassets */,
-				9E65411C1DCA358C009254CF /* LaunchScreen.storyboard */,
+				9ED5618B1DDCCDBB004EAC43 /* Models */,
+				9ED5618A1DDCCDAC004EAC43 /* Views */,
+				9ED561891DDCCD91004EAC43 /* Controllers */,
 				9E65411F1DCA358C009254CF /* Info.plist */,
-				9E28551F1DD10DE500224A11 /* MainViewController.swift */,
-				9E2855211DD10DF800224A11 /* SignUpViewController.swift */,
-				9E2855231DD1136300224A11 /* UIViewcontroller+Validation.swift */,
-				9E29EF201DDB9C7F00A1E622 /* TraxyBaseViewController.swift */,
-				9E29EF221DDB9D9D00A1E622 /* TraxyButton.swift */,
+				9E6541131DCA358C009254CF /* AppDelegate.swift */,
 			);
 			path = TraxyApp;
 			sourceTree = "<group>";
@@ -138,6 +136,38 @@
 				9E6541351DCA358C009254CF /* Info.plist */,
 			);
 			path = TraxyAppUITests;
+			sourceTree = "<group>";
+		};
+		9ED561891DDCCD91004EAC43 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9E6541151DCA358C009254CF /* LoginViewController.swift */,
+				9E28551F1DD10DE500224A11 /* MainViewController.swift */,
+				9E2855211DD10DF800224A11 /* SignUpViewController.swift */,
+				9E2855231DD1136300224A11 /* UIViewcontroller+Validation.swift */,
+				9E29EF201DDB9C7F00A1E622 /* TraxyBaseViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		9ED5618A1DDCCDAC004EAC43 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9E6541171DCA358C009254CF /* Main.storyboard */,
+				9E65411A1DCA358C009254CF /* Assets.xcassets */,
+				9E65411C1DCA358C009254CF /* LaunchScreen.storyboard */,
+				9E29EF221DDB9D9D00A1E622 /* TraxyButton.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		9ED5618B1DDCCDBB004EAC43 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9ED5618C1DDCCDF0004EAC43 /* Journal.swift */,
+				9ED5618E1DDCCEFF004EAC43 /* JournalModel.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,9 +307,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ED5618F1DDCCEFF004EAC43 /* JournalModel.swift in Sources */,
 				9E2855201DD10DE500224A11 /* MainViewController.swift in Sources */,
 				9E2855241DD1136300224A11 /* UIViewcontroller+Validation.swift in Sources */,
 				9E6541161DCA358C009254CF /* LoginViewController.swift in Sources */,
+				9ED5618D1DDCCDF0004EAC43 /* Journal.swift in Sources */,
 				9E2855221DD10DF800224A11 /* SignUpViewController.swift in Sources */,
 				9E29EF231DDB9D9D00A1E622 /* TraxyButton.swift in Sources */,
 				9E29EF211DDB9C7F00A1E622 /* TraxyBaseViewController.swift in Sources */,
