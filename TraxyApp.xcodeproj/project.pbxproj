@@ -115,6 +115,7 @@
 		9E6541121DCA358C009254CF /* TraxyApp */ = {
 			isa = PBXGroup;
 			children = (
+				9EE39ED91DDD108200F7180A /* Utils */,
 				9ED5618B1DDCCDBB004EAC43 /* Models */,
 				9ED5618A1DDCCDAC004EAC43 /* Views */,
 				9ED561891DDCCD91004EAC43 /* Controllers */,
@@ -174,6 +175,13 @@
 				9ED5618E1DDCCEFF004EAC43 /* JournalModel.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		9EE39ED91DDD108200F7180A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

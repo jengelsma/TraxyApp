@@ -15,49 +15,86 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var userEmail : String?
     var journals : [Journal]?
     
+    
+    var tableViewData: [(sectionHeader: String, journals: [Journal])]? {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let model = JournalModel()
-        self.journals = model.getJournals()
-        
-//        if let email = self.userEmail {
-//            self.loginLabel.text = email
-//        }
+        self.sortIntoSections(journals: model.getJournals())
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
+    
+    func sortIntoSections(journals: [Journal]) {
+        
+        // We assume the model already provides them ascending date order.
+        
+        var currentSection  = [Journal]()
+        var futureSection = [Journal]()
+        var pastSection = [Journal]()
+        
+        let today = (Date().short.dateFromShort)!
+        for j in journals {
+            if today <=  j.endDate! && today >= j.startDate! {
+                currentSection.append(j)
+            } else if today < j.startDate! {
+                futureSection.append(j)
+            } else {
+                pastSection.append(j)
+            }
+        }
+        
+        let cs  = (sectionHeader: "CURRENT", journals: currentSection)
+        let fs = (sectionHeader: "FUTURE", journals: futureSection)
+        let ps = (sectionHeader: "PAST", journals: pastSection)
+        
+        self.tableViewData = [cs,fs,ps]
+        
+    }
+
+    
 
     // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.tableViewData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let journs = self.journals {
-            return journs.count
-        } else {
-            return 0
-        }
+        return self.tableViewData?[section].journals.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) 
         
-        if let journal = self.journals?[indexPath.row] {
-            cell.textLabel?.text = journal.name
-            cell.detailTextLabel?.text = journal.location
-            if let defaultImage = UIImage(named: "logo") {
-                cell.imageView?.image = defaultImage
-            }
+        guard let journal = tableViewData?[indexPath.section].journals[indexPath.row] else {
+            return cell
         }
         
+        cell.textLabel?.text = journal.name
+        cell.detailTextLabel?.text = journal.location
+        if let defaultImage = UIImage(named: "logo") {
+            cell.imageView?.image = defaultImage
+        }
+
         return cell
     }
+    
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.tableViewData?[section].sectionHeader
+    }
+
+    
     
     /*
     // MARK: - Navigation
@@ -70,3 +107,27 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     */
 
 }
+
+extension Date {
+    struct Formatter {
+        static let short: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM-dd-yyyy"
+            return formatter
+        }()
+    }
+    
+    var short: String {
+        return Formatter.short.string(from: self)
+    }
+}
+
+extension String {
+
+    var dateFromShort: Date? {
+        return Date.Formatter.short.date(from: self)
+    }
+    
+}
+
+
