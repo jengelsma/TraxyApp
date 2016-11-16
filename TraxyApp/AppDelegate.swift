@@ -28,18 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // make the status bar more readable against darker background.
         application.statusBarStyle = UIStatusBarStyle.lightContent
-        
-        let buttonAppearance = UIButton.appearance()
-        buttonAppearance.backgroundColor = UIColor.clear
-        buttonAppearance.tintColor = THEME_COLOR3
-        
-        let labelAppearance = UILabel.appearance()
-        labelAppearance.textColor = THEME_COLOR3
-        
-        let textFieldAppearance = UITextField.appearance()
-        textFieldAppearance.textColor = THEME_COLOR3
-        textFieldAppearance.backgroundColor = UIColor.clear
-        textFieldAppearance.borderStyle = .roundedRect
+
+
+
 
         let navAppearance = UINavigationBar.appearance()
         navAppearance.barTintColor = THEME_COLOR2

@@ -8,9 +8,11 @@
 
 import UIKit
 
-class TraxyButton: UIButton {
+class TraxyLoginButton: UIButton {
     
     override func awakeFromNib() {
+        self.backgroundColor = UIColor.clear
+        self.tintColor = THEME_COLOR3
         self.layer.borderWidth = 1.0
         self.layer.borderColor = THEME_COLOR3.cgColor
         self.layer.cornerRadius = 5.0
