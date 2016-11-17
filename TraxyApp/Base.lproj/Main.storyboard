@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -42,41 +43,44 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tca-bs-CXg" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                        <state key="normal" title="Sign In"/>
-                                        <connections>
-                                            <action selector="signupButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fjd-KQ-f8L"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fh2-Zl-hEu">
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account? " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6Q-xM-R90" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZe-ex-tIr" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                        <state key="normal" title="Register"/>
-                                        <connections>
-                                            <segue destination="8Mp-mZ-fhv" kind="show" id="pj5-aZ-YYj"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tca-bs-CXg" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
+                                <state key="normal" title="Sign In"/>
+                                <connections>
+                                    <action selector="signupButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fjd-KQ-f8L"/>
+                                    <segue destination="9T7-QE-iTw" kind="show" identifier="segueToMain" id="ZcQ-M7-Z7S"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZe-ex-tIr" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
+                                <state key="normal" title="Register"/>
+                                <connections>
+                                    <segue destination="8Mp-mZ-fhv" kind="show" id="pj5-aZ-YYj"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account? " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6Q-xM-R90" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Pca-H9-zDK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="0Fm-tt-hpM"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="fh2-Zl-hEu" secondAttribute="trailing" id="115-Z6-SqL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Pca-H9-zDK" secondAttribute="trailing" id="5GV-Fj-ZMC"/>
                             <constraint firstItem="cQk-sD-9NV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="B2d-Pw-fbp"/>
+                            <constraint firstItem="uZe-ex-tIr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FBp-kt-XgU"/>
+                            <constraint firstItem="tca-bs-CXg" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1:3" id="JDY-1z-IUM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cQk-sD-9NV" secondAttribute="trailing" id="KIT-bw-0yG"/>
-                            <constraint firstItem="fh2-Zl-hEu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Vrr-Hr-ac7"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fh2-Zl-hEu" secondAttribute="bottom" constant="8" symbolic="YES" id="W42-Mg-GL8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="l6Q-xM-R90" secondAttribute="trailing" constant="-1" id="PVt-BM-XZD"/>
+                            <constraint firstItem="uZe-ex-tIr" firstAttribute="top" secondItem="l6Q-xM-R90" secondAttribute="bottom" constant="8" id="Wl8-et-1wf"/>
+                            <constraint firstItem="uZe-ex-tIr" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1:3" id="YLu-JD-qeC"/>
                             <constraint firstItem="UFz-fh-AHi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aak-DR-WnD"/>
                             <constraint firstItem="UFz-fh-AHi" firstAttribute="top" secondItem="Pca-H9-zDK" secondAttribute="bottom" constant="15" id="dWC-sw-PvY"/>
+                            <constraint firstItem="tca-bs-CXg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gbr-b7-3i8"/>
+                            <constraint firstItem="tca-bs-CXg" firstAttribute="top" secondItem="cQk-sD-9NV" secondAttribute="bottom" constant="7.5" id="o97-1g-tRn"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="uZe-ex-tIr" secondAttribute="bottom" constant="20" id="oDJ-pG-DKl"/>
+                            <constraint firstItem="l6Q-xM-R90" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="1" id="w6U-H9-z8q"/>
                             <constraint firstItem="cQk-sD-9NV" firstAttribute="top" secondItem="UFz-fh-AHi" secondAttribute="bottom" constant="8" id="www-MA-Vdf"/>
                             <constraint firstItem="Pca-H9-zDK" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ytw-il-EDk"/>
                         </constraints>
@@ -214,46 +218,42 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                     </textField>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="QOm-RS-K1b">
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZQ-p0-Z6S" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="56" id="8s0-l5-u7x"/>
-                                                </constraints>
-                                                <state key="normal" title="Cancel"/>
-                                                <connections>
-                                                    <action selector="cancelButtonPressed:" destination="8Mp-mZ-fhv" eventType="touchUpInside" id="wdc-0v-kDS"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="go8-gQ-fvN" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="64" id="AYg-XW-xRq"/>
-                                                </constraints>
-                                                <state key="normal" title="Sign Up!"/>
-                                                <connections>
-                                                    <action selector="signUpButtonPressed:" destination="8Mp-mZ-fhv" eventType="touchUpInside" id="GcU-Kb-dYT"/>
-                                                    <segue destination="966-3t-G62" kind="show" identifier="segueToMainFromSignUp" id="GcX-Ug-ji3"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="go8-gQ-fvN" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
+                                <state key="normal" title="Sign Up!"/>
+                                <connections>
+                                    <action selector="signUpButtonPressed:" destination="8Mp-mZ-fhv" eventType="touchUpInside" id="GcU-Kb-dYT"/>
+                                    <segue destination="966-3t-G62" kind="show" identifier="segueToMainFromSignUp" id="GcX-Ug-ji3"/>
+                                </connections>
+                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="MXG-3f-x7T">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="6bR-Vc-gbA"/>
                                     <constraint firstAttribute="height" constant="128" id="xp0-Nk-y9s"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZQ-p0-Z6S" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonPressed:" destination="8Mp-mZ-fhv" eventType="touchUpInside" id="wdc-0v-kDS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="ShB-h6-cHn" secondAttribute="trailing" id="0at-jC-VIX"/>
+                            <constraint firstItem="oZQ-p0-Z6S" firstAttribute="top" secondItem="HbA-Qu-NHJ" secondAttribute="bottom" constant="8" id="24g-BR-FqL"/>
                             <constraint firstItem="7sC-mj-ICE" firstAttribute="leading" secondItem="k4Q-Kd-pmX" secondAttribute="leadingMargin" id="9TI-1X-Sid"/>
                             <constraint firstItem="ShB-h6-cHn" firstAttribute="leading" secondItem="k4Q-Kd-pmX" secondAttribute="leadingMargin" id="BxP-IO-bl0"/>
                             <constraint firstItem="MXG-3f-x7T" firstAttribute="top" secondItem="7sC-mj-ICE" secondAttribute="bottom" constant="8" symbolic="YES" id="DXZ-Ju-Y7K"/>
+                            <constraint firstItem="oZQ-p0-Z6S" firstAttribute="width" secondItem="k4Q-Kd-pmX" secondAttribute="width" multiplier="1:3" id="FGb-py-1bQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="go8-gQ-fvN" secondAttribute="trailing" id="Hfi-KM-wau"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="oZQ-p0-Z6S" secondAttribute="leading" id="O4C-ig-dm3"/>
+                            <constraint firstItem="go8-gQ-fvN" firstAttribute="top" secondItem="HbA-Qu-NHJ" secondAttribute="bottom" constant="8" id="PcC-y0-5Ci"/>
                             <constraint firstItem="MXG-3f-x7T" firstAttribute="centerX" secondItem="k4Q-Kd-pmX" secondAttribute="centerX" id="Uuk-Vz-ECy"/>
                             <constraint firstItem="ShB-h6-cHn" firstAttribute="top" secondItem="MXG-3f-x7T" secondAttribute="bottom" constant="8" symbolic="YES" id="WuF-LA-q0N"/>
+                            <constraint firstItem="go8-gQ-fvN" firstAttribute="width" secondItem="k4Q-Kd-pmX" secondAttribute="width" multiplier="1:3" id="fdl-DG-swk"/>
                             <constraint firstItem="7sC-mj-ICE" firstAttribute="top" secondItem="el8-Yz-Dq9" secondAttribute="bottom" constant="8" symbolic="YES" id="rUE-7o-3pH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7sC-mj-ICE" secondAttribute="trailing" id="s6F-nc-o3Y"/>
                         </constraints>
@@ -286,12 +286,63 @@
             </objects>
             <point key="canvasLocation" x="1288.8" y="-11.244377811094454"/>
         </scene>
+        <!--Traxy-->
+        <scene sceneID="bTx-6E-uUN">
+            <objects>
+                <viewController id="hd5-rS-QyR" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VRk-wZ-LdM"/>
+                        <viewControllerLayoutGuide type="bottom" id="gyw-G4-LL3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gNz-Hz-6SI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logged in as joe@example.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cxi-Ji-ET3">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="Cxi-Ji-ET3" secondAttribute="leading" id="NZV-iE-bdm"/>
+                            <constraint firstItem="Cxi-Ji-ET3" firstAttribute="top" secondItem="VRk-wZ-LdM" secondAttribute="bottom" constant="8" id="Z2K-Hw-J2x"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Cxi-Ji-ET3" secondAttribute="trailing" id="jxN-E2-pqu"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Traxy" id="anM-MH-qjB">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="mQg-Fb-tNf"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fG7-fi-Eej" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2301.5999999999999" y="-743.47826086956525"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Xjy-BV-qAt">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9T7-QE-iTw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="doh-42-7nH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hd5-rS-QyR" kind="relationship" relationship="rootViewController" id="7bw-XJ-zFo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ktR-5F-FZc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1360.8" y="-743.47826086956525"/>
+        </scene>
     </scenes>
     <resources>
         <image name="landscape" width="300" height="225"/>
         <image name="logo" width="150" height="150"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RSg-UL-ZbA"/>
+        <segue reference="GcX-Ug-ji3"/>
     </inferredMetricsTieBreakers>
 </document>

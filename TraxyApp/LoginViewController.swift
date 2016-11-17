@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: TraxyBaseViewController {
+class LoginViewController: TraxyLoginViewController {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!

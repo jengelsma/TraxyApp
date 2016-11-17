@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TraxyBaseViewController: UIViewController {
+class TraxyLoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
