@@ -16,6 +16,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var journals : [Journal]?
     
     
+    
     var tableViewData: [(sectionHeader: String, journals: [Journal])]? {
         didSet {
             self.tableView.reloadData()
@@ -27,6 +28,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let model = JournalModel()
         self.sortIntoSections(journals: model.getJournals())
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,8 +63,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
 
-    
-
     // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -74,28 +74,56 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) 
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TraxyMainTableViewCell
         
         guard let journal = tableViewData?[indexPath.section].journals[indexPath.row] else {
             return cell
         }
         
-        cell.textLabel?.text = journal.name
+        cell.name?.text = journal.name
+        cell.subName?.text = journal.location
+        cell.coverImage?.image = UIImage(named: "landscape")
+        
+/*        cell.textLabel?.text = journal.name
         cell.detailTextLabel?.text = journal.location
         if let defaultImage = UIImage(named: "logo") {
             cell.imageView?.image = defaultImage
         }
-
+*/
         return cell
     }
     
     // MARK: - UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200.0
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.tableViewData?[section].sectionHeader
     }
 
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = THEME_COLOR2
+        header.contentView.backgroundColor = THEME_COLOR3
+        //UIColor(red: 0.937, green: 0.820, blue: 0.576, alpha: 1.0)
+    }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = THEME_COLOR2
+        header.contentView.backgroundColor = THEME_COLOR3        
+    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let journal = tableViewData?[indexPath.section].journals[indexPath.row] else {
+            return
+        }
+        print("Selected \(journal.name)")
+    }
+
     /*
     // MARK: - Navigation
 
@@ -105,7 +133,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Pass the selected object to the new view controller.
     }
     */
-
 }
 
 extension Date {

@@ -23,6 +23,7 @@
 		9ED5618F1DDCCEFF004EAC43 /* JournalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED5618E1DDCCEFF004EAC43 /* JournalModel.swift */; };
 		9EE39ED61DDD0BAF00F7180A /* TraxyLoginLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE39ED51DDD0BAF00F7180A /* TraxyLoginLabel.swift */; };
 		9EE39ED81DDD0C5C00F7180A /* TraxyLoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE39ED71DDD0C5C00F7180A /* TraxyLoginTextField.swift */; };
+		9EE39EDB1DDDF2D100F7180A /* TraxyMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE39EDA1DDDF2D100F7180A /* TraxyMainTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		9ED5618E1DDCCEFF004EAC43 /* JournalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalModel.swift; sourceTree = "<group>"; };
 		9EE39ED51DDD0BAF00F7180A /* TraxyLoginLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginLabel.swift; sourceTree = "<group>"; };
 		9EE39ED71DDD0C5C00F7180A /* TraxyLoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginTextField.swift; sourceTree = "<group>"; };
+		9EE39EDA1DDDF2D100F7180A /* TraxyMainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyMainTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 				9E29EF221DDB9D9D00A1E622 /* TraxyLoginButton.swift */,
 				9EE39ED51DDD0BAF00F7180A /* TraxyLoginLabel.swift */,
 				9EE39ED71DDD0C5C00F7180A /* TraxyLoginTextField.swift */,
+				9EE39EDA1DDDF2D100F7180A /* TraxyMainTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				9E6541161DCA358C009254CF /* LoginViewController.swift in Sources */,
 				9ED5618D1DDCCDF0004EAC43 /* Journal.swift in Sources */,
 				9EE39ED61DDD0BAF00F7180A /* TraxyLoginLabel.swift in Sources */,
+				9EE39EDB1DDDF2D100F7180A /* TraxyMainTableViewCell.swift in Sources */,
 				9E2855221DD10DF800224A11 /* SignUpViewController.swift in Sources */,
 				9E29EF231DDB9D9D00A1E622 /* TraxyLoginButton.swift in Sources */,
 				9E29EF211DDB9C7F00A1E622 /* TraxyBaseViewController.swift in Sources */,

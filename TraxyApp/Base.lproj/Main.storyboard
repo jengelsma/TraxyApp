@@ -103,34 +103,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9ld-Zv-05F">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="143" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9ld-Zv-05F">
                                 <frame key="frameInset" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="Q6h-nx-kG6" detailTextLabel="8aQ-BO-3dT" style="IBUITableViewCellStyleSubtitle" id="u3x-OV-1LG">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="200" id="u3x-OV-1LG" customClass="TraxyMainTableViewCell" customModule="TraxyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u3x-OV-1LG" id="s1t-B1-tqE">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="375" height="199"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Q6h-nx-kG6">
-                                                    <frame key="frameInset" minX="15" minY="4" width="34" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8aQ-BO-3dT">
-                                                    <frame key="frameInset" minX="15" minY="25" width="44" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="Fp5-EV-8VC"/>
+                                                <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dIc-4N-ijT">
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Nei-Ic-K6Y">
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVA-92-ysL" userLabel="Title">
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADL-Sl-4yz" userLabel="SubTitle">
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="dIc-4N-ijT" secondAttribute="trailing" id="1uD-lI-KND"/>
+                                                <constraint firstItem="dIc-4N-ijT" firstAttribute="leading" secondItem="s1t-B1-tqE" secondAttribute="leading" id="Duv-qJ-hke"/>
+                                                <constraint firstItem="Fp5-EV-8VC" firstAttribute="top" secondItem="s1t-B1-tqE" secondAttribute="top" id="MUe-51-UNR"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Nei-Ic-K6Y" secondAttribute="trailing" id="Qg6-XM-Q0H"/>
+                                                <constraint firstItem="Nei-Ic-K6Y" firstAttribute="centerY" secondItem="s1t-B1-tqE" secondAttribute="centerY" id="Y7c-ZF-q2P"/>
+                                                <constraint firstAttribute="trailing" secondItem="Fp5-EV-8VC" secondAttribute="trailing" id="c63-LH-4ym"/>
+                                                <constraint firstItem="dIc-4N-ijT" firstAttribute="top" secondItem="s1t-B1-tqE" secondAttribute="top" id="esk-6q-44J"/>
+                                                <constraint firstAttribute="bottom" secondItem="Fp5-EV-8VC" secondAttribute="bottom" id="myJ-1G-9bF"/>
+                                                <constraint firstItem="Nei-Ic-K6Y" firstAttribute="leading" secondItem="s1t-B1-tqE" secondAttribute="leadingMargin" id="t5q-Ga-Mtq"/>
+                                                <constraint firstItem="Fp5-EV-8VC" firstAttribute="leading" secondItem="s1t-B1-tqE" secondAttribute="leading" id="tYa-5J-ewL"/>
+                                                <constraint firstAttribute="bottom" secondItem="dIc-4N-ijT" secondAttribute="bottom" id="xNB-2E-irn"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="coverImage" destination="Fp5-EV-8VC" id="bKv-5Z-5NZ"/>
+                                            <outlet property="name" destination="qVA-92-ysL" id="EyS-57-mLf"/>
+                                            <outlet property="subName" destination="ADL-Sl-4yz" id="LaA-bU-aYJ"/>
+                                            <outlet property="translucentView" destination="dIc-4N-ijT" id="NbJ-Pe-zPQ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -141,12 +164,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Traxy" id="qs2-b6-fLK"/>
+                    <navigationItem key="navigationItem" title="Traxy" id="qs2-b6-fLK">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="818-pR-Enz">
+                            <connections>
+                                <segue destination="Vxv-ia-CP3" kind="unwind" unwindAction="logoutWithSegue:" id="KUh-Xx-FCJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="9ld-Zv-05F" id="Akx-Rn-90R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="le5-aj-e6Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Vxv-ia-CP3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2228" y="-11.244377811094454"/>
         </scene>
@@ -258,6 +288,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="landscape" width="300" height="225"/>
         <image name="logo" width="150" height="150"/>
     </resources>
     <inferredMetricsTieBreakers>
