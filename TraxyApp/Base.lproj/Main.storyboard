@@ -49,7 +49,6 @@
                                 <state key="normal" title="Sign In"/>
                                 <connections>
                                     <action selector="signupButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fjd-KQ-f8L"/>
-                                    <segue destination="9T7-QE-iTw" kind="show" identifier="segueToMain" id="ZcQ-M7-Z7S"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZe-ex-tIr" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
@@ -112,8 +111,32 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="200" id="u3x-OV-1LG" customClass="TraxyMainTableViewCell" customModule="TraxyApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="200"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="aNU-cj-IFK" detailTextLabel="6wY-uD-f83" rowHeight="54" style="IBUITableViewCellStyleSubtitle" id="RUB-cE-l0L">
+                                        <rect key="frame" x="0.0" y="92" width="375" height="54"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RUB-cE-l0L" id="sgR-Ma-XyR">
+                                            <frame key="frameInset" width="375" height="53"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aNU-cj-IFK">
+                                                    <frame key="frameInset" minX="15" minY="9" width="34" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6wY-uD-f83">
+                                                    <frame key="frameInset" minX="15" minY="30" width="44" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FancyCell" rowHeight="200" id="u3x-OV-1LG" customClass="TraxyMainTableViewCell" customModule="TraxyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="146" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u3x-OV-1LG" id="s1t-B1-tqE">
                                             <frame key="frameInset" width="375" height="199"/>
@@ -343,6 +366,6 @@
         <image name="logo" width="150" height="150"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GcX-Ug-ji3"/>
+        <segue reference="RSg-UL-ZbA"/>
     </inferredMetricsTieBreakers>
 </document>

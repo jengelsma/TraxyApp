@@ -74,7 +74,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TraxyMainTableViewCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "FancyCell", for: indexPath) as! TraxyMainTableViewCell
         
         guard let journal = tableViewData?[indexPath.section].journals[indexPath.row] else {
             return cell
@@ -107,7 +107,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = THEME_COLOR2
         header.contentView.backgroundColor = THEME_COLOR3
-        //UIColor(red: 0.937, green: 0.820, blue: 0.576, alpha: 1.0)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
