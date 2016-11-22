@@ -23,7 +23,6 @@
 		9ED5618D1DDCCDF0004EAC43 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED5618C1DDCCDF0004EAC43 /* Journal.swift */; };
 		9ED5618F1DDCCEFF004EAC43 /* JournalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED5618E1DDCCEFF004EAC43 /* JournalModel.swift */; };
 		9EE2D0801DE3941E00614160 /* AddJournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE2D07F1DE3941E00614160 /* AddJournalViewController.swift */; };
-		9EE2D0821DE4D7DD00614160 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE2D0811DE4D7DD00614160 /* APIKeys.swift */; };
 		9EE39ED61DDD0BAF00F7180A /* TraxyLoginLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE39ED51DDD0BAF00F7180A /* TraxyLoginLabel.swift */; };
 		9EE39ED81DDD0C5C00F7180A /* TraxyLoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE39ED71DDD0C5C00F7180A /* TraxyLoginTextField.swift */; };
 		9EE39EDB1DDDF2D100F7180A /* TraxyMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE39EDA1DDDF2D100F7180A /* TraxyMainTableViewCell.swift */; };
@@ -76,7 +75,6 @@
 		9ED5618C1DDCCDF0004EAC43 /* Journal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
 		9ED5618E1DDCCEFF004EAC43 /* JournalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalModel.swift; sourceTree = "<group>"; };
 		9EE2D07F1DE3941E00614160 /* AddJournalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddJournalViewController.swift; sourceTree = "<group>"; };
-		9EE2D0811DE4D7DD00614160 /* APIKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		9EE39ED51DDD0BAF00F7180A /* TraxyLoginLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginLabel.swift; sourceTree = "<group>"; };
 		9EE39ED71DDD0C5C00F7180A /* TraxyLoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginTextField.swift; sourceTree = "<group>"; };
 		9EE39EDA1DDDF2D100F7180A /* TraxyMainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyMainTableViewCell.swift; sourceTree = "<group>"; };
@@ -218,7 +216,6 @@
 		9EE39ED91DDD108200F7180A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				9EE2D0811DE4D7DD00614160 /* APIKeys.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -519,7 +516,6 @@
 			files = (
 				9ED5618F1DDCCEFF004EAC43 /* JournalModel.swift in Sources */,
 				9EE39ED81DDD0C5C00F7180A /* TraxyLoginTextField.swift in Sources */,
-				9EE2D0821DE4D7DD00614160 /* APIKeys.swift in Sources */,
 				9E2855201DD10DE500224A11 /* MainViewController.swift in Sources */,
 				9E2855241DD1136300224A11 /* UIViewcontroller+Validation.swift in Sources */,
 				9E6541161DCA358C009254CF /* LoginViewController.swift in Sources */,
