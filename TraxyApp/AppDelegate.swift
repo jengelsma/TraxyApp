@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GooglePlaces
+
 
 let THEME_COLOR1 = UIColor.init(colorLiteralRed:0.000, green:0.157, blue:0.216, alpha:1.00) // DARK BLUE
 let THEME_COLOR2 = UIColor.init(colorLiteralRed:0.000, green:0.369, blue:0.420, alpha:1.00) // Light Tan
@@ -34,6 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navAppearance.tintColor = THEME_COLOR3
         navAppearance.isTranslucent = false
         navAppearance.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        
+        GMSPlacesClient.provideAPIKey(GOOGLE_PLACES_API_KEY)
+        
         return true
     }
 

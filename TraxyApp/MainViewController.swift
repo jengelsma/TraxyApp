@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddJournalDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,8 +26,10 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         let model = JournalModel()
-        self.sortIntoSections(journals: model.getJournals())
+        self.journals = model.getJournals()
+        self.sortIntoSections(journals: self.journals!)
         
     }
 
@@ -123,15 +125,22 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         print("Selected \(journal.name)")
     }
 
-    /*
+    // MARK: - AddJournalDelegate
+    func save(journal: Journal) {
+        self.journals?.append(journal)
+        self.sortIntoSections(journals: self.journals!)
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "addJournalSegue" {
+            if let destVC = segue.destination as? AddJournalViewController {
+                destVC.delegate = self
+            }
+        }
     }
-    */
 }
 
 extension Date {
