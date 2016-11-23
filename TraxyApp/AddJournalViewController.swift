@@ -151,34 +151,10 @@ class AddJournalViewController: FormViewController {
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension AddJournalViewController: GMSAutocompleteViewControllerDelegate {
-    /**
-     * Called when a non-retryable error occurred when retrieving autocomplete predictions or place
-     * details. A non-retryable error is defined as one that is unlikely to be fixed by immediately
-     * retrying the operation.
-     * <p>
-     * Only the following values of |GMSPlacesErrorCode| are retryable:
-     * <ul>
-     * <li>kGMSPlacesNetworkError
-     * <li>kGMSPlacesServerError
-     * <li>kGMSPlacesInternalError
-     * </ul>
-     * All other error codes are non-retryable.
-     * @param viewController The |GMSAutocompleteViewController| that generated the event.
-     * @param error The |NSError| that was returned.
-     */
+
     public func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         print(error.localizedDescription)
     }
