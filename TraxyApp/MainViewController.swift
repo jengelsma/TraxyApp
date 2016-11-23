@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddJournalDelegate {
     
@@ -15,7 +17,8 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var userEmail : String?
     var journals : [Journal]?
     
-    
+    fileprivate var ref : FIRDatabaseReference?
+    fileprivate var userId : String? = ""
     
     var tableViewData: [(sectionHeader: String, journals: [Journal])]? {
         didSet {
@@ -31,6 +34,19 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.journals = model.getJournals()
         self.sortIntoSections(journals: self.journals!)
         
+        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+            if let user = user {
+                self.userId = user.uid
+                self.ref = FIRDatabase.database().reference()
+                self.registerForFireBaseUpdates()
+            } else {
+                // No user is signed in.
+                self.performSegue(withIdentifier: "logoutSegue", sender: self)
+            }
+        }
+        
+
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +54,38 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+
+
+
+    fileprivate func registerForFireBaseUpdates()
+    {
+        
+        self.ref!.child(self.userId!).observe(.value, with: { snapshot in
+            
+            if let postDict = snapshot.value as? [String : AnyObject] {
+                var tmpItems = [Journal]()
+                for (_,val) in postDict.enumerated() {
+                    //print("key = \(key) and val = \(val)")
+                    let entry = val.1 as! Dictionary<String,AnyObject>
+                    print ("entry=\(entry)")
+                    let key = val.0
+                    let name : String? = entry["name"] as! String?
+                    let location : String?  = entry["address"] as! String?
+                    let startDateStr  = entry["startDate"] as! String?
+                    let endDateStr = entry["endDate"] as! String?
+                    let lat = entry["lat"] as! Double?
+                    let lng = entry["lng"] as! Double?
+                    let placeId = entry["placeId"] as! String?
+                    tmpItems.append(Journal(key: key, name: name, location: location, startDate: startDateStr?.dateFromISO8601, endDate: endDateStr?.dateFromISO8601, lat: lat, lng: lng, placeId: placeId))
+                }
+                self.journals = tmpItems
+                self.sortIntoSections(journals: self.journals!)
+            }
+        })
+        
+    }
+
+
     func sortIntoSections(journals: [Journal]) {
         
         // We assume the model already provides them ascending date order.
@@ -127,8 +175,25 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     // MARK: - AddJournalDelegate
     func save(journal: Journal) {
-        self.journals?.append(journal)
-        self.sortIntoSections(journals: self.journals!)
+        let newChild = self.ref?.child(self.userId!).childByAutoId()
+        newChild?.setValue(self.toDictionary(vals: journal))
+        
+        //self.journals?.append(journal)
+        //self.sortIntoSections(journals: self.journals!)
+    }
+
+    func toDictionary(vals: Journal) -> NSDictionary {
+
+        return [
+            "name": vals.name! as NSString,
+            "address": vals.location! as NSString,
+            "startDate" : NSString(string: (vals.startDate?.iso8601)!) ,
+            "endDate": NSString(string: (vals.endDate?.iso8601)!),
+            "lat" : NSNumber(value: 0.0),
+            "lng" : NSNumber(value: 0.0),
+            "placeId" : vals.placeId! as NSString
+        ]
+        
     }
     
     // MARK: - Navigation
@@ -141,26 +206,5 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 }
 
-extension Date {
-    struct Formatter {
-        static let short: DateFormatter = {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MM-dd-yyyy"
-            return formatter
-        }()
-    }
-    
-    var short: String {
-        return Formatter.short.string(from: self)
-    }
-}
-
-extension String {
-
-    var dateFromShort: Date? {
-        return Date.Formatter.short.date(from: self)
-    }
-    
-}
 
 

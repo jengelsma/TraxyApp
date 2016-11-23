@@ -24,6 +24,8 @@
 		9ED5618F1DDCCEFF004EAC43 /* JournalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED5618E1DDCCEFF004EAC43 /* JournalModel.swift */; };
 		9EE2D0801DE3941E00614160 /* AddJournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE2D07F1DE3941E00614160 /* AddJournalViewController.swift */; };
 		9EE2D0841DE4DB3600614160 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE2D0831DE4DB3600614160 /* APIKeys.swift */; };
+		9EE2D0C41DE626A800614160 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EE2D0C31DE626A800614160 /* GoogleService-Info.plist */; };
+		9EE2D0C61DE638E700614160 /* Date+ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE2D0C51DE638E700614160 /* Date+ISO8601.swift */; };
 		9EE39ED61DDD0BAF00F7180A /* TraxyLoginLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE39ED51DDD0BAF00F7180A /* TraxyLoginLabel.swift */; };
 		9EE39ED81DDD0C5C00F7180A /* TraxyLoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE39ED71DDD0C5C00F7180A /* TraxyLoginTextField.swift */; };
 		9EE39EDB1DDDF2D100F7180A /* TraxyMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE39EDA1DDDF2D100F7180A /* TraxyMainTableViewCell.swift */; };
@@ -77,6 +79,8 @@
 		9ED5618E1DDCCEFF004EAC43 /* JournalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalModel.swift; sourceTree = "<group>"; };
 		9EE2D07F1DE3941E00614160 /* AddJournalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddJournalViewController.swift; sourceTree = "<group>"; };
 		9EE2D0831DE4DB3600614160 /* APIKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
+		9EE2D0C31DE626A800614160 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9EE2D0C51DE638E700614160 /* Date+ISO8601.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+ISO8601.swift"; sourceTree = "<group>"; };
 		9EE39ED51DDD0BAF00F7180A /* TraxyLoginLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginLabel.swift; sourceTree = "<group>"; };
 		9EE39ED71DDD0C5C00F7180A /* TraxyLoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginTextField.swift; sourceTree = "<group>"; };
 		9EE39EDA1DDDF2D100F7180A /* TraxyMainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyMainTableViewCell.swift; sourceTree = "<group>"; };
@@ -151,6 +155,7 @@
 		9E6541121DCA358C009254CF /* TraxyApp */ = {
 			isa = PBXGroup;
 			children = (
+				9EE2D0C31DE626A800614160 /* GoogleService-Info.plist */,
 				9EE39ED91DDD108200F7180A /* Utils */,
 				9ED5618B1DDCCDBB004EAC43 /* Models */,
 				9ED5618A1DDCCDAC004EAC43 /* Views */,
@@ -218,6 +223,7 @@
 		9EE39ED91DDD108200F7180A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				9EE2D0C51DE638E700614160 /* Date+ISO8601.swift */,
 				9EE2D0831DE4DB3600614160 /* APIKeys.swift */,
 			);
 			name = Utils;
@@ -353,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E65411E1DCA358C009254CF /* LaunchScreen.storyboard in Resources */,
+				9EE2D0C41DE626A800614160 /* GoogleService-Info.plist in Resources */,
 				9E65411B1DCA358C009254CF /* Assets.xcassets in Resources */,
 				9E6541191DCA358C009254CF /* Main.storyboard in Resources */,
 			);
@@ -530,6 +537,7 @@
 				9E29EF231DDB9D9D00A1E622 /* TraxyLoginButton.swift in Sources */,
 				9EE2D0801DE3941E00614160 /* AddJournalViewController.swift in Sources */,
 				9E29EF211DDB9C7F00A1E622 /* TraxyLoginViewController.swift in Sources */,
+				9EE2D0C61DE638E700614160 /* Date+ISO8601.swift in Sources */,
 				9E6541141DCA358C009254CF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

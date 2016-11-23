@@ -146,7 +146,7 @@ class AddJournalViewController: FormViewController {
             let startDate = startDateRow.value! as Date
             let endDate = endDateRow.value! as Date
             
-            self.delegate?.save(journal: Journal(name: title, location: location, startDate: startDate, endDate: endDate, lat: -1, lng: -1, placeId: nil))
+            self.delegate?.save(journal: Journal(name: title, location: location, startDate: startDate, endDate: endDate, lat: -1, lng: -1, placeId: ""))
            _ = self.navigationController?.popViewController(animated: true)
         }
     }

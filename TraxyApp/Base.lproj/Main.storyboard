@@ -198,7 +198,7 @@
                     <navigationItem key="navigationItem" title="Traxy" id="qs2-b6-fLK">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="818-pR-Enz">
                             <connections>
-                                <segue destination="Vxv-ia-CP3" kind="unwind" unwindAction="logoutWithSegue:" id="KUh-Xx-FCJ"/>
+                                <segue destination="Vxv-ia-CP3" kind="unwind" identifier="logoutSegue" unwindAction="logoutWithSegue:" id="KUh-Xx-FCJ"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="BTt-mH-Jbs">
@@ -274,7 +274,6 @@
                                 <state key="normal" title="Sign Up!"/>
                                 <connections>
                                     <action selector="signUpButtonPressed:" destination="8Mp-mZ-fhv" eventType="touchUpInside" id="GcU-Kb-dYT"/>
-                                    <segue destination="966-3t-G62" kind="show" identifier="segueToMainFromSignUp" id="GcX-Ug-ji3"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="MXG-3f-x7T">
@@ -312,6 +311,7 @@
                         <outlet property="emailField" destination="mRr-Wk-R4X" id="95o-v0-ZAP"/>
                         <outlet property="passwordField" destination="prr-h4-T2l" id="anQ-t4-xSU"/>
                         <outlet property="verifyPasswordField" destination="HbA-Qu-NHJ" id="p9I-Fc-RhW"/>
+                        <segue destination="966-3t-G62" kind="show" identifier="segueToMainFromSignUp" id="ngu-bE-kww"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uut-GT-V6S" sceneMemberID="firstResponder"/>
@@ -323,7 +323,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="966-3t-G62" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dwj-pi-rvB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dwj-pi-rvB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -336,63 +336,12 @@
             </objects>
             <point key="canvasLocation" x="1288.8" y="-11.244377811094454"/>
         </scene>
-        <!--Traxy-->
-        <scene sceneID="bTx-6E-uUN">
-            <objects>
-                <viewController id="hd5-rS-QyR" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="VRk-wZ-LdM"/>
-                        <viewControllerLayoutGuide type="bottom" id="gyw-G4-LL3"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gNz-Hz-6SI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logged in as joe@example.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cxi-Ji-ET3">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="leadingMargin" secondItem="Cxi-Ji-ET3" secondAttribute="leading" id="NZV-iE-bdm"/>
-                            <constraint firstItem="Cxi-Ji-ET3" firstAttribute="top" secondItem="VRk-wZ-LdM" secondAttribute="bottom" constant="8" id="Z2K-Hw-J2x"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Cxi-Ji-ET3" secondAttribute="trailing" id="jxN-E2-pqu"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Traxy" id="anM-MH-qjB">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="mQg-Fb-tNf"/>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fG7-fi-Eej" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2301.5999999999999" y="-743.47826086956525"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Xjy-BV-qAt">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9T7-QE-iTw" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="doh-42-7nH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="hd5-rS-QyR" kind="relationship" relationship="rootViewController" id="7bw-XJ-zFo"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ktR-5F-FZc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1360.8" y="-743.47826086956525"/>
-        </scene>
     </scenes>
     <resources>
         <image name="landscape" width="300" height="225"/>
         <image name="logo" width="150" height="150"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RSg-UL-ZbA"/>
+        <segue reference="ngu-bE-kww"/>
     </inferredMetricsTieBreakers>
 </document>

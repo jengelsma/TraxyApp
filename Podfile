@@ -8,6 +8,8 @@ target 'TraxyApp' do
   # Pods for TraxyApp
   pod 'Eureka', '~> 2.0.0-beta.1'
   pod 'GooglePlacePicker'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
 
   target 'TraxyAppTests' do
     inherit! :search_paths

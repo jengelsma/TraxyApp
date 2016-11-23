@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: TraxyLoginViewController {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    var validationErrors = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +41,12 @@ class LoginViewController: TraxyLoginViewController {
     func validateFields() -> Bool {
         let pwOk = self.isEmptyOrNil(str: self.passwordField.text)
         if !pwOk {
-            print("Password cannot be blank")
+            self.validationErrors += "Password cannot be blank. "
         }
         
         let emailOk = self.isValidEmail(emailStr: self.emailField.text)
         if !emailOk {
-            print("Invalid email address")
+            self.validationErrors += "Invalid email address."
         }
         
         return emailOk && pwOk
@@ -54,7 +56,17 @@ class LoginViewController: TraxyLoginViewController {
     @IBAction func signupButtonPressed(_ sender: UIButton) {
         if self.validateFields() {
             print("Congratulations!  You entered correct values.")
-            self.performSegue(withIdentifier: "segueToMain", sender: self)
+            FIRAuth.auth()?.signIn(withEmail: self.emailField.text!, password: self.passwordField.text!) { (user, error) in
+                if let _ = user {
+                    self.performSegue(withIdentifier: "segueToMain", sender: self)
+                } else {
+                    self.reportError(msg: (error?.localizedDescription)!)
+                    self.passwordField.text = ""
+                    self.passwordField.becomeFirstResponder()
+                }
+            }
+        } else {
+            self.reportError(msg: self.validationErrors)
         }
     }
     
