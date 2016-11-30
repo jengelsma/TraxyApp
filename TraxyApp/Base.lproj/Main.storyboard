@@ -323,7 +323,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="966-3t-G62" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dwj-pi-rvB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dwj-pi-rvB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

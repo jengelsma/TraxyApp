@@ -71,7 +71,13 @@ class LoginViewController: TraxyLoginViewController {
     }
     
     @IBAction func logout(segue : UIStoryboardSegue) {
-        print("Logged out")
+        do {
+            try FIRAuth.auth()?.signOut()
+            print("Logged out")
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
         self.passwordField.text = ""
     }
     

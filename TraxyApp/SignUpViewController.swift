@@ -54,6 +54,9 @@ class SignUpViewController: TraxyLoginViewController {
                 if let  _ = user {
                    self.performSegue(withIdentifier: "segueToMainFromSignUp", sender: self)
                 } else {
+                    self.passwordField.text = ""
+                    self.verifyPasswordField.text = ""
+                    self.passwordField.becomeFirstResponder()
                     self.reportError(msg: (error?.localizedDescription)!)
                 }
             }

@@ -29,7 +29,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         let model = JournalModel()
         self.journals = model.getJournals()
         self.sortIntoSections(journals: self.journals!)
@@ -44,9 +43,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.performSegue(withIdentifier: "logoutSegue", sender: self)
             }
         }
-        
-
-        
     }
 
     override func didReceiveMemoryWarning() {
