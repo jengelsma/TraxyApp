@@ -25,6 +25,10 @@ class LoginViewController: TraxyLoginViewController {
         // make this controller the delegate of the text fields.
         self.emailField.delegate = self
         self.passwordField.delegate = self
+        
+        // for dev
+        self.emailField.text = "jengelsma@gmail.com"
+        self.passwordField.text = "123456"
 
     }
 
@@ -80,7 +84,7 @@ class LoginViewController: TraxyLoginViewController {
         
         self.passwordField.text = ""
     }
-    
+/*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToMain" {
             if let destVC = segue.destination as? MainViewController {
@@ -88,6 +92,7 @@ class LoginViewController: TraxyLoginViewController {
             }
         }
     }
+ */
 }
 
 extension LoginViewController : UITextFieldDelegate {
