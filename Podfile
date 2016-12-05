@@ -10,6 +10,7 @@ target 'TraxyApp' do
   pod 'GooglePlacePicker'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
+  pod 'Firebase/Storage'
 
   target 'TraxyAppTests' do
     inherit! :search_paths

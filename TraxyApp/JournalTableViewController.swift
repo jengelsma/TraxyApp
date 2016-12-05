@@ -8,19 +8,40 @@
 
 import UIKit
 import AVFoundation
+import MobileCoreServices
+import FirebaseDatabase
+import FirebaseStorage
+import Firebase
 
-class JournalTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class JournalTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AddJournalEntryDelegate {
 
     var capturedImage : UIImage?
+    var journal: Journal?
+    var entries : [JournalEntry] = []
+    
+    fileprivate var ref : FIRDatabaseReference?
+    fileprivate var storageRef : FIRStorageReference?
+    fileprivate var userId : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 200
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+            if let user = user {
+                self.userId = user.uid
+                self.ref = FIRDatabase.database().reference().child(self.userId!).child(self.journal!.key!)
+                self.configureStorage()
+                self.registerForFireBaseUpdates()
+            } else {
+                // No user is signed in.
+                self.performSegue(withIdentifier: "logoutSegue", sender: self)
+            }
+        }
+        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,18 +49,98 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         // Dispose of any resources that can be recreated.
     }
 
+    func configureStorage() {
+        let storageUrl = FIRApp.defaultApp()?.options.storageBucket
+        self.storageRef = FIRStorage.storage().reference(forURL: "gs://" + storageUrl!)
+    }
+    
+    fileprivate func registerForFireBaseUpdates()
+    {
+        
+        self.ref!.child("entries").observe(.value, with: { snapshot in
+            
+            if let postDict = snapshot.value as? [String : AnyObject] {
+                var tmpItems = [JournalEntry]()
+                for (key,val) in postDict.enumerated() {
+                    print("key = \(key) and val = \(val)")
+                    let entry = val.1 as! Dictionary<String,AnyObject>
+                    print ("entry=\(entry)")
+                    let key = val.0
+                    let caption : String? = entry["caption"] as! String?
+                    let url : String? = entry["url"] as! String?
+                    let dateStr  = entry["date"] as! String?
+                    let lat = entry["lat"] as! Double?
+                    let lng = entry["lng"] as! Double?
+                    let typeRaw = entry["type"] as! Int?
+                    let type = EntryType(rawValue: typeRaw!)
+                    
+                    tmpItems.append(JournalEntry(key: key, type: type, caption: caption, url: url, date: dateStr?.dateFromISO8601, lat: lat, lng: lng))
+                }
+                self.entries = tmpItems
+                self.tableView.reloadData()
+            }
+        })
+        
+    }
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.entries.count
     }
     
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell", for: indexPath) as! JournalEntryTableViewCell
+        
+        let entry = self.entries[indexPath.row]
+        //cell.textLabel?.text = entry.date?.short
+        //cell.detailTextLabel?.text = entry.caption
+        cell.setValues(entry: entry)
+        if let imageURL = entry.url {
+            if imageURL.hasPrefix("gs://") {
+                FIRStorage.storage().reference(forURL: imageURL).data(withMaxSize: INT64_MAX){ (data, error) in
+                    if let error = error {
+                        print("Error downloading: \(error)")
+                        return
+                    }
+                    //cell.imageView?.image = UIImage.init(data: data!)
+                    cell.thumbnail?.image = UIImage.init(data: data!)
+                    cell.setNeedsLayout()
+                }
+            } else if let URL = URL(string: imageURL), let data = try? Data(contentsOf: URL) {
+                cell.thumbnail?.image = UIImage.init(data: data)
+                cell.setNeedsDisplay()
+            }
+        }
+        
+        
+        
+        return cell
+        
+    }
+
+    
+    // MARK: UITableViewDelegate
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.journal?.name
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = THEME_COLOR2
+        header.contentView.backgroundColor = THEME_COLOR3
+    }
+ 
     @IBAction func addEntryButtonPressed(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: nil, message: "What would you like to add?", preferredStyle: .actionSheet)
         
@@ -53,8 +154,8 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         }
         alertController.addAction(addTextAction)
         
-        let addPhotoAction = UIAlertAction(title: "Photo", style: .default) { (action) in
-            self.requestPermits()
+        let addPhotoAction = UIAlertAction(title: "Capture Photo", style: .default) { (action) in
+            self.requestPermits(type: .photo)
             let picker = UIImagePickerController()
             picker.allowsEditing = false
             picker.sourceType = .camera
@@ -66,13 +167,37 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         }
         alertController.addAction(addPhotoAction)
         
-        let addAudioAction = UIAlertAction(title: "Audio", style: .default) { (action) in
+        let selectPhotoAction = UIAlertAction(title: "Select from Camera Roll", style: .default) { (action) in
+            self.requestPermits(type: .photo)
+            let picker = UIImagePickerController()
+            picker.allowsEditing = false
+            picker.sourceType = .photoLibrary
+            picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+            picker.modalPresentationStyle = .fullScreen
+            picker.delegate = self
+            self.present(picker, animated: true, completion: {
+                print("picture taken")
+            })
+        }
+        alertController.addAction(selectPhotoAction)
+        
+        
+        let addAudioAction = UIAlertAction(title: "Capture Audio", style: .default) { (action) in
             
         }
         alertController.addAction(addAudioAction)
         
-        let addVideoAction = UIAlertAction(title: "Video", style: .default) { (action) in
-            
+        let addVideoAction = UIAlertAction(title: "Capture Video", style: .default) { (action) in
+            self.requestPermits(type: .photo)
+            let picker = UIImagePickerController()
+            picker.allowsEditing = false
+            picker.sourceType = .camera
+            picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+            picker.modalPresentationStyle = .fullScreen
+            picker.delegate = self
+            self.present(picker, animated: true, completion: {
+                print("picture taken")
+            })
         }
         alertController.addAction(addVideoAction)
         
@@ -84,12 +209,22 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
 
     }
 
-    fileprivate func requestPermits()
+    fileprivate func requestPermits(type : EntryType)
     {
-        let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-        if status == .notDetermined {
-            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: nil)
+        
+        switch (type) {
+        case .photo, .video:
+//            let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+//            if status == .notDetermined {
+//                AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: nil)
+//            }
+            print()
+        case .audio:
+            print("audio")
+        default:
+            print()
         }
+        
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -100,20 +235,39 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         self.dismiss(animated: true, completion: nil)
-        print("got image")
-        self.capturedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        if let mediaType = info[UIImagePickerControllerMediaType] as? String {
+            if mediaType == kUTTypeMovie as String {
+                print("got video")
+                self.capturedImage = self.thumbnailForVideoAtURL(url: info[UIImagePickerControllerMediaURL] as! URL)
+            } else {
+                print("got image")
+                self.capturedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+            }
+        }
+
+
+
         self.performSegue(withIdentifier: "confirmSegue", sender: self)
     }
     
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    private func thumbnailForVideoAtURL(url: URL) -> UIImage? {
+        
+        let asset = AVAsset(url: url as URL)
+        let assetImageGenerator = AVAssetImageGenerator(asset: asset)
+        
+        var time = asset.duration
+        time.value = min(time.value, 2)
+        
+        do {
+            let imageRef = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
+            return UIImage(cgImage: imageRef)
+        } catch {
+            print("error")
+            return nil
+        }
     }
-    */
+    
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -157,8 +311,55 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         if segue.identifier == "confirmSegue" {
             if let destCtrl = segue.destination as? JournalEntryConfirmationViewController {
                 destCtrl.imageToConfirm = self.capturedImage
+                destCtrl.delegate = self
             }
         }
     }
+    
+    
+    // MARK: AddJournalEntryDelegate
+    func save(entry: JournalEntry) {
+        
+        if let image = self.capturedImage {
+            let imageData = UIImageJPEGRepresentation(image, 0.8)
+            let imagePath = "\(self.userId!)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+            let metadata = FIRStorageMetadata()
+            metadata.contentType = "image/jpeg"
+            if let sr = self.storageRef {
+                sr.child(imagePath)
+                    .put(imageData!, metadata: metadata) { [weak self] (metadata, error) in
+                        if let error = error {
+                            print("Error uploading: \(error)")
+                            return
+                        }
+                        guard let strongSelf = self else { return }
+                        //strongSelf.sendMessage(withData: [Constants.MessageFields.imageURL: strongSelf.storageRef.child((metadata?.path)!).description])
+                        
+                        let vals = strongSelf.toDictionary(vals: entry)
+                        vals["url"]  = strongSelf.storageRef?.child((metadata?.path)!).description
+                        let newChild = strongSelf.ref?.child("entries").childByAutoId()
+                        newChild?.setValue(vals)
+                        
+                }
+            }
+            
+
+        }
+    }
+    
+    func toDictionary(vals: JournalEntry) -> NSMutableDictionary {
+        
+        return [
+            "caption": vals.caption! as NSString,
+            "lat": vals.lat! as NSNumber,
+            "lng": vals.lng! as NSNumber,
+            "date" : NSString(string: (vals.date?.iso8601)!) ,
+            "type" : NSNumber(value: vals.type!.rawValue),
+            "lng" : NSNumber(value: 0.0),
+        ]
+        
+    }
+
+    
 
 }

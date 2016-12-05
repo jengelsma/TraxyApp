@@ -22,12 +22,22 @@ extension Date {
             formatter.dateFormat = "MM-dd-yyyy"
             return formatter
         }()
+        
+        static let shortWithTime: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM-dd-yyyy, H:mm"
+            return formatter
+        }()
+        
     }
     
     var short: String {
         return Formatter.short.string(from: self)
     }
     
+    var shortWithTime: String {
+        return Formatter.shortWithTime.string(from: self)
+    }
     
     var iso8601: String {
         return Formatter.iso8601.string(from: self)

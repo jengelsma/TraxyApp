@@ -198,8 +198,14 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if let destVC = segue.destination as? AddJournalViewController {
                 destVC.delegate = self
             }
-        }
-    }
+        } else if segue.identifier == "showJournalSegue" {
+            if let destVC = segue.destination as? JournalTableViewController {
+                let indexPath = self.tableView.indexPathForSelectedRow
+                let values = self.tableViewData?[indexPath!.section]
+                destVC.journal  = values?.journals[indexPath!.row]
+            }
+         }
+     }
 }
 
 
