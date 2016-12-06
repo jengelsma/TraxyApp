@@ -24,20 +24,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pca-H9-zDK" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="16" y="20" width="343" height="21"/>
+                                <rect key="frame" x="16" y="20" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="UFz-fh-AHi">
-                                <rect key="frame" x="68" y="56" width="240" height="128"/>
+                                <rect key="frame" x="68" y="55.5" width="240" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="A4N-W6-L5l"/>
                                     <constraint firstAttribute="width" constant="240" id="GVT-VX-Nzo"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cQk-sD-9NV">
-                                <rect key="frame" x="16" y="192" width="343" height="68"/>
+                                <rect key="frame" x="16" y="191.5" width="343" height="68"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email " textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jXh-ZN-32q" customClass="TraxyLoginTextField" customModule="TraxyApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -54,7 +54,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tca-bs-CXg" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="125" y="268" width="125" height="30"/>
+                                <rect key="frame" x="125" y="267.5" width="125" height="30"/>
                                 <state key="normal" title="Sign In"/>
                                 <connections>
                                     <action selector="signupButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fjd-KQ-f8L"/>
@@ -68,7 +68,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account? " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6Q-xM-R90" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="17" y="588" width="343" height="21"/>
+                                <rect key="frame" x="17" y="588.5" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -160,16 +160,16 @@
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Nei-Ic-K6Y">
-                                                    <rect key="frame" x="8" y="71" width="359" height="58"/>
+                                                    <rect key="frame" x="8" y="71.5" width="359" height="57"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVA-92-ysL" userLabel="Title">
-                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="34"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="33.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADL-Sl-4yz" userLabel="SubTitle">
-                                                            <rect key="frame" x="0.0" y="37" width="359" height="21"/>
+                                                            <rect key="frame" x="0.0" y="36.5" width="359" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -332,7 +332,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="249" id="aiK-7d-dYd" customClass="JournalEntryTableViewCell" customModule="TraxyApp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="249" id="aiK-7d-dYd" customClass="JournalEntryPhotoTableViewCell" customModule="TraxyApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="100" width="375" height="249"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aiK-7d-dYd" id="wLb-yP-4ur">
@@ -342,7 +342,7 @@
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asq-AE-PiA">
                                             <rect key="frame" x="8" y="8" width="359" height="233"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PIs-Kv-ni8">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="PIs-Kv-ni8">
                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="92"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="92" id="QpI-P4-7zL"/>
@@ -397,10 +397,72 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="caption" destination="hDo-ii-v2B" id="tS4-Cu-PfX"/>
-                                    <outlet property="containingView" destination="asq-AE-PiA" id="04K-VQ-fXX"/>
-                                    <outlet property="date" destination="HYd-d8-cz8" id="Cec-pT-3dT"/>
-                                    <outlet property="thumbnail" destination="PIs-Kv-ni8" id="6yL-Vb-Dd7"/>
+                                    <outlet property="containingView" destination="asq-AE-PiA" id="SNS-r1-mmO"/>
+                                    <outlet property="date" destination="HYd-d8-cz8" id="5DP-k7-LeB"/>
+                                    <outlet property="optionalImage" destination="PIs-Kv-ni8" id="d6U-zK-Hif"/>
+                                    <outlet property="textData" destination="hDo-ii-v2B" id="UQP-Gz-pX0"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextCell" rowHeight="150" id="c30-U9-knm" customClass="JournalEntryTextTableViewCell" customModule="TraxyApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="349" width="375" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c30-U9-knm" id="9EL-I5-cic">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hTB-io-oOo">
+                                            <rect key="frame" x="8" y="8" width="359" height="134"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FpE-YT-T1m">
+                                                    <rect key="frame" x="8" y="8" width="343" height="89"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksh-Zk-8P0">
+                                                    <rect key="frame" x="8" y="108" width="231" height="18"/>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.36862745099999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Read more &gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvm-te-aSD">
+                                                    <rect key="frame" x="247" y="108.5" width="104" height="16.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="104" id="dYe-dx-dCa"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.36862745099999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="dvm-te-aSD" secondAttribute="trailing" constant="8" id="9gR-v4-DaL"/>
+                                                <constraint firstItem="ksh-Zk-8P0" firstAttribute="leading" secondItem="hTB-io-oOo" secondAttribute="leading" constant="8" id="Skm-u5-8O3"/>
+                                                <constraint firstItem="FpE-YT-T1m" firstAttribute="leading" secondItem="hTB-io-oOo" secondAttribute="leading" constant="8" id="VaU-QO-HK8"/>
+                                                <constraint firstItem="FpE-YT-T1m" firstAttribute="top" secondItem="hTB-io-oOo" secondAttribute="top" constant="8" id="eeN-Nb-Mto"/>
+                                                <constraint firstAttribute="trailing" secondItem="FpE-YT-T1m" secondAttribute="trailing" constant="8" id="luy-um-nKQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="ksh-Zk-8P0" secondAttribute="bottom" constant="8" id="orZ-cc-f22"/>
+                                                <constraint firstAttribute="bottom" secondItem="dvm-te-aSD" secondAttribute="bottom" constant="9" id="wsc-TN-ur7"/>
+                                                <constraint firstItem="dvm-te-aSD" firstAttribute="leading" secondItem="ksh-Zk-8P0" secondAttribute="trailing" constant="8" id="z2f-OD-iX2"/>
+                                                <constraint firstAttribute="bottom" secondItem="FpE-YT-T1m" secondAttribute="bottom" constant="37" id="zFc-Fo-mHR"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="hTB-io-oOo" firstAttribute="leading" secondItem="9EL-I5-cic" secondAttribute="leadingMargin" id="A1E-SJ-Zu9"/>
+                                        <constraint firstItem="hTB-io-oOo" firstAttribute="bottom" secondItem="9EL-I5-cic" secondAttribute="bottomMargin" id="WyD-5N-Myh"/>
+                                        <constraint firstItem="hTB-io-oOo" firstAttribute="top" secondItem="9EL-I5-cic" secondAttribute="topMargin" id="e1S-4d-pD0"/>
+                                        <constraint firstItem="hTB-io-oOo" firstAttribute="trailing" secondItem="9EL-I5-cic" secondAttribute="trailingMargin" id="fM7-y0-lov"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="containingView" destination="hTB-io-oOo" id="MAr-w4-5m6"/>
+                                    <outlet property="date" destination="ksh-Zk-8P0" id="9ZV-du-nB4"/>
+                                    <outlet property="textData" destination="FpE-YT-T1m" id="AXL-sw-Ku3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -437,13 +499,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signup for a new account! " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sC-mj-ICE" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="16" y="28" width="343" height="21"/>
+                                <rect key="frame" x="16" y="28" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ShB-h6-cHn">
-                                <rect key="frame" x="16" y="193" width="343" height="106"/>
+                                <rect key="frame" x="16" y="192.5" width="343" height="106"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email " textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mRr-Wk-R4X" customClass="TraxyLoginTextField" customModule="TraxyApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -466,21 +528,21 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="go8-gQ-fvN" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="234" y="307" width="125" height="30"/>
+                                <rect key="frame" x="234" y="306.5" width="125" height="30"/>
                                 <state key="normal" title="Sign Up!"/>
                                 <connections>
                                     <action selector="signUpButtonPressed:" destination="8Mp-mZ-fhv" eventType="touchUpInside" id="GcU-Kb-dYT"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="MXG-3f-x7T">
-                                <rect key="frame" x="68" y="57" width="240" height="128"/>
+                                <rect key="frame" x="68" y="56.5" width="240" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="6bR-Vc-gbA"/>
                                     <constraint firstAttribute="height" constant="128" id="xp0-Nk-y9s"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZQ-p0-Z6S" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="16" y="307" width="125" height="30"/>
+                                <rect key="frame" x="16" y="306.5" width="125" height="30"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
                                     <action selector="cancelButtonPressed:" destination="8Mp-mZ-fhv" eventType="touchUpInside" id="wdc-0v-kDS"/>
@@ -521,7 +583,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="966-3t-G62" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dwj-pi-rvB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dwj-pi-rvB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

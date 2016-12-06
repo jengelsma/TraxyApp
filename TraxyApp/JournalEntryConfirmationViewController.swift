@@ -21,6 +21,7 @@ class JournalEntryConfirmationViewController: FormViewController {
     @IBOutlet weak var imageView: UIImageView!
     var imageToConfirm : UIImage?
     var delegate : AddJournalEntryDelegate?
+    var type : EntryType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,12 +58,19 @@ class JournalEntryConfirmationViewController: FormViewController {
         LabelRow.defaultCellUpdate = labelRowValidationUpdate
         LabelRow.defaultOnRowValidationChanged = labelRowValidationUpdate
         
+        var textEntryLabel = "Enter caption"
+        if self.type == .text {
+            textEntryLabel = "Enter text entry"
+            self.navigationItem.title = "Text Entry"
+        }
         
         form = Section() {
+            if self.type != .text {
                 $0.header = HeaderFooterView<MediaPreviewView>(.class)
             }
-            <<< TextAreaRow("Enter caption"){ row in
-                row.placeholder = "Enter caption"
+        }
+            <<< TextAreaRow(textEntryLabel){ row in
+                row.placeholder = textEntryLabel
                 row.tag = "CaptionTag"
                 row.add(rule: RuleRequired())
             }
@@ -95,9 +103,8 @@ class JournalEntryConfirmationViewController: FormViewController {
                     print("TODO: will finish this next chapter!")
         }
 
-
- 
     }
+ 
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -121,7 +128,7 @@ class JournalEntryConfirmationViewController: FormViewController {
             let date = dateRow.value! as Date
 
             
-            let entry = JournalEntry(key: nil, type: .photo, caption: caption, url: nil, date: date, lat: 0.0, lng: 0.0)
+            let entry = JournalEntry(key: nil, type: self.type, caption: caption, url: nil, date: date, lat: 0.0, lng: 0.0)
             del.save(entry: entry)
         }
         _ = self.navigationController?.popViewController(animated: true)

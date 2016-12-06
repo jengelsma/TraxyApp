@@ -22,8 +22,10 @@
 		9E6541341DCA358C009254CF /* TraxyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6541331DCA358C009254CF /* TraxyAppUITests.swift */; };
 		9EA5ECE21DF1D5A60085069A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EA5ECE11DF1D5A60085069A /* CoreLocation.framework */; };
 		9EA5ECE41DF1D5AE0085069A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EA5ECE31DF1D5AE0085069A /* MapKit.framework */; };
-		9EA5ECE61DF5FD700085069A /* JournalEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5ECE51DF5FD700085069A /* JournalEntryTableViewCell.swift */; };
+		9EA5ECE61DF5FD700085069A /* JournalEntryPhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5ECE51DF5FD700085069A /* JournalEntryPhotoTableViewCell.swift */; };
 		9EA5ECE81DF61BCC0085069A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EA5ECE71DF61BCC0085069A /* GoogleService-Info.plist */; };
+		9EA5ECEA1DF6427A0085069A /* JournalEntryTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5ECE91DF6427A0085069A /* JournalEntryTextTableViewCell.swift */; };
+		9EA5ECEC1DF6436D0085069A /* JournalEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5ECEB1DF6436D0085069A /* JournalEntryTableViewCell.swift */; };
 		9EA7FF211DF0DC07004A5E19 /* JournalEntryConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA7FF201DF0DC07004A5E19 /* JournalEntryConfirmationViewController.swift */; };
 		9EA7FF231DF1BDD0004A5E19 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA7FF221DF1BDD0004A5E19 /* JournalEntry.swift */; };
 		9ED5618D1DDCCDF0004EAC43 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED5618C1DDCCDF0004EAC43 /* Journal.swift */; };
@@ -83,8 +85,10 @@
 		9E6541351DCA358C009254CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EA5ECE11DF1D5A60085069A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9EA5ECE31DF1D5AE0085069A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		9EA5ECE51DF5FD700085069A /* JournalEntryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntryTableViewCell.swift; sourceTree = "<group>"; };
+		9EA5ECE51DF5FD700085069A /* JournalEntryPhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntryPhotoTableViewCell.swift; sourceTree = "<group>"; };
 		9EA5ECE71DF61BCC0085069A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9EA5ECE91DF6427A0085069A /* JournalEntryTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntryTextTableViewCell.swift; sourceTree = "<group>"; };
+		9EA5ECEB1DF6436D0085069A /* JournalEntryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntryTableViewCell.swift; sourceTree = "<group>"; };
 		9EA7FF201DF0DC07004A5E19 /* JournalEntryConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntryConfirmationViewController.swift; sourceTree = "<group>"; };
 		9EA7FF221DF1BDD0004A5E19 /* JournalEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 		9ED5618C1DDCCDF0004EAC43 /* Journal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
@@ -223,7 +227,9 @@
 				9EE39ED51DDD0BAF00F7180A /* TraxyLoginLabel.swift */,
 				9EE39ED71DDD0C5C00F7180A /* TraxyLoginTextField.swift */,
 				9EE39EDA1DDDF2D100F7180A /* TraxyMainTableViewCell.swift */,
-				9EA5ECE51DF5FD700085069A /* JournalEntryTableViewCell.swift */,
+				9EA5ECEB1DF6436D0085069A /* JournalEntryTableViewCell.swift */,
+				9EA5ECE51DF5FD700085069A /* JournalEntryPhotoTableViewCell.swift */,
+				9EA5ECE91DF6427A0085069A /* JournalEntryTextTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -551,8 +557,9 @@
 				9E2855241DD1136300224A11 /* UIViewcontroller+Validation.swift in Sources */,
 				9E6541161DCA358C009254CF /* LoginViewController.swift in Sources */,
 				9EA7FF231DF1BDD0004A5E19 /* JournalEntry.swift in Sources */,
+				9EA5ECEA1DF6427A0085069A /* JournalEntryTextTableViewCell.swift in Sources */,
 				9EA7FF211DF0DC07004A5E19 /* JournalEntryConfirmationViewController.swift in Sources */,
-				9EA5ECE61DF5FD700085069A /* JournalEntryTableViewCell.swift in Sources */,
+				9EA5ECE61DF5FD700085069A /* JournalEntryPhotoTableViewCell.swift in Sources */,
 				9ED5618D1DDCCDF0004EAC43 /* Journal.swift in Sources */,
 				9EE39ED61DDD0BAF00F7180A /* TraxyLoginLabel.swift in Sources */,
 				9EE39EDB1DDDF2D100F7180A /* TraxyMainTableViewCell.swift in Sources */,
@@ -562,6 +569,7 @@
 				9EE2D0801DE3941E00614160 /* AddJournalViewController.swift in Sources */,
 				9E29EF211DDB9C7F00A1E622 /* TraxyLoginViewController.swift in Sources */,
 				9EE2D0C61DE638E700614160 /* Date+ISO8601.swift in Sources */,
+				9EA5ECEC1DF6436D0085069A /* JournalEntryTableViewCell.swift in Sources */,
 				9E6541141DCA358C009254CF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

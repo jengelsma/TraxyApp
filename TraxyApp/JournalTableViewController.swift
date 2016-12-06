@@ -12,10 +12,14 @@ import MobileCoreServices
 import FirebaseDatabase
 import FirebaseStorage
 import Firebase
+import AssetsLibrary
 
 class JournalTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AddJournalEntryDelegate {
 
     var capturedImage : UIImage?
+    var captureVideoUrl : URL?
+    var captureType : EntryType = .photo
+    
     var journal: Journal?
     var entries : [JournalEntry] = []
     
@@ -99,9 +103,11 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell", for: indexPath) as! JournalEntryTableViewCell
-        
         let entry = self.entries[indexPath.row]
+        var cellIds = ["NA", "TextCell", "PhotoCell", "AudioCell", "PhotoCell"]
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIds[entry.type!.rawValue], for: indexPath) as! JournalEntryTableViewCell
+
         //cell.textLabel?.text = entry.date?.short
         //cell.detailTextLabel?.text = entry.caption
         cell.setValues(entry: entry)
@@ -113,13 +119,18 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
                         return
                     }
                     //cell.imageView?.image = UIImage.init(data: data!)
-                    cell.thumbnail?.image = UIImage.init(data: data!)
+                    cell.optionalImage?.image = UIImage.init(data: data!)
                     cell.setNeedsLayout()
                 }
-            } else if let URL = URL(string: imageURL), let data = try? Data(contentsOf: URL) {
-                cell.thumbnail?.image = UIImage.init(data: data)
-                cell.setNeedsDisplay()
-            }
+//            } else if let URL = URL(string: imageURL), let data = try? Data(contentsOf: URL) {
+//                cell.thumbnail?.image = UIImage.init(data: data)
+//                cell.setNeedsDisplay()
+//            }
+            } else if let url = URL(string: imageURL) {
+                let image = self.thumbnailForVideoAtURL(url: url)
+                cell.optionalImage?.image = image
+                cell.setNeedsLayout()
+            } 
         }
         
         
@@ -150,25 +161,26 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         alertController.addAction(cancelAction)
         
         let addTextAction = UIAlertAction(title: "Text Entry", style: .default) { (action) in
-        
+            self.captureType = .text
+            self.capturedImage = nil
+            self.performSegue(withIdentifier: "confirmSegue", sender: self)
         }
         alertController.addAction(addTextAction)
         
-        let addPhotoAction = UIAlertAction(title: "Capture Photo", style: .default) { (action) in
-            self.requestPermits(type: .photo)
+        let addCameraAction = UIAlertAction(title: "Photo or Video Entry", style: .default) { (action) in
             let picker = UIImagePickerController()
             picker.allowsEditing = false
             picker.sourceType = .camera
+            picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
             picker.modalPresentationStyle = .fullScreen
             picker.delegate = self
             self.present(picker, animated: true, completion: { 
                 print("picture taken")
             })
         }
-        alertController.addAction(addPhotoAction)
+        alertController.addAction(addCameraAction)
         
-        let selectPhotoAction = UIAlertAction(title: "Select from Camera Roll", style: .default) { (action) in
-            self.requestPermits(type: .photo)
+        let selectCameraRollAction = UIAlertAction(title: "Select from Camera Roll", style: .default) { (action) in
             let picker = UIImagePickerController()
             picker.allowsEditing = false
             picker.sourceType = .photoLibrary
@@ -176,55 +188,21 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
             picker.modalPresentationStyle = .fullScreen
             picker.delegate = self
             self.present(picker, animated: true, completion: {
-                print("picture taken")
+                print("picture selected")
             })
         }
-        alertController.addAction(selectPhotoAction)
+        alertController.addAction(selectCameraRollAction)
         
         
-        let addAudioAction = UIAlertAction(title: "Capture Audio", style: .default) { (action) in
+        let addAudioAction = UIAlertAction(title: "Audio Entry", style: .default) { (action) in
             
         }
         alertController.addAction(addAudioAction)
-        
-        let addVideoAction = UIAlertAction(title: "Capture Video", style: .default) { (action) in
-            self.requestPermits(type: .photo)
-            let picker = UIImagePickerController()
-            picker.allowsEditing = false
-            picker.sourceType = .camera
-            picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
-            picker.modalPresentationStyle = .fullScreen
-            picker.delegate = self
-            self.present(picker, animated: true, completion: {
-                print("picture taken")
-            })
-        }
-        alertController.addAction(addVideoAction)
-        
-        
     
         self.present(alertController, animated: true) { 
             
         }
 
-    }
-
-    fileprivate func requestPermits(type : EntryType)
-    {
-        
-        switch (type) {
-        case .photo, .video:
-//            let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-//            if status == .notDetermined {
-//                AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: nil)
-//            }
-            print()
-        case .audio:
-            print("audio")
-        default:
-            print()
-        }
-        
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -239,9 +217,21 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
             if mediaType == kUTTypeMovie as String {
                 print("got video")
                 self.capturedImage = self.thumbnailForVideoAtURL(url: info[UIImagePickerControllerMediaURL] as! URL)
+                self.captureVideoUrl = info[UIImagePickerControllerMediaURL] as? URL
+                self.captureType = .video
+                
+                let isVideoCompatible = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum((self.captureVideoUrl?.absoluteString)!)
+                print("bool: \(isVideoCompatible)") // This logs out "bool: false"
+                
+                let library = ALAssetsLibrary()
+                
+                library.writeVideoAtPath(toSavedPhotosAlbum: self.captureVideoUrl, completionBlock: { (url, error) -> Void in
+                    self.captureVideoUrl = url
+                })
             } else {
                 print("got image")
                 self.capturedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+                self.captureType = .photo
             }
         }
 
@@ -312,6 +302,7 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
             if let destCtrl = segue.destination as? JournalEntryConfirmationViewController {
                 destCtrl.imageToConfirm = self.capturedImage
                 destCtrl.delegate = self
+                destCtrl.type = self.captureType
             }
         }
     }
@@ -319,31 +310,47 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
     
     // MARK: AddJournalEntryDelegate
     func save(entry: JournalEntry) {
-        
-        if let image = self.capturedImage {
-            let imageData = UIImageJPEGRepresentation(image, 0.8)
-            let imagePath = "\(self.userId!)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
-            let metadata = FIRStorageMetadata()
-            metadata.contentType = "image/jpeg"
-            if let sr = self.storageRef {
-                sr.child(imagePath)
-                    .put(imageData!, metadata: metadata) { [weak self] (metadata, error) in
-                        if let error = error {
-                            print("Error uploading: \(error)")
-                            return
-                        }
-                        guard let strongSelf = self else { return }
-                        //strongSelf.sendMessage(withData: [Constants.MessageFields.imageURL: strongSelf.storageRef.child((metadata?.path)!).description])
-                        
-                        let vals = strongSelf.toDictionary(vals: entry)
-                        vals["url"]  = strongSelf.storageRef?.child((metadata?.path)!).description
-                        let newChild = strongSelf.ref?.child("entries").childByAutoId()
-                        newChild?.setValue(vals)
-                        
+    
+        switch(entry.type!) {
+        case .photo:
+            if let image = self.capturedImage {
+                let imageData = UIImageJPEGRepresentation(image, 0.8)
+                let imagePath = "\(self.userId!)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+                let metadata = FIRStorageMetadata()
+                metadata.contentType = "image/jpeg"
+                if let sr = self.storageRef {
+                    sr.child(imagePath)
+                        .put(imageData!, metadata: metadata) { [weak self] (metadata, error) in
+                            if let error = error {
+                                print("Error uploading: \(error)")
+                                return
+                            }
+                            guard let strongSelf = self else { return }
+                            //strongSelf.sendMessage(withData: [Constants.MessageFields.imageURL: strongSelf.storageRef.child((metadata?.path)!).description])
+                            
+                            let vals = strongSelf.toDictionary(vals: entry)
+                            vals["url"]  = strongSelf.storageRef?.child((metadata?.path)!).description
+                            let newChild = strongSelf.ref?.child("entries").childByAutoId()
+                            newChild?.setValue(vals)
+                            
+                    }
                 }
+                
+                
             }
-            
-
+        case .video:
+            print("video")
+            let vals = self.toDictionary(vals: entry)
+            vals["url"]  = self.captureVideoUrl?.absoluteString
+            let newChild = self.ref?.child("entries").childByAutoId()
+            newChild?.setValue(vals)
+        case .text:
+            let vals = self.toDictionary(vals: entry)
+            vals["url"]  = ""
+            let newChild = self.ref?.child("entries").childByAutoId()
+            newChild?.setValue(vals)
+        default:
+            print("other stuff")
         }
     }
     
