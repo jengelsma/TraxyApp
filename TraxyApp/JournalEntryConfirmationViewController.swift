@@ -22,6 +22,7 @@ class JournalEntryConfirmationViewController: FormViewController {
     var imageToConfirm : UIImage?
     var delegate : AddJournalEntryDelegate?
     var type : EntryType?
+    var entry : JournalEntry?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +65,13 @@ class JournalEntryConfirmationViewController: FormViewController {
             self.navigationItem.title = "Text Entry"
         }
         
+        var caption : String = ""
+        var date : Date = Date()
+        if let e = self.entry {
+            caption = e.caption!
+            date = e.date!
+        }
+        
         form = Section() {
             if self.type != .text {
                 $0.header = HeaderFooterView<MediaPreviewView>(.class)
@@ -71,6 +79,7 @@ class JournalEntryConfirmationViewController: FormViewController {
         }
             <<< TextAreaRow(textEntryLabel){ row in
                 row.placeholder = textEntryLabel
+                row.value = caption
                 row.tag = "CaptionTag"
                 row.add(rule: RuleRequired())
             }
@@ -78,7 +87,7 @@ class JournalEntryConfirmationViewController: FormViewController {
             +++ Section("Date and Location Recorded")
             <<< DateTimeInlineRow(){ row in
                 row.title = "Date"
-                row.value = Date()
+                row.value = date
                 row.tag = "DateTag"
                 row.dateFormatter?.dateStyle = .medium
                 row.dateFormatter?.timeStyle = .short
@@ -127,9 +136,14 @@ class JournalEntryConfirmationViewController: FormViewController {
             //let location = locRow.value! as String
             let date = dateRow.value! as Date
 
-            
-            let entry = JournalEntry(key: nil, type: self.type, caption: caption, url: nil, date: date, lat: 0.0, lng: 0.0)
-            del.save(entry: entry)
+            if var e = self.entry {
+                e.caption = caption
+                e.date = date
+                del.save(entry: e)
+            } else {
+                let entry = JournalEntry(key: nil, type: self.type, caption: caption, url: nil, date: date, lat: 0.0, lng: 0.0)
+                del.save(entry: entry)
+            }
         }
         _ = self.navigationController?.popViewController(animated: true)
     }

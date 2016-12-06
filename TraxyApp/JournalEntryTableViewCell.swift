@@ -13,11 +13,18 @@ class JournalEntryTableViewCell: UITableViewCell {
     @IBOutlet weak var containingView: UIView!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var textData : UILabel!
-    @IBOutlet weak var optionalImage : UIImageView!
+    @IBOutlet weak var imageButton: UIButton!
+    @IBOutlet weak var thumbnailImage: UIImageView!
+    @IBOutlet weak var editButton: UIButton!
+    var entry : JournalEntry?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.containingView.layer.cornerRadius = 10
+        if let button = self.imageButton {
+            button.imageView?.contentMode = .scaleAspectFill
+        }
+
     }
 
 
@@ -28,6 +35,7 @@ class JournalEntryTableViewCell: UITableViewCell {
     }
 
     func setValues(entry : JournalEntry) {
+        self.entry = entry
         self.textData.text = entry.caption
         self.date.text = entry.date?.shortWithTime
     }

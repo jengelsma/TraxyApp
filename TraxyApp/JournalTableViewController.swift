@@ -22,6 +22,7 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
     
     var journal: Journal?
     var entries : [JournalEntry] = []
+    var entryToEdit : JournalEntry?
     
     fileprivate var ref : FIRDatabaseReference?
     fileprivate var storageRef : FIRStorageReference?
@@ -45,7 +46,8 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
             }
         }
         
-
+        self.entryToEdit = nil
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,6 +90,24 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
     }
     
     
+    @IBAction func imageButtonPressed(_ sender: UIButton) {
+        print("Row \(Int(sender.tag)) image button pressed.")
+    }
+    
+    @IBAction func editButtonPressed(_ sender: UIButton) {
+        let row = Int(sender.tag)
+        print("Row \(row) edit button pressed.")
+        let indexPath = IndexPath(row: row, section: 0)
+        let cell = self.tableView.cellForRow(at: indexPath) as! JournalEntryTableViewCell
+        if let tnImg = cell.thumbnailImage {
+            self.capturedImage = tnImg.image
+        }
+        self.entryToEdit = cell.entry
+        self.captureType = (self.entryToEdit?.type)!
+        self.performSegue(withIdentifier: "confirmSegue", sender: self)
+        
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -108,6 +128,13 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
 
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIds[entry.type!.rawValue], for: indexPath) as! JournalEntryTableViewCell
 
+        
+        
+        cell.editButton?.tag = indexPath.row
+        if let imgButton = cell.imageButton {
+            imgButton.tag = cell.editButton!.tag
+        }
+        
         //cell.textLabel?.text = entry.date?.short
         //cell.detailTextLabel?.text = entry.caption
         cell.setValues(entry: entry)
@@ -119,7 +146,7 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
                         return
                     }
                     //cell.imageView?.image = UIImage.init(data: data!)
-                    cell.optionalImage?.image = UIImage.init(data: data!)
+                    cell.thumbnailImage?.image = UIImage.init(data: data!)
                     cell.setNeedsLayout()
                 }
 //            } else if let URL = URL(string: imageURL), let data = try? Data(contentsOf: URL) {
@@ -128,8 +155,9 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
 //            }
             } else if let url = URL(string: imageURL) {
                 let image = self.thumbnailForVideoAtURL(url: url)
-                cell.optionalImage?.image = image
+                cell.thumbnailImage?.image = image
                 cell.setNeedsLayout()
+
             } 
         }
         
@@ -303,6 +331,7 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
                 destCtrl.imageToConfirm = self.capturedImage
                 destCtrl.delegate = self
                 destCtrl.type = self.captureType
+                destCtrl.entry = self.entryToEdit  // will be nil on new item
             }
         }
     }
@@ -330,8 +359,13 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
                             
                             let vals = strongSelf.toDictionary(vals: entry)
                             vals["url"]  = strongSelf.storageRef?.child((metadata?.path)!).description
-                            let newChild = strongSelf.ref?.child("entries").childByAutoId()
-                            newChild?.setValue(vals)
+                            if let key = entry.key {
+                                let oldChild = strongSelf.ref?.child("entries").child(key)
+                                oldChild?.setValue(vals)
+                            } else {
+                                let newChild = strongSelf.ref?.child("entries").childByAutoId()
+                                newChild?.setValue(vals)
+                            }
                             
                     }
                 }
@@ -352,6 +386,8 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         default:
             print("other stuff")
         }
+        
+        self.entryToEdit = nil
     }
     
     func toDictionary(vals: JournalEntry) -> NSMutableDictionary {

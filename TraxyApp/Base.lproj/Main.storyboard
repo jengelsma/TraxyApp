@@ -342,24 +342,15 @@
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asq-AE-PiA">
                                             <rect key="frame" x="8" y="8" width="359" height="233"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="PIs-Kv-ni8">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="cz8-AR-fQw">
                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="92"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="92" id="QpI-P4-7zL"/>
+                                                        <constraint firstAttribute="height" constant="92" id="l2A-Gf-WAp"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYd-d8-cz8">
-                                                    <rect key="frame" x="8" y="207" width="231" height="18"/>
+                                                    <rect key="frame" x="8" y="207" width="283" height="18"/>
                                                     <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.36862745099999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Read more &gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wf5-5I-nkj">
-                                                    <rect key="frame" x="247" y="208" width="104" height="17"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="104" id="2D6-3s-rUW"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.36862745099999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -370,21 +361,47 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="poj-0G-5M5">
+                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="92"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="92" id="Kc7-oH-Dd3"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <action selector="imageButtonPressed:" destination="IEt-M0-lHH" eventType="touchUpInside" id="eAp-T1-DWl"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23w-DL-dty">
+                                                    <rect key="frame" x="299" y="201" width="52" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="52" id="G3s-Qe-RNS"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                                    <state key="normal" title="Edit &gt;">
+                                                        <color key="titleColor" red="0.0" green="0.36862745099999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="editButtonPressed:" destination="IEt-M0-lHH" eventType="touchUpInside" id="MEX-pH-KUC"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="poj-0G-5M5" secondAttribute="trailing" id="1Dn-FS-aei"/>
                                                 <constraint firstAttribute="bottom" secondItem="HYd-d8-cz8" secondAttribute="bottom" constant="8" id="6F0-VE-tbf"/>
+                                                <constraint firstAttribute="bottom" secondItem="23w-DL-dty" secondAttribute="bottom" constant="2" id="Ehb-AE-d0w"/>
                                                 <constraint firstItem="HYd-d8-cz8" firstAttribute="leading" secondItem="asq-AE-PiA" secondAttribute="leading" constant="8" id="Fh7-7U-CSX"/>
-                                                <constraint firstAttribute="trailing" secondItem="Wf5-5I-nkj" secondAttribute="trailing" constant="8" id="Iwv-vz-HM8"/>
+                                                <constraint firstItem="poj-0G-5M5" firstAttribute="leading" secondItem="asq-AE-PiA" secondAttribute="leading" id="IbS-Sy-GdD"/>
                                                 <constraint firstItem="hDo-ii-v2B" firstAttribute="leading" secondItem="asq-AE-PiA" secondAttribute="leading" constant="8" id="Jdb-gf-Lft"/>
-                                                <constraint firstItem="PIs-Kv-ni8" firstAttribute="top" secondItem="asq-AE-PiA" secondAttribute="top" id="JkC-1o-2Ob"/>
-                                                <constraint firstItem="Wf5-5I-nkj" firstAttribute="leading" secondItem="HYd-d8-cz8" secondAttribute="trailing" constant="8" id="Lf5-wt-WSP"/>
-                                                <constraint firstItem="PIs-Kv-ni8" firstAttribute="leading" secondItem="asq-AE-PiA" secondAttribute="leading" id="ZQc-aS-6GZ"/>
+                                                <constraint firstItem="poj-0G-5M5" firstAttribute="top" secondItem="asq-AE-PiA" secondAttribute="top" id="KZP-D9-Bvz"/>
+                                                <constraint firstItem="cz8-AR-fQw" firstAttribute="leading" secondItem="asq-AE-PiA" secondAttribute="leading" id="UZr-wl-pyj"/>
                                                 <constraint firstAttribute="bottom" secondItem="hDo-ii-v2B" secondAttribute="bottom" constant="37" id="g1K-yg-awQ"/>
-                                                <constraint firstAttribute="trailing" secondItem="PIs-Kv-ni8" secondAttribute="trailing" id="mNv-FK-GO2"/>
-                                                <constraint firstAttribute="bottom" secondItem="Wf5-5I-nkj" secondAttribute="bottom" constant="8" id="n1F-A8-kLJ"/>
+                                                <constraint firstItem="23w-DL-dty" firstAttribute="leading" secondItem="HYd-d8-cz8" secondAttribute="trailing" constant="8" id="n2P-Qj-UfC"/>
                                                 <constraint firstAttribute="trailing" secondItem="hDo-ii-v2B" secondAttribute="trailing" constant="8" id="nOu-BW-yzr"/>
-                                                <constraint firstItem="hDo-ii-v2B" firstAttribute="top" secondItem="PIs-Kv-ni8" secondAttribute="bottom" id="wj9-YQ-jWO"/>
+                                                <constraint firstItem="hDo-ii-v2B" firstAttribute="top" secondItem="poj-0G-5M5" secondAttribute="bottom" id="qwx-ce-0TM"/>
+                                                <constraint firstItem="cz8-AR-fQw" firstAttribute="top" secondItem="asq-AE-PiA" secondAttribute="top" id="tDH-pg-NiJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="cz8-AR-fQw" secondAttribute="trailing" id="u20-gv-dmL"/>
+                                                <constraint firstAttribute="trailing" secondItem="23w-DL-dty" secondAttribute="trailing" constant="8" id="yOZ-XG-sNY"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -399,8 +416,10 @@
                                 <connections>
                                     <outlet property="containingView" destination="asq-AE-PiA" id="SNS-r1-mmO"/>
                                     <outlet property="date" destination="HYd-d8-cz8" id="5DP-k7-LeB"/>
-                                    <outlet property="optionalImage" destination="PIs-Kv-ni8" id="d6U-zK-Hif"/>
+                                    <outlet property="editButton" destination="23w-DL-dty" id="oee-1p-rHR"/>
+                                    <outlet property="imageButton" destination="poj-0G-5M5" id="tNs-Ru-fWo"/>
                                     <outlet property="textData" destination="hDo-ii-v2B" id="UQP-Gz-pX0"/>
+                                    <outlet property="thumbnailImage" destination="cz8-AR-fQw" id="kmb-TC-rsl"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextCell" rowHeight="150" id="c30-U9-knm" customClass="JournalEntryTextTableViewCell" customModule="TraxyApp" customModuleProvider="target">
@@ -421,31 +440,35 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksh-Zk-8P0">
-                                                    <rect key="frame" x="8" y="108" width="231" height="18"/>
+                                                    <rect key="frame" x="8" y="108" width="255" height="18"/>
                                                     <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.36862745099999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Read more &gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvm-te-aSD">
-                                                    <rect key="frame" x="247" y="108.5" width="104" height="16.5"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rvj-99-o1P">
+                                                    <rect key="frame" x="271" y="104" width="80" height="28"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="104" id="dYe-dx-dCa"/>
+                                                        <constraint firstAttribute="width" constant="80" id="Qb3-uf-SVy"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.36862745099999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="15"/>
+                                                    <state key="normal" title="Edit &gt;">
+                                                        <color key="titleColor" red="0.0" green="0.36862745099999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="editButtonPressed:" destination="IEt-M0-lHH" eventType="touchUpInside" id="wem-qX-LFL"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="dvm-te-aSD" secondAttribute="trailing" constant="8" id="9gR-v4-DaL"/>
+                                                <constraint firstAttribute="trailing" secondItem="Rvj-99-o1P" secondAttribute="trailing" constant="8" id="4jC-lh-aFJ"/>
+                                                <constraint firstAttribute="bottom" secondItem="Rvj-99-o1P" secondAttribute="bottom" constant="2" id="PVl-tG-XUE"/>
                                                 <constraint firstItem="ksh-Zk-8P0" firstAttribute="leading" secondItem="hTB-io-oOo" secondAttribute="leading" constant="8" id="Skm-u5-8O3"/>
                                                 <constraint firstItem="FpE-YT-T1m" firstAttribute="leading" secondItem="hTB-io-oOo" secondAttribute="leading" constant="8" id="VaU-QO-HK8"/>
                                                 <constraint firstItem="FpE-YT-T1m" firstAttribute="top" secondItem="hTB-io-oOo" secondAttribute="top" constant="8" id="eeN-Nb-Mto"/>
+                                                <constraint firstItem="Rvj-99-o1P" firstAttribute="leading" secondItem="ksh-Zk-8P0" secondAttribute="trailing" constant="8" id="hJp-bO-dEr"/>
                                                 <constraint firstAttribute="trailing" secondItem="FpE-YT-T1m" secondAttribute="trailing" constant="8" id="luy-um-nKQ"/>
                                                 <constraint firstAttribute="bottom" secondItem="ksh-Zk-8P0" secondAttribute="bottom" constant="8" id="orZ-cc-f22"/>
-                                                <constraint firstAttribute="bottom" secondItem="dvm-te-aSD" secondAttribute="bottom" constant="9" id="wsc-TN-ur7"/>
-                                                <constraint firstItem="dvm-te-aSD" firstAttribute="leading" secondItem="ksh-Zk-8P0" secondAttribute="trailing" constant="8" id="z2f-OD-iX2"/>
                                                 <constraint firstAttribute="bottom" secondItem="FpE-YT-T1m" secondAttribute="bottom" constant="37" id="zFc-Fo-mHR"/>
                                             </constraints>
                                         </view>
@@ -462,6 +485,7 @@
                                 <connections>
                                     <outlet property="containingView" destination="hTB-io-oOo" id="MAr-w4-5m6"/>
                                     <outlet property="date" destination="ksh-Zk-8P0" id="9ZV-du-nB4"/>
+                                    <outlet property="editButton" destination="Rvj-99-o1P" id="X7b-mK-5gW"/>
                                     <outlet property="textData" destination="FpE-YT-T1m" id="AXL-sw-Ku3"/>
                                 </connections>
                             </tableViewCell>
