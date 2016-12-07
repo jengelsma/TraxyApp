@@ -13,6 +13,7 @@
 		9E2855241DD1136300224A11 /* UIViewcontroller+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2855231DD1136300224A11 /* UIViewcontroller+Validation.swift */; };
 		9E29EF211DDB9C7F00A1E622 /* TraxyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E29EF201DDB9C7F00A1E622 /* TraxyLoginViewController.swift */; };
 		9E29EF231DDB9D9D00A1E622 /* TraxyLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E29EF221DDB9D9D00A1E622 /* TraxyLoginButton.swift */; };
+		9E2F52DF1DF8B12D00FEA931 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2F52DE1DF8B12D00FEA931 /* AudioViewController.swift */; };
 		9E6541141DCA358C009254CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6541131DCA358C009254CF /* AppDelegate.swift */; };
 		9E6541161DCA358C009254CF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6541151DCA358C009254CF /* LoginViewController.swift */; };
 		9E6541191DCA358C009254CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6541171DCA358C009254CF /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 		9EA5ECE81DF61BCC0085069A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EA5ECE71DF61BCC0085069A /* GoogleService-Info.plist */; };
 		9EA5ECEA1DF6427A0085069A /* JournalEntryTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5ECE91DF6427A0085069A /* JournalEntryTextTableViewCell.swift */; };
 		9EA5ECEC1DF6436D0085069A /* JournalEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5ECEB1DF6436D0085069A /* JournalEntryTableViewCell.swift */; };
+		9EA5ECEE1DF8526F0085069A /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5ECED1DF8526F0085069A /* PhotoViewController.swift */; };
 		9EA7FF211DF0DC07004A5E19 /* JournalEntryConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA7FF201DF0DC07004A5E19 /* JournalEntryConfirmationViewController.swift */; };
 		9EA7FF231DF1BDD0004A5E19 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA7FF221DF1BDD0004A5E19 /* JournalEntry.swift */; };
 		9ED5618D1DDCCDF0004EAC43 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED5618C1DDCCDF0004EAC43 /* Journal.swift */; };
@@ -70,6 +72,7 @@
 		9E2855231DD1136300224A11 /* UIViewcontroller+Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewcontroller+Validation.swift"; sourceTree = "<group>"; };
 		9E29EF201DDB9C7F00A1E622 /* TraxyLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginViewController.swift; sourceTree = "<group>"; };
 		9E29EF221DDB9D9D00A1E622 /* TraxyLoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginButton.swift; sourceTree = "<group>"; };
+		9E2F52DE1DF8B12D00FEA931 /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
 		9E6541101DCA358C009254CF /* TraxyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraxyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6541131DCA358C009254CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E6541151DCA358C009254CF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +92,7 @@
 		9EA5ECE71DF61BCC0085069A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9EA5ECE91DF6427A0085069A /* JournalEntryTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntryTextTableViewCell.swift; sourceTree = "<group>"; };
 		9EA5ECEB1DF6436D0085069A /* JournalEntryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntryTableViewCell.swift; sourceTree = "<group>"; };
+		9EA5ECED1DF8526F0085069A /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		9EA7FF201DF0DC07004A5E19 /* JournalEntryConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntryConfirmationViewController.swift; sourceTree = "<group>"; };
 		9EA7FF221DF1BDD0004A5E19 /* JournalEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 		9ED5618C1DDCCDF0004EAC43 /* Journal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
@@ -213,6 +217,8 @@
 				9EE2D07F1DE3941E00614160 /* AddJournalViewController.swift */,
 				9EE2D0C71DEF510A00614160 /* JournalTableViewController.swift */,
 				9EA7FF201DF0DC07004A5E19 /* JournalEntryConfirmationViewController.swift */,
+				9EA5ECED1DF8526F0085069A /* PhotoViewController.swift */,
+				9E2F52DE1DF8B12D00FEA931 /* AudioViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -568,9 +574,11 @@
 				9E29EF231DDB9D9D00A1E622 /* TraxyLoginButton.swift in Sources */,
 				9EE2D0801DE3941E00614160 /* AddJournalViewController.swift in Sources */,
 				9E29EF211DDB9C7F00A1E622 /* TraxyLoginViewController.swift in Sources */,
+				9E2F52DF1DF8B12D00FEA931 /* AudioViewController.swift in Sources */,
 				9EE2D0C61DE638E700614160 /* Date+ISO8601.swift in Sources */,
 				9EA5ECEC1DF6436D0085069A /* JournalEntryTableViewCell.swift in Sources */,
 				9E6541141DCA358C009254CF /* AppDelegate.swift in Sources */,
+				9EA5ECEE1DF8526F0085069A /* PhotoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

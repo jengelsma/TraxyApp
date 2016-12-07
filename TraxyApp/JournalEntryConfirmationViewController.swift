@@ -18,7 +18,6 @@ var previewImage : UIImage?
 
 class JournalEntryConfirmationViewController: FormViewController {
 
-    @IBOutlet weak var imageView: UIImageView!
     var imageToConfirm : UIImage?
     var delegate : AddJournalEntryDelegate?
     var type : EntryType?
@@ -26,7 +25,6 @@ class JournalEntryConfirmationViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.imageView.image = imageToConfirm
         previewImage = imageToConfirm
         
         let textRowValidationUpdate : (TextRow.Cell, TextRow) -> ()  = { cell, row in
@@ -73,7 +71,7 @@ class JournalEntryConfirmationViewController: FormViewController {
         }
         
         form = Section() {
-            if self.type != .text {
+            if self.type != .text  && self.type != .audio {
                 $0.header = HeaderFooterView<MediaPreviewView>(.class)
             }
         }

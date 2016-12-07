@@ -91,7 +91,15 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
     
     
     @IBAction func imageButtonPressed(_ sender: UIButton) {
-        print("Row \(Int(sender.tag)) image button pressed.")
+        let row = Int(sender.tag)
+        print("Row \(row) image button pressed.")
+        let indexPath = IndexPath(row: row, section: 0)
+        let cell = self.tableView.cellForRow(at: indexPath) as! JournalEntryTableViewCell
+        if let tnImg = cell.thumbnailImage {
+            self.capturedImage = tnImg.image
+        }
+        self.entryToEdit = cell.entry
+        self.performSegue(withIdentifier: "viewPhoto", sender: self)
     }
     
     @IBAction func editButtonPressed(_ sender: UIButton) {
@@ -223,7 +231,7 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         
         
         let addAudioAction = UIAlertAction(title: "Audio Entry", style: .default) { (action) in
-            
+            self.performSegue(withIdentifier: "recordAudio", sender: self)
         }
         alertController.addAction(addAudioAction)
     
@@ -332,6 +340,11 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
                 destCtrl.delegate = self
                 destCtrl.type = self.captureType
                 destCtrl.entry = self.entryToEdit  // will be nil on new item
+            }
+        } else if segue.identifier == "viewPhoto" {
+            if let destCtrl = segue.destination as? PhotoViewController {
+                destCtrl.imageToView = self.capturedImage
+                destCtrl.captionToView = self.entryToEdit?.caption
             }
         }
     }
