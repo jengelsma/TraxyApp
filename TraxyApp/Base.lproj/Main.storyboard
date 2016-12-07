@@ -320,6 +320,7 @@
                     <connections>
                         <outlet property="playButton" destination="hhv-cp-oLe" id="GKX-xv-abj"/>
                         <outlet property="recordButton" destination="IM0-0E-Yrc" id="wm7-Ij-qJG"/>
+                        <outlet property="timeLabel" destination="ANR-PA-ydE" id="CFk-xU-Cxp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JrW-AU-ffq" userLabel="First Responder" sceneMemberID="firstResponder"/>
