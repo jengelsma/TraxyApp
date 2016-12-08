@@ -1,3 +1,4 @@
+
 //
 //  JournalTableViewController.swift
 //  TraxyApp
@@ -236,7 +237,7 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         alertController.addAction(addAudioAction)
     
         self.present(alertController, animated: true) { 
-            
+            self.entryToEdit = nil // always creating a new entry when this alert is displayed. 
         }
 
     }
@@ -346,6 +347,11 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
                 destCtrl.imageToView = self.capturedImage
                 destCtrl.captionToView = self.entryToEdit?.caption
             }
+        } else if segue.identifier == "recordAudio" {
+            if let destCtrl = segue.destination as? AudioViewController {
+                destCtrl.entry = self.entryToEdit // will be nil if new item.
+                destCtrl.delegate = self
+            }
         }
     }
     
@@ -355,6 +361,7 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
     
         switch(entry.type!) {
         case .photo:
+            // TODO: only update the image if we are inserting a new one.
             if let image = self.capturedImage {
                 let imageData = UIImageJPEGRepresentation(image, 0.8)
                 let imagePath = "\(self.userId!)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
@@ -367,23 +374,15 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
                                 print("Error uploading: \(error)")
                                 return
                             }
-                            guard let strongSelf = self else { return }
-                            //strongSelf.sendMessage(withData: [Constants.MessageFields.imageURL: strongSelf.storageRef.child((metadata?.path)!).description])
                             
+                            // having uploaded the image, now store the data.
+                            guard let strongSelf = self else { return }
                             let vals = strongSelf.toDictionary(vals: entry)
                             vals["url"]  = strongSelf.storageRef?.child((metadata?.path)!).description
-                            if let key = entry.key {
-                                let oldChild = strongSelf.ref?.child("entries").child(key)
-                                oldChild?.setValue(vals)
-                            } else {
-                                let newChild = strongSelf.ref?.child("entries").childByAutoId()
-                                newChild?.setValue(vals)
-                            }
+                            strongSelf.saveEntryToFireBase(key: entry.key, ref: strongSelf.ref, vals: vals)
                             
                     }
                 }
-                
-                
             }
         case .video:
             print("video")
@@ -394,15 +393,56 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         case .text:
             let vals = self.toDictionary(vals: entry)
             vals["url"]  = ""
-            let newChild = self.ref?.child("entries").childByAutoId()
-            newChild?.setValue(vals)
-        default:
-            print("other stuff")
+            self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
+        case .audio:
+            if let key = entry.key {
+                let vals = self.toDictionary(vals: entry)
+                self.saveEntryToFireBase(key: key, ref: self.ref, vals: vals)
+            } else {
+                do {
+                    if let urlStr = entry.url {
+                        let url = URL(string: urlStr)
+                        let audioData = try Data(contentsOf: url!)
+                        print("got data")
+                        let audioPath = "\(self.userId!)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).m4a"
+                        let metadata = FIRStorageMetadata()
+                        metadata.contentType = "audio/mp4"
+                        if let sr = self.storageRef {
+                            sr.child(audioPath)
+                                .put(audioData, metadata: metadata) { [weak self] (metadata, error) in
+                                    if let error = error {
+                                        print("Error uploading: \(error)")
+                                        return
+                                    }
+                                    
+                                    // having uploaded the image, now store the data.
+                                    guard let strongSelf = self else { return }
+                                    let vals = strongSelf.toDictionary(vals: entry)
+                                    vals["url"]  = strongSelf.storageRef?.child((metadata?.path)!).description
+                                    strongSelf.saveEntryToFireBase(key: entry.key, ref: strongSelf.ref, vals: vals)
+                                    
+                            }
+                        }
+                    }
+
+                } catch {
+                    print("oops that wasn't good now")
+                }
+            }
         }
         
-        self.entryToEdit = nil
     }
     
+    func saveEntryToFireBase(key: String?, ref : FIRDatabaseReference?, vals: NSMutableDictionary) {
+        if let k = key {
+            let oldChild = ref?.child("entries").child(k)
+            oldChild?.setValue(vals)
+        } else {
+            let newChild = ref?.child("entries").childByAutoId()
+            newChild?.setValue(vals)
+        }
+    }
+
     func toDictionary(vals: JournalEntry) -> NSMutableDictionary {
         
         return [

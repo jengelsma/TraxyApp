@@ -68,6 +68,8 @@ class JournalEntryConfirmationViewController: FormViewController {
         if let e = self.entry {
             caption = e.caption!
             date = e.date!
+        } else {
+            self.entry = JournalEntry(key: nil, type: self.type, caption: caption, url: nil, date: date, lat: 0.0, lng: 0.0)
         }
         
         form = Section() {
@@ -124,26 +126,31 @@ class JournalEntryConfirmationViewController: FormViewController {
 
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         if let del = self.delegate {
-            
-            let captionRow: TextAreaRow! = form.rowBy(tag: "CaptionTag")
-            //let locRow: LabelRow! = form.rowBy(tag: "LocTag")
-            let dateRow : DateTimeInlineRow! = form.rowBy(tag: "DateTag")
 
-            
-            let caption = captionRow.value! as String
-            //let location = locRow.value! as String
-            let date = dateRow.value! as Date
+            let (caption,date,_) = self.extractFormValues()
 
             if var e = self.entry {
                 e.caption = caption
                 e.date = date
                 del.save(entry: e)
-            } else {
-                let entry = JournalEntry(key: nil, type: self.type, caption: caption, url: nil, date: date, lat: 0.0, lng: 0.0)
-                del.save(entry: entry)
             }
         }
         _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    func extractFormValues() -> (String, Date, String)
+    {
+        let captionRow: TextAreaRow! = form.rowBy(tag: "CaptionTag")
+        //let locRow: LabelRow! = form.rowBy(tag: "LocTag")
+        let dateRow : DateTimeInlineRow! = form.rowBy(tag: "DateTag")
+        let locationRow : LabelRow! = form.rowBy(tag: "LocTag")
+        
+        let caption = captionRow.value! as String
+        //let location = locRow.value! as String
+        let date = dateRow.value! as Date
+        let loc = locationRow.value! as String
+        
+        return (caption,date,loc)
     }
     
     /*

@@ -12,6 +12,7 @@ import AVFoundation
 
 class AudioViewController: UIViewController {
 
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
@@ -22,20 +23,46 @@ class AudioViewController: UIViewController {
     let stopImage = UIImage(named: "stop")
     let recordImage = UIImage(named: "record")
     
-    
+    var entry : JournalEntry?
+    var captionEntryCtrl : JournalEntryConfirmationViewController?
     var recorder: AVAudioRecorder!
     var player: AVAudioPlayer!
     var meterTimer:Timer!
     var soundFileURL:URL!
-    
+    var delegate : AddJournalEntryDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playButton.isEnabled = false
         self.setSessionPlayback()
+        if self.entry == nil  {
+            self.entry = JournalEntry(key: nil, type: .audio, caption: "", url: nil, date: Date(), lat: 0.0, lng: 0.0)
+        }
         
+        self.saveButton.isEnabled = false
+    }
+    
+    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
+        if let del = self.delegate {
+            
+            if let (caption,date,_) = (self.captionEntryCtrl?.extractFormValues()) {
+                
+                if var e = self.entry {
+                    e.url = self.recorder.url.absoluteString
+                    e.caption = caption
+                    e.date = date
+                    del.save(entry: e)
+                }
+            }
+        }
+        
+        _ = self.navigationController?.popViewController(animated: true)
     }
 
+    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -164,7 +191,7 @@ class AudioViewController: UIViewController {
         
         let recordSettings:[String : AnyObject] = [
             //AVFormatIDKey:             NSNumber(value: kAudioFormatAppleLossless),
-            AVFormatIDKey:             NSNumber(value: kAudioFormatMPEGLayer3),
+            AVFormatIDKey:             NSNumber(value: kAudioFormatMPEG4AAC),
             AVEncoderAudioQualityKey : NSNumber(value:AVAudioQuality.max.rawValue),
             AVEncoderBitRateKey :      NSNumber(value:320000),
             AVNumberOfChannelsKey:     NSNumber(value:2),
@@ -220,6 +247,8 @@ class AudioViewController: UIViewController {
         if segue.identifier == "setupAudioCaptionForm" {
             if let destCtrl = segue.destination as? JournalEntryConfirmationViewController {
                 destCtrl.type = .audio
+                destCtrl.entry = self.entry
+                self.captionEntryCtrl = destCtrl
             }
         }
     }
@@ -232,17 +261,18 @@ extension AudioViewController : AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder,
                                          successfully flag: Bool) {
         print("finished recording \(flag)")
+        self.saveButton.isEnabled = true
         self.recordButton.isEnabled = true
         self.playButton.isEnabled = true
         self.playButton.setImage(self.playImage, for: .normal)
         self.recordButton.setImage(self.recordImage, for: .normal)
         
-        do {
-            let data = try Data(contentsOf: self.recorder.url)
-                    print("got data")
-        } catch {
-            print("oops that wasn't good now")
-        }
+//        do {
+//            let data = try Data(contentsOf: self.recorder.url)
+//                    print("got data")
+//        } catch {
+//            print("oops that wasn't good now")
+//        }
 
         
     }
