@@ -18,8 +18,9 @@ struct Journal {
     var lat : Double?
     var lng : Double?
     var placeId : String?
+    var coverPhotoUrl : String?
     
-    init(key: String?, name: String?, location: String?, startDate: Date?, endDate : Date?, lat: Double?, lng: Double?, placeId : String?)
+    init(key: String?, name: String?, location: String?, startDate: Date?, endDate : Date?, lat: Double?, lng: Double?, placeId : String?, coverPhotoUrl: String?)
     {
         self.key = key
         self.name = name
@@ -29,11 +30,17 @@ struct Journal {
         self.lat = lat
         self.lng = lng
         self.placeId = placeId
+        if let cover = coverPhotoUrl {
+            self.coverPhotoUrl = cover
+        } else {
+            self.coverPhotoUrl = ""
+        }
+        
     }
     
     init(name: String?, location: String?, startDate: Date?, endDate : Date?, lat: Double?, lng: Double?, placeId : String?)
     {
-        self.init(key: nil, name: name, location: location, startDate: startDate, endDate: endDate, lat: lat, lng: lng, placeId: placeId)
+        self.init(key: nil, name: name, location: location, startDate: startDate, endDate: endDate, lat: lat, lng: lng, placeId: placeId, coverPhotoUrl: nil)
     }
     
     

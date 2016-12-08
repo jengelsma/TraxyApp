@@ -29,9 +29,14 @@ struct JournalEntry {
         self.key = key
         self.type = type
         self.caption = caption
-        self.url = url
+
         self.date = date
         self.lat = lat
         self.lng = lng
+        if let u = url {
+            self.url = u
+        } else {
+            self.url = ""
+        }
     }
 }

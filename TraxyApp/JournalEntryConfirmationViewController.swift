@@ -11,7 +11,7 @@ import Eureka
 
 
 protocol AddJournalEntryDelegate {
-    func save(entry: JournalEntry)
+    func save(entry: JournalEntry, isCover: Bool)
 }
 
 var previewImage : UIImage?
@@ -22,6 +22,7 @@ class JournalEntryConfirmationViewController: FormViewController {
     var delegate : AddJournalEntryDelegate?
     var type : EntryType?
     var entry : JournalEntry?
+    var currentCoverUrl: String? 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +74,7 @@ class JournalEntryConfirmationViewController: FormViewController {
         }
         
         form = Section() {
+            $0.tag = "FirstSection"
             if self.type != .text  && self.type != .audio {
                 $0.header = HeaderFooterView<MediaPreviewView>(.class)
             }
@@ -83,6 +85,8 @@ class JournalEntryConfirmationViewController: FormViewController {
                 row.tag = "CaptionTag"
                 row.add(rule: RuleRequired())
             }
+            
+
             
             +++ Section("Date and Location Recorded")
             <<< DateTimeInlineRow(){ row in
@@ -111,6 +115,23 @@ class JournalEntryConfirmationViewController: FormViewController {
                 }.onCellSelection { cell, row in
                     print("TODO: will finish this next chapter!")
         }
+        
+        
+        if self.type! == .photo {
+            let firstSection = form.sectionBy(tag: "FirstSection")
+            let switchRow = SwitchRow() { row in
+                    row.title = "Use as Cover Photo"
+                    row.tag = "CoverTag"
+                
+                if currentCoverUrl != "" && currentCoverUrl == entry?.url {
+                    row.value = true
+                }
+            }.onChange({ (row) in
+                print("row value = \(row.value)")
+            })
+            
+            firstSection?.append(switchRow)
+        }
 
     }
  
@@ -127,18 +148,18 @@ class JournalEntryConfirmationViewController: FormViewController {
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         if let del = self.delegate {
 
-            let (caption,date,_) = self.extractFormValues()
+            let (caption,date,_,coverPhoto) = self.extractFormValues()
 
             if var e = self.entry {
                 e.caption = caption
                 e.date = date
-                del.save(entry: e)
+                del.save(entry: e, isCover: coverPhoto)
             }
         }
         _ = self.navigationController?.popViewController(animated: true)
     }
     
-    func extractFormValues() -> (String, Date, String)
+    func extractFormValues() -> (String, Date, String, Bool)
     {
         let captionRow: TextAreaRow! = form.rowBy(tag: "CaptionTag")
         //let locRow: LabelRow! = form.rowBy(tag: "LocTag")
@@ -150,7 +171,16 @@ class JournalEntryConfirmationViewController: FormViewController {
         let date = dateRow.value! as Date
         let loc = locationRow.value! as String
         
-        return (caption,date,loc)
+        var coverPhoto = false
+        if self.type! == .photo {
+            if let switchRow: SwitchRow = form.rowBy(tag: "CoverTag") as? SwitchRow {
+                if let val : Bool = switchRow.value {
+                    coverPhoto = val
+                }
+            }
+        }
+        
+        return (caption,date,loc,coverPhoto)
     }
     
     /*

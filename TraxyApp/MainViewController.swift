@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import Kingfisher
 
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddJournalDelegate {
     
@@ -29,10 +30,13 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let model = JournalModel()
-        self.journals = model.getJournals()
-        self.sortIntoSections(journals: self.journals!)
-        
+//        let model = JournalModel()
+//        self.journals = model.getJournals()
+//        self.sortIntoSections(journals: self.journals!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         FIRAuth.auth()?.addStateDidChangeListener { auth, user in
             if let user = user {
                 self.userId = user.uid
@@ -45,6 +49,16 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // unregister from listeners here.
+        if let r = self.ref {
+            r.removeAllObservers()
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -72,7 +86,30 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     let lat = entry["lat"] as! Double?
                     let lng = entry["lng"] as! Double?
                     let placeId = entry["placeId"] as! String?
-                    tmpItems.append(Journal(key: key, name: name, location: location, startDate: startDateStr?.dateFromISO8601, endDate: endDateStr?.dateFromISO8601, lat: lat, lng: lng, placeId: placeId))
+                    var coverPhotoUrl = entry["coverPhotoUrl"] as! String?
+
+                    
+                    // if no photo is marked as cover, we will use first photo, if any.
+                    if coverPhotoUrl == nil || coverPhotoUrl == "" {
+                        if let entries = entry["entries"] as? [String : AnyObject] {
+                            for (_,val) in entries.enumerated() {
+                                let entry = val.1 as! Dictionary<String,AnyObject>
+                                print ("entry=\(entry)")
+                                let typeRaw = entry["type"] as! Int?
+                                let type = EntryType(rawValue: typeRaw!)
+                                if type == .photo {
+                                    let url : String? = entry["url"] as! String?
+                                    coverPhotoUrl = url
+                                    print("Will use \(url) as assumed cover photo")
+                                    break
+                                }
+
+                            }
+                        }
+                    }
+                    
+                    tmpItems.append(Journal(key: key, name: name, location: location, startDate: startDateStr?.dateFromISO8601, endDate: endDateStr?.dateFromISO8601, lat: lat, lng: lng, placeId: placeId, coverPhotoUrl: coverPhotoUrl))
+                    
                 }
                 self.journals = tmpItems
                 self.sortIntoSections(journals: self.journals!)
@@ -128,14 +165,14 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         cell.name?.text = journal.name
         cell.subName?.text = journal.location
-        cell.coverImage?.image = UIImage(named: "landscape")
         
-/*        cell.textLabel?.text = journal.name
-        cell.detailTextLabel?.text = journal.location
-        if let defaultImage = UIImage(named: "logo") {
-            cell.imageView?.image = defaultImage
+        if let coverUrl = journal.coverPhotoUrl {
+            let url = URL(string: coverUrl)
+            cell.coverImage?.kf.indicatorType = .activity
+            cell.coverImage?.kf.setImage(with: url)
+        } else {
+            cell.coverImage?.image = UIImage(named: "landscape")
         }
-*/
         return cell
     }
     

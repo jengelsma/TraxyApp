@@ -55,6 +55,7 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
   - GTMSessionFetcher/Core (1.1.7)
+  - Kingfisher (3.2.2)
 
 DEPENDENCIES:
   - Eureka (~> 2.0.0-beta.1)
@@ -62,6 +63,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - GooglePlacePicker
+  - Kingfisher (~> 3.0)
 
 SPEC CHECKSUMS:
   Eureka: d014adf16406745e1a78d5790ea37ed130a0a8e5
@@ -79,7 +81,8 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
+  Kingfisher: 821466474ad7ffc375a4aecadfa05068cfed67b3
 
-PODFILE CHECKSUM: a8c704b25d2c33eee3a4bdca390cdc9f59f14e83
+PODFILE CHECKSUM: b98189dbb0cb7fe209e057d4fa969ebff4033dc5
 
 COCOAPODS: 1.1.1

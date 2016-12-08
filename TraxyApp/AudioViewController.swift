@@ -45,13 +45,13 @@ class AudioViewController: UIViewController {
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         if let del = self.delegate {
             
-            if let (caption,date,_) = (self.captionEntryCtrl?.extractFormValues()) {
+            if let (caption,date,_,_) = (self.captionEntryCtrl?.extractFormValues()) {
                 
                 if var e = self.entry {
                     e.url = self.recorder.url.absoluteString
                     e.caption = caption
                     e.date = date
-                    del.save(entry: e)
+                    del.save(entry: e, isCover: false)
                 }
             }
         }
