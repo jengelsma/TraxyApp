@@ -10,7 +10,7 @@ import UIKit
 import Eureka
 
 
-protocol AddJournalEntryDelegate {
+protocol AddJournalEntryDelegate : class {
     func save(entry: JournalEntry, isCover: Bool)
 }
 
@@ -19,10 +19,11 @@ var previewImage : UIImage?
 class JournalEntryConfirmationViewController: FormViewController {
 
     var imageToConfirm : UIImage?
-    var delegate : AddJournalEntryDelegate?
+    weak var delegate : AddJournalEntryDelegate?
     var type : EntryType?
     var entry : JournalEntry?
-    var currentCoverUrl: String? 
+    var journal : Journal!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +66,7 @@ class JournalEntryConfirmationViewController: FormViewController {
         }
         
         var caption : String = ""
-        var date : Date = Date()
+        var date : Date = self.journal.startDate!
         if let e = self.entry {
             caption = e.caption!
             date = e.date!
@@ -93,6 +94,8 @@ class JournalEntryConfirmationViewController: FormViewController {
                 row.title = "Date"
                 row.value = date
                 row.tag = "DateTag"
+                row.maximumDate = self.journal.endDate
+                row.minimumDate = self.journal.startDate
                 row.dateFormatter?.dateStyle = .medium
                 row.dateFormatter?.timeStyle = .short
                 row.add(rule: RuleRequired())
@@ -123,7 +126,7 @@ class JournalEntryConfirmationViewController: FormViewController {
                     row.title = "Use as Cover Photo"
                     row.tag = "CoverTag"
                 
-                if currentCoverUrl != "" && currentCoverUrl == entry?.url {
+                if self.journal.coverPhotoUrl != "" && self.journal.coverPhotoUrl == entry?.url {
                     row.value = true
                 }
             }.onChange({ (row) in

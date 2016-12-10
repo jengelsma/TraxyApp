@@ -17,7 +17,7 @@ import Firebase
 import AssetsLibrary
 import Kingfisher
 
-class JournalTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AddJournalEntryDelegate {
+class JournalTableViewController: UITableViewController, UINavigationControllerDelegate {
 
     var capturedImage : UIImage?
     var captureVideoUrl : URL?
@@ -30,6 +30,8 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
     fileprivate var ref : FIRDatabaseReference?
     fileprivate var storageRef : FIRStorageReference?
     fileprivate var userId : String?
+    
+    // MARK: - UIViewController overrides and their helpers
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,11 +77,11 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         self.storageRef = FIRStorage.storage().reference(forURL: "gs://" + storageUrl!)
     }
     
-    fileprivate func registerForFireBaseUpdates()
+    func registerForFireBaseUpdates()
     {
         
-        self.ref!.child("entries").observe(.value, with: { snapshot in
-            
+        self.ref!.child("entries").observe(.value, with: { [weak self] snapshot in
+            guard let strongSelf = self else { return }
             if let postDict = snapshot.value as? [String : AnyObject] {
                 var tmpItems = [JournalEntry]()
                 for (key,val) in postDict.enumerated() {
@@ -97,14 +99,15 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
                     
                     tmpItems.append(JournalEntry(key: key, type: type, caption: caption, url: url, date: dateStr?.dateFromISO8601, lat: lat, lng: lng))
                 }
-                self.entries = tmpItems
-                self.tableView.reloadData()
+                strongSelf.entries = tmpItems
+                strongSelf.tableView.reloadData()
             }
         })
         
     }
     
-    // MARK: - IBActions
+    // MARK: - IBActions and helpers
+    
     @IBAction func imageButtonPressed(_ sender: UIButton) {
 
         let row = Int(sender.tag)
@@ -161,15 +164,8 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         alertController.addAction(addTextAction)
         
         let addCameraAction = UIAlertAction(title: "Photo or Video Entry", style: .default) { (action) in
-            let picker = UIImagePickerController()
-            picker.allowsEditing = false
-            picker.sourceType = .camera
-            picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
-            picker.modalPresentationStyle = .fullScreen
-            picker.delegate = self
-            self.present(picker, animated: true, completion: {
-                print("picture taken")
-            })
+            self.displayCameraIfPermitted()
+
         }
         alertController.addAction(addCameraAction)
         
@@ -198,14 +194,108 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         
     }
 
+    func displayCameraIfPermitted() {
+        let cameraMediaType = AVMediaTypeVideo
+        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: cameraMediaType)
+        
+        switch cameraAuthorizationStatus {
+        case .denied:
+            self.displaySettingsAppAlert()
+        case .authorized:
+            self.displayImagePicker()
+        case .restricted:
+            self.displaySettingsAppAlert()
+        case .notDetermined:
+            // Prompting user for the permission to use the camera.
+            AVCaptureDevice.requestAccess(forMediaType: cameraMediaType) { granted in
+                if granted {
+                    DispatchQueue.main.sync {
+                        self.displayImagePicker()
+                    }
+                } else {
+                    print("Denied access to \(cameraMediaType)")
+                }
+            }
+        }
+    }
     
-    // MARK: - Table view data source
+    func displayImagePicker()
+    {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = false
+        picker.sourceType = .camera
+        picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+        picker.modalPresentationStyle = .fullScreen
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
+    }
+    
+    func displaySettingsAppAlert()
+    {
+        let avc = UIAlertController(title: "Camera Permission Required", message: "You need to provide this app permissions to use your camera for this feature. You can do this by going to your Settings app and going to Privacy -> Camera", preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .default ) {action in
+            UIApplication.shared.open(NSURL(string: UIApplicationOpenSettingsURLString)! as URL, options: [:], completionHandler: nil)
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        avc.addAction(settingsAction)
+        avc.addAction(cancelAction)
+        
+        self.present(avc, animated: true, completion: nil)
+    }
+
+    // MARK: - Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "confirmSegue" {
+            if let destCtrl = segue.destination as? JournalEntryConfirmationViewController {
+                destCtrl.imageToConfirm = self.capturedImage
+                destCtrl.delegate = self
+                destCtrl.type = self.captureType
+                destCtrl.entry = self.entryToEdit  // will be nil on new item
+                destCtrl.journal = self.journal
+            }
+        } else if segue.identifier == "viewPhoto" {
+            if let destCtrl = segue.destination as? PhotoViewController {
+                destCtrl.imageToView = self.capturedImage
+                destCtrl.captionToView = self.entryToEdit?.caption
+            }
+        } else if segue.identifier == "recordAudio" {
+            if let destCtrl = segue.destination as? AudioViewController {
+                destCtrl.entry = self.entryToEdit // will be nil if new item.
+                destCtrl.delegate = self
+                destCtrl.journal = self.journal
+            }
+        }
+    }
+    
+    
+}
+
+
+// MARK: - UITableViewDelegate and UITableViewDataSource
+
+extension JournalTableViewController  {
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.journal.name
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = THEME_COLOR2
+        header.contentView.backgroundColor = THEME_COLOR3
+    }
+    
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return self.entries.count
@@ -216,9 +306,9 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         
         let entry = self.entries[indexPath.row]
         var cellIds = ["NA", "TextCell", "PhotoCell", "AudioCell", "PhotoCell"]
-
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIds[entry.type!.rawValue], for: indexPath) as! JournalEntryTableViewCell
-
+        
         cell.editButton?.tag = indexPath.row
         if let imgButton = cell.imageButton {
             imgButton.tag = cell.editButton!.tag
@@ -239,22 +329,13 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         return cell
         
     }
+}
 
+
+// MARK: - UIImagePickerControllerDelegate and helpers
+
+extension JournalTableViewController : UIImagePickerControllerDelegate {
     
-    // MARK: UITableViewDelegate
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.journal.name
-    }
-    
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        
-        let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = THEME_COLOR2
-        header.contentView.backgroundColor = THEME_COLOR3
-    }
- 
-    
-    // MARK: - UIImagePickerControllerDelegate
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         print("canceled")
         self.dismiss(animated: true, completion: nil)
@@ -283,13 +364,15 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
                 self.captureType = .photo
             }
         }
-
-
-
+        
+        
+        
         self.performSegue(withIdentifier: "confirmSegue", sender: self)
     }
     
-    private func thumbnailForVideoAtURL(url: URL) -> UIImage? {
+    
+    
+    func thumbnailForVideoAtURL(url: URL) -> UIImage? {
         
         let asset = AVAsset(url: url as URL)
         let assetImageGenerator = AVAssetImageGenerator(asset: asset)
@@ -305,114 +388,84 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
             return nil
         }
     }
+}
+
+
+
+// MARK: - AddJournalEntryDelegate and helpers
+
+extension JournalTableViewController : AddJournalEntryDelegate {
     
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    func updateJournalCoverPhoto(coverPhotoUrl : String?)
+    {
+        let vals = [
+            "coverPhotoUrl" : coverPhotoUrl! as NSString
+        ]
+        self.ref?.updateChildValues(vals)
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "confirmSegue" {
-            if let destCtrl = segue.destination as? JournalEntryConfirmationViewController {
-                destCtrl.imageToConfirm = self.capturedImage
-                destCtrl.delegate = self
-                destCtrl.type = self.captureType
-                destCtrl.entry = self.entryToEdit  // will be nil on new item
-                destCtrl.currentCoverUrl = self.journal.coverPhotoUrl
+    
+    func savePhoto(entry: JournalEntry, isCover: Bool) {
+        if let key = entry.key {
+            if isCover {
+                self.journal.coverPhotoUrl = entry.url
+                self.updateJournalCoverPhoto(coverPhotoUrl: self.journal.coverPhotoUrl)
+            } else {
+                // if we turned off and it is current the cover we update as well.
+                if entry.url == self.journal.coverPhotoUrl {
+                    self.journal.coverPhotoUrl = ""
+                    self.updateJournalCoverPhoto(coverPhotoUrl: self.journal.coverPhotoUrl)
+                }
             }
-        } else if segue.identifier == "viewPhoto" {
-            if let destCtrl = segue.destination as? PhotoViewController {
-                destCtrl.imageToView = self.capturedImage
-                destCtrl.captionToView = self.entryToEdit?.caption
-            }
-        } else if segue.identifier == "recordAudio" {
-            if let destCtrl = segue.destination as? AudioViewController {
-                destCtrl.entry = self.entryToEdit // will be nil if new item.
-                destCtrl.delegate = self
+            let vals = self.toDictionary(vals: entry)
+            self.saveEntryToFireBase(key: key, ref: self.ref, vals: vals)
+        } else {
+            if let image = self.capturedImage {
+                let imageData = UIImageJPEGRepresentation(image, 0.8)
+                let imagePath = "\(self.userId!)/photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+                let metadata = FIRStorageMetadata()
+                metadata.contentType = "image/jpeg"
+                if let sr = self.storageRef {
+                    sr.child(imagePath)
+                        .put(imageData!, metadata: metadata) { [weak self] (metadata, error) in
+                            if let error = error {
+                                print("Error uploading: \(error)")
+                                return
+                            }
+                            
+                            // having uploaded the image, now store the data.
+                            guard let strongSelf = self else { return }
+                            
+                            var newEntry = entry
+                            newEntry.url = metadata?.downloadURL()?.absoluteString
+                            let vals = strongSelf.toDictionary(vals: newEntry)
+                            
+                            strongSelf.saveEntryToFireBase(key: entry.key, ref: strongSelf.ref, vals: vals)
+                            if isCover {
+                                strongSelf.journal.coverPhotoUrl = metadata?.downloadURL()?.absoluteString
+                                strongSelf.updateJournalCoverPhoto(coverPhotoUrl:strongSelf.journal.coverPhotoUrl)
+                            }
+                    }
+                }
             }
         }
     }
     
-    
-    // MARK: - AddJournalEntryDelegate
-    
-    func updateJournalCoverPhoto(vals : Journal)
-    {
-        let vals = [
-//            "name": vals.name! as NSString,
-//            "address": vals.location! as NSString,
-//            "startDate" : NSString(string: (vals.startDate?.iso8601)!) ,
-//            "endDate": NSString(string: (vals.endDate?.iso8601)!),
-//            "lat" : NSNumber(value: 0.0),
-//            "lng" : NSNumber(value: 0.0),
-//            "placeId" : vals.placeId! as NSString,
-            "coverPhotoUrl" : vals.coverPhotoUrl! as NSString
-        ]
-        self.ref?.updateChildValues(vals)
-        //self.ref?.setValue(vals)
-    }
-    
-    func save(entry: JournalEntry, isCover: Bool) {
-        
-        switch(entry.type!) {
-        case .photo:
-            if let key = entry.key {
-                if isCover {
-                    self.journal.coverPhotoUrl = entry.url
-                    self.updateJournalCoverPhoto(vals: self.journal)
-                } else {
-                    // if we turned off and it is current the cover we update as well. 
-                    if entry.url == self.journal.coverPhotoUrl {
-                        self.journal.coverPhotoUrl = ""
-                        self.updateJournalCoverPhoto(vals: self.journal)
-                    }
-                }
-                let vals = self.toDictionary(vals: entry)
-                self.saveEntryToFireBase(key: key, ref: self.ref, vals: vals)
-            } else {
-                if let image = self.capturedImage {
-                    let imageData = UIImageJPEGRepresentation(image, 0.8)
-                    let imagePath = "\(self.userId!)/photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+    func saveAudio(entry: JournalEntry) {
+        if let key = entry.key {
+            let vals = self.toDictionary(vals: entry)
+            self.saveEntryToFireBase(key: key, ref: self.ref, vals: vals)
+        } else {
+            do {
+                if let urlStr = entry.url {
+                    let url = URL(string: urlStr)
+                    let audioData = try Data(contentsOf: url!)
+                    print("got data")
+                    let audioPath = "\(self.userId!)/audio/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).m4a"
                     let metadata = FIRStorageMetadata()
-                    metadata.contentType = "image/jpeg"
+                    metadata.contentType = "audio/mp4"
                     if let sr = self.storageRef {
-                        sr.child(imagePath)
-                            .put(imageData!, metadata: metadata) { [weak self] (metadata, error) in
+                        sr.child(audioPath)
+                            .put(audioData, metadata: metadata) { [weak self] (metadata, error) in
                                 if let error = error {
                                     print("Error uploading: \(error)")
                                     return
@@ -420,20 +473,25 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
                                 
                                 // having uploaded the image, now store the data.
                                 guard let strongSelf = self else { return }
-
-                                var newEntry = entry
-                                newEntry.url = metadata?.downloadURL()?.absoluteString
-                                let vals = strongSelf.toDictionary(vals: newEntry)
-                                
+                                let vals = strongSelf.toDictionary(vals: entry)
+                                vals["url"]  = metadata?.downloadURL()!.absoluteString
                                 strongSelf.saveEntryToFireBase(key: entry.key, ref: strongSelf.ref, vals: vals)
-                                if isCover {
-                                    strongSelf.journal.coverPhotoUrl = metadata?.downloadURL()?.absoluteString
-                                    strongSelf.updateJournalCoverPhoto(vals: strongSelf.journal)
-                                }
+                                
                         }
                     }
                 }
+                
+            } catch {
+                print("oops that wasn't good now")
             }
+        }
+    }
+    
+    func save(entry: JournalEntry, isCover: Bool) {
+        
+        switch(entry.type!) {
+        case .photo:
+            self.savePhoto(entry: entry, isCover: isCover)
         case .video:
             print("video")
             let vals = self.toDictionary(vals: entry)
@@ -445,40 +503,7 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
             vals["url"]  = ""
             self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
         case .audio:
-            if let key = entry.key {
-                let vals = self.toDictionary(vals: entry)
-                self.saveEntryToFireBase(key: key, ref: self.ref, vals: vals)
-            } else {
-                do {
-                    if let urlStr = entry.url {
-                        let url = URL(string: urlStr)
-                        let audioData = try Data(contentsOf: url!)
-                        print("got data")
-                        let audioPath = "\(self.userId!)/audio/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).m4a"
-                        let metadata = FIRStorageMetadata()
-                        metadata.contentType = "audio/mp4"
-                        if let sr = self.storageRef {
-                            sr.child(audioPath)
-                                .put(audioData, metadata: metadata) { [weak self] (metadata, error) in
-                                    if let error = error {
-                                        print("Error uploading: \(error)")
-                                        return
-                                    }
-                                    
-                                    // having uploaded the image, now store the data.
-                                    guard let strongSelf = self else { return }
-                                    let vals = strongSelf.toDictionary(vals: entry)
-                                    vals["url"]  = metadata?.downloadURL()!.absoluteString
-                                    strongSelf.saveEntryToFireBase(key: entry.key, ref: strongSelf.ref, vals: vals)
-                                    
-                            }
-                        }
-                    }
-                    
-                } catch {
-                    print("oops that wasn't good now")
-                }
-            }
+            self.saveAudio(entry: entry)
         }
         
     }
@@ -492,7 +517,7 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
             newChild?.setValue(vals)
         }
     }
-
+    
     func toDictionary(vals: JournalEntry) -> NSMutableDictionary {
         
         return [
@@ -505,4 +530,5 @@ class JournalTableViewController: UITableViewController, UIImagePickerController
         ]
         
     }
+    
 }

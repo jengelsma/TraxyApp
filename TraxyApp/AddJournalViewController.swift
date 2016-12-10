@@ -10,13 +10,13 @@ import UIKit
 import Eureka
 import GooglePlacePicker
 
-protocol AddJournalDelegate {
+protocol AddJournalDelegate : class {
     func save(journal: Journal)
 }
 
 class AddJournalViewController: FormViewController {
 
-    var delegate : AddJournalDelegate?
+    weak var delegate : AddJournalDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

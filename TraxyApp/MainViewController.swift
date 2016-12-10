@@ -70,7 +70,8 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     fileprivate func registerForFireBaseUpdates()
     {
         
-        self.ref!.child(self.userId!).observe(.value, with: { snapshot in
+        self.ref!.child(self.userId!).observe(.value, with: { [weak self] snapshot in
+            guard let strongSelf = self else { return }
             
             if let postDict = snapshot.value as? [String : AnyObject] {
                 var tmpItems = [Journal]()
@@ -111,8 +112,8 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     tmpItems.append(Journal(key: key, name: name, location: location, startDate: startDateStr?.dateFromISO8601, endDate: endDateStr?.dateFromISO8601, lat: lat, lng: lng, placeId: placeId, coverPhotoUrl: coverPhotoUrl))
                     
                 }
-                self.journals = tmpItems
-                self.sortIntoSections(journals: self.journals!)
+                strongSelf.journals = tmpItems
+                strongSelf.sortIntoSections(journals: strongSelf.journals!)
             }
         })
         
