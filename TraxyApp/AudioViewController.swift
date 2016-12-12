@@ -41,7 +41,7 @@ class AudioViewController: UIViewController {
         self.playButton.isEnabled = false
         self.setSessionPlayback()
         if self.entry == nil  {
-            self.entry = JournalEntry(key: nil, type: .audio, caption: "", url: nil, date: Date(), lat: 0.0, lng: 0.0)
+            self.entry = JournalEntry(key: nil, type: .audio, caption: "", url: nil, thumbnailUrl: "", date: Date(), lat: 0.0, lng: 0.0)
         }
         
         self.saveButton.isEnabled = false

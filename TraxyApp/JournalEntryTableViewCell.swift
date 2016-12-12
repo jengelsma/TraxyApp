@@ -11,6 +11,7 @@ import UIKit
 class JournalEntryTableViewCell: UITableViewCell {
 
     @IBOutlet weak var containingView: UIView!
+    @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var textData : UILabel!
     @IBOutlet weak var imageButton: UIButton!

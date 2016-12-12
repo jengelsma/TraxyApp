@@ -16,6 +16,7 @@ import FirebaseStorage
 import Firebase
 import AssetsLibrary
 import Kingfisher
+import Photos
 
 class JournalTableViewController: UITableViewController, UINavigationControllerDelegate {
 
@@ -91,13 +92,19 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
                     let key = val.0
                     let caption : String? = entry["caption"] as! String?
                     let url : String? = entry["url"] as! String?
+                    var thumbnailUrl : String? = entry["thumbnailUrl"] as? String
+                    if thumbnailUrl == nil {
+                        thumbnailUrl = ""
+                    } else {
+                        print(thumbnailUrl!)
+                    }
                     let dateStr  = entry["date"] as! String?
                     let lat = entry["lat"] as! Double?
                     let lng = entry["lng"] as! Double?
                     let typeRaw = entry["type"] as! Int?
                     let type = EntryType(rawValue: typeRaw!)
                     
-                    tmpItems.append(JournalEntry(key: key, type: type, caption: caption, url: url, date: dateStr?.dateFromISO8601, lat: lat, lng: lng))
+                    tmpItems.append(JournalEntry(key: key, type: type, caption: caption, url: url, thumbnailUrl: thumbnailUrl!, date: dateStr?.dateFromISO8601, lat: lat, lng: lng))
                 }
                 strongSelf.entries = tmpItems
                 strongSelf.tableView.reloadData()
@@ -122,16 +129,22 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
             switch(entry.type!) {
             case .photo:
                 self.performSegue(withIdentifier: "viewPhoto", sender: self)
+            case.video:
+                self.showContentOfUrlWithAVPlayer(url: entry.url!)
             case .audio:
-                let audioUrl = URL(string: entry.url!)
-                let player = AVPlayer(url: audioUrl!)
-                let playerViewController = AVPlayerViewController()
-                playerViewController.player = player
-                self.present(playerViewController, animated: true) {
-                    playerViewController.player!.play()
-                }
+                self.showContentOfUrlWithAVPlayer(url: entry.url!)
             default: break
             }
+        }
+    }
+    
+    func showContentOfUrlWithAVPlayer(url : String) {
+        let mediaUrl = URL(string: url)
+        let player = AVPlayer(url: mediaUrl!)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        self.present(playerViewController, animated: true) {
+            playerViewController.player!.play()
         }
     }
     
@@ -315,7 +328,9 @@ extension JournalTableViewController  {
         }
         
         cell.setValues(entry: entry)
-        
+        if let iv = cell.thumbnailImage {
+            iv.image = UIImage(named: "landscape")
+        }
         switch(entry.type!) {
         case .photo:
             if let imageURL = entry.url {
@@ -323,6 +338,13 @@ extension JournalTableViewController  {
                 cell.thumbnailImage.kf.indicatorType = .activity
                 cell.thumbnailImage.kf.setImage(with: url)
             }
+            cell.playButton.isHidden = true
+        case .video:
+                let url = URL(string: entry.thumbnailUrl)
+                cell.thumbnailImage.kf.indicatorType = .activity
+                cell.thumbnailImage.kf.setImage(with: url)
+                cell.playButton.isHidden = false
+                cell.playButton.tag = indexPath.row
         default: break
         }
         
@@ -353,11 +375,25 @@ extension JournalTableViewController : UIImagePickerControllerDelegate {
                 let isVideoCompatible = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum((self.captureVideoUrl?.absoluteString)!)
                 print("bool: \(isVideoCompatible)") // This logs out "bool: false"
                 
-                let library = ALAssetsLibrary()
+//                let lib = PHPhotoLibrary.shared()
+//                var placeHolderAsset : PHObjectPlaceholder? = nil
+//                lib.performChanges({ 
+//                    let newRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self.captureVideoUrl!)
+//                    newRequest?.creationDate = Date()
+//                    placeHolderAsset = newRequest?.placeholderForCreatedAsset
+//                }, completionHandler: { (success, error) in
+//                    if success {
+//                        print("success")
+//                    } else {
+//                        print("Not good")
+//                    }
+//                })
                 
-                library.writeVideoAtPath(toSavedPhotosAlbum: self.captureVideoUrl, completionBlock: { (url, error) -> Void in
-                    self.captureVideoUrl = url
-                })
+//                let library = ALAssetsLibrary()
+//                
+//                library.writeVideoAtPath(toSavedPhotosAlbum: self.captureVideoUrl, completionBlock: { (url, error) -> Void in
+//                    self.captureVideoUrl = url
+//                })
             } else {
                 print("got image")
                 self.capturedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
@@ -371,23 +407,40 @@ extension JournalTableViewController : UIImagePickerControllerDelegate {
     }
     
     
-    
     func thumbnailForVideoAtURL(url: URL) -> UIImage? {
-        
-        let asset = AVAsset(url: url as URL)
-        let assetImageGenerator = AVAssetImageGenerator(asset: asset)
-        
+        let asset = AVURLAsset(url: url)
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
         var time = asset.duration
         time.value = min(time.value, 2)
         
         do {
-            let imageRef = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
+            let imageRef = try generator.copyCGImage(at: time, actualTime: nil)
             return UIImage(cgImage: imageRef)
         } catch {
             print("error")
             return nil
         }
+
+        
     }
+//    
+//    func thumbnailForVideoAtURL(url: URL) -> UIImage? {
+//        
+//        let asset = AVAsset(url: url as URL)
+//        let assetImageGenerator = AVAssetImageGenerator(asset: asset)
+//        
+//        var time = asset.duration
+//        time.value = min(time.value, 2)
+//        
+//        do {
+//            let imageRef = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
+//            return UIImage(cgImage: imageRef)
+//        } catch {
+//            print("error")
+//            return nil
+//        }
+//    }
 }
 
 
@@ -487,6 +540,68 @@ extension JournalTableViewController : AddJournalEntryDelegate {
         }
     }
     
+    func saveVideo(entry: JournalEntry) {
+        if let key = entry.key {
+            let vals = self.toDictionary(vals: entry)
+            self.saveEntryToFireBase(key: key, ref: self.ref, vals: vals)
+        } else {
+            do {
+                if let url = self.captureVideoUrl {
+                    let videoData = try Data(contentsOf: url)
+                    print("got data")
+                    let videoPath = "\(self.userId!)/video/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).mp4"
+                    let metadata = FIRStorageMetadata()
+                    metadata.contentType = "video/mp4"
+                    if let sr = self.storageRef {
+                        sr.child(videoPath)
+                            .put(videoData, metadata: metadata) { [weak self] (metadata, error) in
+                                if let error = error {
+                                    print("Error uploading: \(error)")
+                                    return
+                                }
+                                
+                                // having uploaded the image, now store the data.
+                                guard let strongSelf = self else { return }
+                                let vals = strongSelf.toDictionary(vals: entry)
+                                vals["url"]  = metadata?.downloadURL()!.absoluteString
+                                
+                                // now save thumbnail image.
+                                if let image = strongSelf.capturedImage {
+                                    let imageData = UIImageJPEGRepresentation(image, 0.8)
+                                    let imagePath = "\(strongSelf.userId!)/photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+                                    let metadata = FIRStorageMetadata()
+                                    metadata.contentType = "image/jpeg"
+                                    if let sr = strongSelf.storageRef {
+                                        sr.child(imagePath)
+                                            .put(imageData!, metadata: metadata) { [weak self] (metadata, error) in
+                                                if let error = error {
+                                                    print("Error uploading: \(error)")
+                                                    return
+                                                }
+                                                
+                                                // having uploaded the image, now store the data.
+                                                guard let strongSelf = self else { return }
+                                                vals["thumbnailUrl"] = metadata?.downloadURL()!.absoluteString
+                                                strongSelf.saveEntryToFireBase(key: entry.key, ref: strongSelf.ref, vals: vals)
+                                            
+                                        }
+                                    }
+                                }
+
+                                
+                                //strongSelf.saveEntryToFireBase(key: entry.key, ref: strongSelf.ref, vals: vals)
+                        }
+                    }
+                }
+                
+            } catch {
+                print("oops that wasn't good now")
+            }
+        }
+    }
+
+    
+    
     func save(entry: JournalEntry, isCover: Bool) {
         
         switch(entry.type!) {
@@ -494,10 +609,11 @@ extension JournalTableViewController : AddJournalEntryDelegate {
             self.savePhoto(entry: entry, isCover: isCover)
         case .video:
             print("video")
-            let vals = self.toDictionary(vals: entry)
-            vals["url"]  = self.captureVideoUrl?.absoluteString
-            let newChild = self.ref?.child("entries").childByAutoId()
-            newChild?.setValue(vals)
+//            let vals = self.toDictionary(vals: entry)
+//            vals["url"]  = self.captureVideoUrl?.absoluteString
+//            let newChild = self.ref?.child("entries").childByAutoId()
+//            newChild?.setValue(vals)
+            self.saveVideo(entry: entry)
         case .text:
             let vals = self.toDictionary(vals: entry)
             vals["url"]  = ""
@@ -526,7 +642,8 @@ extension JournalTableViewController : AddJournalEntryDelegate {
             "lng": vals.lng! as NSNumber,
             "date" : NSString(string: (vals.date?.iso8601)!) ,
             "type" : NSNumber(value: vals.type!.rawValue),
-            "url" : vals.url! as NSString
+            "url" : vals.url! as NSString,
+            "thumbnailUrl" : vals.thumbnailUrl as NSString
         ]
         
     }

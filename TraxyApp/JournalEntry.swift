@@ -20,11 +20,12 @@ struct JournalEntry {
     var type: EntryType?
     var caption : String?
     var url : String?
+    var thumbnailUrl : String
     var date : Date?
     var lat : Double?
     var lng : Double?
     
-    init(key: String?, type: EntryType?, caption: String?, url: String?, date: Date?, lat: Double?, lng: Double?)
+    init(key: String?, type: EntryType?, caption: String?, url: String?, thumbnailUrl: String, date: Date?, lat: Double?, lng: Double?)
     {
         self.key = key
         self.type = type
@@ -38,5 +39,6 @@ struct JournalEntry {
         } else {
             self.url = ""
         }
+        self.thumbnailUrl = thumbnailUrl
     }
 }

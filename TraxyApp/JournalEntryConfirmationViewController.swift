@@ -71,7 +71,7 @@ class JournalEntryConfirmationViewController: FormViewController {
             caption = e.caption!
             date = e.date!
         } else {
-            self.entry = JournalEntry(key: nil, type: self.type, caption: caption, url: nil, date: date, lat: 0.0, lng: 0.0)
+            self.entry = JournalEntry(key: nil, type: self.type, caption: caption, url: nil, thumbnailUrl: "", date: date, lat: 0.0, lng: 0.0)
         }
         
         form = Section() {

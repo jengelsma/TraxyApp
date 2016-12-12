@@ -149,7 +149,7 @@
                                         <rect key="frame" x="0.0" y="82" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u3x-OV-1LG" id="s1t-B1-tqE">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="199.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="Fp5-EV-8VC">
@@ -450,7 +450,7 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="HTS-RI-r7h" detailTextLabel="z4s-4d-zDa" style="IBUITableViewCellStyleSubtitle" id="FEa-S8-wje">
-                                <rect key="frame" x="0.0" y="55" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FEa-S8-wje" id="MYN-KQ-gWM">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -474,7 +474,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="249" id="aiK-7d-dYd" customClass="JournalEntryPhotoTableViewCell" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="99" width="414" height="249"/>
+                                <rect key="frame" x="0.0" y="99.333333333333343" width="414" height="249"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aiK-7d-dYd" id="wLb-yP-4ur">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="249"/>
@@ -525,11 +525,23 @@
                                                         <action selector="editButtonPressed:" destination="IEt-M0-lHH" eventType="touchUpInside" id="MEX-pH-KUC"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYb-nQ-bZg">
+                                                    <rect key="frame" x="159" y="21" width="80" height="79"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="Bsk-66-a3T"/>
+                                                        <constraint firstAttribute="height" constant="79" id="F81-5H-Pd2"/>
+                                                    </constraints>
+                                                    <state key="normal" image="playVideo"/>
+                                                    <connections>
+                                                        <action selector="imageButtonPressed:" destination="IEt-M0-lHH" eventType="touchUpInside" id="kla-jk-603"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="poj-0G-5M5" secondAttribute="trailing" id="1Dn-FS-aei"/>
                                                 <constraint firstAttribute="bottom" secondItem="HYd-d8-cz8" secondAttribute="bottom" constant="8" id="6F0-VE-tbf"/>
+                                                <constraint firstItem="PYb-nQ-bZg" firstAttribute="centerX" secondItem="asq-AE-PiA" secondAttribute="centerX" id="9lp-tB-9OX"/>
                                                 <constraint firstAttribute="bottom" secondItem="23w-DL-dty" secondAttribute="bottom" constant="2" id="Ehb-AE-d0w"/>
                                                 <constraint firstItem="HYd-d8-cz8" firstAttribute="leading" secondItem="asq-AE-PiA" secondAttribute="leading" constant="8" id="Fh7-7U-CSX"/>
                                                 <constraint firstItem="poj-0G-5M5" firstAttribute="leading" secondItem="asq-AE-PiA" secondAttribute="leading" id="IbS-Sy-GdD"/>
@@ -537,6 +549,7 @@
                                                 <constraint firstItem="poj-0G-5M5" firstAttribute="top" secondItem="asq-AE-PiA" secondAttribute="top" id="KZP-D9-Bvz"/>
                                                 <constraint firstItem="cz8-AR-fQw" firstAttribute="leading" secondItem="asq-AE-PiA" secondAttribute="leading" id="UZr-wl-pyj"/>
                                                 <constraint firstAttribute="bottom" secondItem="hDo-ii-v2B" secondAttribute="bottom" constant="37" id="g1K-yg-awQ"/>
+                                                <constraint firstItem="PYb-nQ-bZg" firstAttribute="top" secondItem="poj-0G-5M5" secondAttribute="bottom" constant="-99" id="lh5-Ey-ZD1"/>
                                                 <constraint firstItem="23w-DL-dty" firstAttribute="leading" secondItem="HYd-d8-cz8" secondAttribute="trailing" constant="8" id="n2P-Qj-UfC"/>
                                                 <constraint firstAttribute="trailing" secondItem="hDo-ii-v2B" secondAttribute="trailing" constant="8" id="nOu-BW-yzr"/>
                                                 <constraint firstItem="hDo-ii-v2B" firstAttribute="top" secondItem="poj-0G-5M5" secondAttribute="bottom" id="qwx-ce-0TM"/>
@@ -559,12 +572,13 @@
                                     <outlet property="date" destination="HYd-d8-cz8" id="5DP-k7-LeB"/>
                                     <outlet property="editButton" destination="23w-DL-dty" id="oee-1p-rHR"/>
                                     <outlet property="imageButton" destination="poj-0G-5M5" id="tNs-Ru-fWo"/>
+                                    <outlet property="playButton" destination="PYb-nQ-bZg" id="cDy-G2-FnC"/>
                                     <outlet property="textData" destination="hDo-ii-v2B" id="UQP-Gz-pX0"/>
                                     <outlet property="thumbnailImage" destination="cz8-AR-fQw" id="kmb-TC-rsl"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextCell" rowHeight="150" id="c30-U9-knm" customClass="JournalEntryTextTableViewCell" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="348" width="414" height="150"/>
+                                <rect key="frame" x="0.0" y="348.33333333333337" width="414" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c30-U9-knm" id="9EL-I5-cic">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
@@ -631,7 +645,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioCell" rowHeight="200" id="vzG-WJ-xCK" customClass="JournalEntryTableViewCell" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="498" width="414" height="200"/>
+                                <rect key="frame" x="0.0" y="498.33333333333337" width="414" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vzG-WJ-xCK" id="NDs-SD-nsa">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
@@ -667,12 +681,12 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WQo-pa-3Oe">
-                                                    <rect key="frame" x="165.66666666666666" y="8" width="66" height="59"/>
+                                                    <rect key="frame" x="169.66666666666666" y="8" width="58" height="59"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="59" id="AmE-Np-q2E"/>
-                                                        <constraint firstAttribute="width" constant="66" id="GNR-Me-xDX"/>
+                                                        <constraint firstAttribute="width" constant="58" id="GNR-Me-xDX"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="play"/>
+                                                    <state key="normal" title="Button" image="playVideo"/>
                                                     <connections>
                                                         <action selector="imageButtonPressed:" destination="IEt-M0-lHH" eventType="touchUpInside" id="q1o-RG-qko"/>
                                                     </connections>
@@ -731,7 +745,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XSr-k7-WEc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3056.8000000000002" y="9.4452773613193415"/>
+            <point key="canvasLocation" x="3056.521739130435" y="8.9673913043478262"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="Kps-Rc-blm">
@@ -847,6 +861,10 @@
         <scene sceneID="JeQ-re-WeY">
             <objects>
                 <viewController id="FDz-04-ML4" customClass="JournalEntryConfirmationViewController" customModule="TraxyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RTZ-lT-ceb"/>
+                        <viewControllerLayoutGuide type="bottom" id="jf8-Cf-wbK"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HYs-gy-EIg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="509"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -862,6 +880,7 @@
         <image name="landscape" width="600" height="420"/>
         <image name="logo" width="150" height="150"/>
         <image name="play" width="62" height="59"/>
+        <image name="playVideo" width="301" height="300"/>
         <image name="record" width="96" height="91"/>
     </resources>
     <inferredMetricsTieBreakers>
