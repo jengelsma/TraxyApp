@@ -218,7 +218,7 @@ class AudioViewController: UIViewController {
         let session:AVAudioSession = AVAudioSession.sharedInstance()
         if (session.responds(to: #selector(AVAudioSession.requestRecordPermission(_:)))) {
             AVAudioSession.sharedInstance().requestRecordPermission({(granted: Bool)-> Void in                
-                DispatchQueue.main.sync {
+                DispatchQueue.main.async {
                     if granted {
                         self.setSessionPlayAndRecord()
                         if setup {

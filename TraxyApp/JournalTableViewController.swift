@@ -139,6 +139,7 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
     }
     
     func showContentOfUrlWithAVPlayer(url : String) {
+        if url == "" { return} 
         let mediaUrl = URL(string: url)
         let player = AVPlayer(url: mediaUrl!)
         let playerViewController = AVPlayerViewController()
@@ -222,7 +223,7 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
             // Prompting user for the permission to use the camera.
             AVCaptureDevice.requestAccess(forMediaType: cameraMediaType) { granted in
                 if granted {
-                    DispatchQueue.main.sync {
+                    DispatchQueue.main.async {
                         self.displayImagePicker()
                     }
                 } else {
@@ -371,38 +372,12 @@ extension JournalTableViewController : UIImagePickerControllerDelegate {
                 self.capturedImage = self.thumbnailForVideoAtURL(url: info[UIImagePickerControllerMediaURL] as! URL)
                 self.captureVideoUrl = info[UIImagePickerControllerMediaURL] as? URL
                 self.captureType = .video
-                
-                let isVideoCompatible = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum((self.captureVideoUrl?.absoluteString)!)
-                print("bool: \(isVideoCompatible)") // This logs out "bool: false"
-                
-//                let lib = PHPhotoLibrary.shared()
-//                var placeHolderAsset : PHObjectPlaceholder? = nil
-//                lib.performChanges({ 
-//                    let newRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self.captureVideoUrl!)
-//                    newRequest?.creationDate = Date()
-//                    placeHolderAsset = newRequest?.placeholderForCreatedAsset
-//                }, completionHandler: { (success, error) in
-//                    if success {
-//                        print("success")
-//                    } else {
-//                        print("Not good")
-//                    }
-//                })
-                
-//                let library = ALAssetsLibrary()
-//                
-//                library.writeVideoAtPath(toSavedPhotosAlbum: self.captureVideoUrl, completionBlock: { (url, error) -> Void in
-//                    self.captureVideoUrl = url
-//                })
             } else {
                 print("got image")
                 self.capturedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
                 self.captureType = .photo
             }
         }
-        
-        
-        
         self.performSegue(withIdentifier: "confirmSegue", sender: self)
     }
     
@@ -421,26 +396,8 @@ extension JournalTableViewController : UIImagePickerControllerDelegate {
             print("error")
             return nil
         }
-
-        
     }
-//    
-//    func thumbnailForVideoAtURL(url: URL) -> UIImage? {
-//        
-//        let asset = AVAsset(url: url as URL)
-//        let assetImageGenerator = AVAssetImageGenerator(asset: asset)
-//        
-//        var time = asset.duration
-//        time.value = min(time.value, 2)
-//        
-//        do {
-//            let imageRef = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
-//            return UIImage(cgImage: imageRef)
-//        } catch {
-//            print("error")
-//            return nil
-//        }
-//    }
+
 }
 
 
@@ -470,136 +427,133 @@ extension JournalTableViewController : AddJournalEntryDelegate {
                 }
             }
             let vals = self.toDictionary(vals: entry)
-            self.saveEntryToFireBase(key: key, ref: self.ref, vals: vals)
+            _ = self.saveEntryToFireBase(key: key, ref: self.ref, vals: vals)
         } else {
-            if let image = self.capturedImage {
-                let imageData = UIImageJPEGRepresentation(image, 0.8)
-                let imagePath = "\(self.userId!)/photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+            
+            let vals = self.toDictionary(vals: entry)
+            let entryRef = self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
+        
+            self.saveImageToFirebase(imageToSave: self.capturedImage, saveRefClosure: { (downloadUrl) in
+                
+                // store the image URL
+                let vals = [
+                    "url" : downloadUrl as NSString
+                ]
+                entryRef?.updateChildValues(vals)
+            })
+        }
+    }
+    
+    func saveAudio(entry: JournalEntry) {
+        
+        let vals = self.toDictionary(vals: entry)
+        let entryRef = self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
+        
+        // if we have a nil key, then this is a new entry and we have an audio file to save.
+        if entry.key == nil {
+            
+            self.saveMediaFileToFirebase(entry: entry, saveRefClosure: { (downloadUrl) in
+                
+                // having uploaded the audio data, now store its URL.
+                let vals = [
+                    "url" : downloadUrl as NSString
+                ]
+                entryRef?.updateChildValues(vals)
+            })
+        }
+    }
+    
+    func saveVideo(entry: JournalEntry) {
+        
+        let vals = self.toDictionary(vals: entry)
+        let entryRef = self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
+        
+        // if we have a nil key, then this is a new entry and we have an video file to save.
+        // as well as a thmbnai image.
+        if entry.key == nil {
+            
+            // save captured video
+            if let url = self.captureVideoUrl {
+                var newEntry = entry
+                newEntry.url = url.absoluteString
+                self.saveMediaFileToFirebase(entry: newEntry, saveRefClosure: { (downloadUrl) in
+                    
+                    // record the URL of the video
+                    let vals = [
+                        "url" : downloadUrl as NSString
+                    ]
+                    print("Updating URL video: \(downloadUrl)")
+                    entryRef?.updateChildValues(vals)
+
+                })
+            }
+            
+            // save video's thumbnail image
+            self.saveImageToFirebase(imageToSave: self.capturedImage, saveRefClosure: { (downloadUrl) in
+                
+                // record the URL of the thumbnail
+                let vals = [
+                    "thumbnailUrl" : downloadUrl as NSString
+                ]
+                print("Updating thumbnail URL : \(downloadUrl)")
+                entryRef?.updateChildValues(vals)
+            })
+        }
+    }
+    
+    func saveMediaFileToFirebase(entry: JournalEntry, saveRefClosure: @escaping (String) -> () ) {
+        
+        let type : String = entry.type! == .audio ? "audio" : "video"
+        let ext : String = entry.type! == .audio ? "m4a" : "mp4"
+        let mime : String = entry.type! == .audio ? "audio/mp4" : "video/mp4"
+        
+        do {
+            if let urlStr = entry.url {
+                let url = URL(string: urlStr)
+                let media = try Data(contentsOf: url!)
+                print("got data")
+                let mediaPath = "\(self.userId!)/\(type)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).\(ext)"
                 let metadata = FIRStorageMetadata()
-                metadata.contentType = "image/jpeg"
+                metadata.contentType = mime
                 if let sr = self.storageRef {
-                    sr.child(imagePath)
-                        .put(imageData!, metadata: metadata) { [weak self] (metadata, error) in
+                    sr.child(mediaPath)
+                        .put(media, metadata: metadata) {(metadata, error) in
                             if let error = error {
                                 print("Error uploading: \(error)")
                                 return
                             }
                             
-                            // having uploaded the image, now store the data.
-                            guard let strongSelf = self else { return }
+                            saveRefClosure((metadata?.downloadURL()!.absoluteString)!)
                             
-                            var newEntry = entry
-                            newEntry.url = metadata?.downloadURL()?.absoluteString
-                            let vals = strongSelf.toDictionary(vals: newEntry)
-                            
-                            strongSelf.saveEntryToFireBase(key: entry.key, ref: strongSelf.ref, vals: vals)
-                            if isCover {
-                                strongSelf.journal.coverPhotoUrl = metadata?.downloadURL()?.absoluteString
-                                strongSelf.updateJournalCoverPhoto(coverPhotoUrl:strongSelf.journal.coverPhotoUrl)
-                            }
                     }
                 }
             }
+        } catch {
+            print("oops that wasn't good now")
         }
     }
     
-    func saveAudio(entry: JournalEntry) {
-        if let key = entry.key {
-            let vals = self.toDictionary(vals: entry)
-            self.saveEntryToFireBase(key: key, ref: self.ref, vals: vals)
-        } else {
-            do {
-                if let urlStr = entry.url {
-                    let url = URL(string: urlStr)
-                    let audioData = try Data(contentsOf: url!)
-                    print("got data")
-                    let audioPath = "\(self.userId!)/audio/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).m4a"
-                    let metadata = FIRStorageMetadata()
-                    metadata.contentType = "audio/mp4"
-                    if let sr = self.storageRef {
-                        sr.child(audioPath)
-                            .put(audioData, metadata: metadata) { [weak self] (metadata, error) in
-                                if let error = error {
-                                    print("Error uploading: \(error)")
-                                    return
-                                }
-                                
-                                // having uploaded the image, now store the data.
-                                guard let strongSelf = self else { return }
-                                let vals = strongSelf.toDictionary(vals: entry)
-                                vals["url"]  = metadata?.downloadURL()!.absoluteString
-                                strongSelf.saveEntryToFireBase(key: entry.key, ref: strongSelf.ref, vals: vals)
-                                
+    func saveImageToFirebase(imageToSave : UIImage?, saveRefClosure: @escaping (String) -> ())
+    {
+        if let image = imageToSave {
+            let imageData = UIImageJPEGRepresentation(image, 0.8)
+            let imagePath = "\(self.userId!)/photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+            let metadata = FIRStorageMetadata()
+            metadata.contentType = "image/jpeg"
+            if let sr = self.storageRef {
+                sr.child(imagePath)
+                    .put(imageData!, metadata: metadata) { (metadata, error) in
+                        if let error = error {
+                            print("Error uploading: \(error)")
+                            return
                         }
-                    }
+                        
+                        let downloadUrl = metadata?.downloadURL()!.absoluteString
+                        saveRefClosure(downloadUrl!)
                 }
-                
-            } catch {
-                print("oops that wasn't good now")
             }
         }
     }
-    
-    func saveVideo(entry: JournalEntry) {
-        if let key = entry.key {
-            let vals = self.toDictionary(vals: entry)
-            self.saveEntryToFireBase(key: key, ref: self.ref, vals: vals)
-        } else {
-            do {
-                if let url = self.captureVideoUrl {
-                    let videoData = try Data(contentsOf: url)
-                    print("got data")
-                    let videoPath = "\(self.userId!)/video/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).mp4"
-                    let metadata = FIRStorageMetadata()
-                    metadata.contentType = "video/mp4"
-                    if let sr = self.storageRef {
-                        sr.child(videoPath)
-                            .put(videoData, metadata: metadata) { [weak self] (metadata, error) in
-                                if let error = error {
-                                    print("Error uploading: \(error)")
-                                    return
-                                }
-                                
-                                // having uploaded the image, now store the data.
-                                guard let strongSelf = self else { return }
-                                let vals = strongSelf.toDictionary(vals: entry)
-                                vals["url"]  = metadata?.downloadURL()!.absoluteString
-                                
-                                // now save thumbnail image.
-                                if let image = strongSelf.capturedImage {
-                                    let imageData = UIImageJPEGRepresentation(image, 0.8)
-                                    let imagePath = "\(strongSelf.userId!)/photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
-                                    let metadata = FIRStorageMetadata()
-                                    metadata.contentType = "image/jpeg"
-                                    if let sr = strongSelf.storageRef {
-                                        sr.child(imagePath)
-                                            .put(imageData!, metadata: metadata) { [weak self] (metadata, error) in
-                                                if let error = error {
-                                                    print("Error uploading: \(error)")
-                                                    return
-                                                }
-                                                
-                                                // having uploaded the image, now store the data.
-                                                guard let strongSelf = self else { return }
-                                                vals["thumbnailUrl"] = metadata?.downloadURL()!.absoluteString
-                                                strongSelf.saveEntryToFireBase(key: entry.key, ref: strongSelf.ref, vals: vals)
-                                            
-                                        }
-                                    }
-                                }
-
-                                
-                                //strongSelf.saveEntryToFireBase(key: entry.key, ref: strongSelf.ref, vals: vals)
-                        }
-                    }
-                }
-                
-            } catch {
-                print("oops that wasn't good now")
-            }
-        }
-    }
-
     
     
     func save(entry: JournalEntry, isCover: Bool) {
@@ -609,29 +563,27 @@ extension JournalTableViewController : AddJournalEntryDelegate {
             self.savePhoto(entry: entry, isCover: isCover)
         case .video:
             print("video")
-//            let vals = self.toDictionary(vals: entry)
-//            vals["url"]  = self.captureVideoUrl?.absoluteString
-//            let newChild = self.ref?.child("entries").childByAutoId()
-//            newChild?.setValue(vals)
             self.saveVideo(entry: entry)
         case .text:
             let vals = self.toDictionary(vals: entry)
             vals["url"]  = ""
-            self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
+            _ = self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
         case .audio:
             self.saveAudio(entry: entry)
         }
         
     }
     
-    func saveEntryToFireBase(key: String?, ref : FIRDatabaseReference?, vals: NSMutableDictionary) {
+    func saveEntryToFireBase(key: String?, ref : FIRDatabaseReference?, vals: NSMutableDictionary) -> FIRDatabaseReference? {
+        var child : FIRDatabaseReference?
         if let k = key {
-            let oldChild = ref?.child("entries").child(k)
-            oldChild?.setValue(vals)
+            child = ref?.child("entries").child(k)
+            child?.setValue(vals)
         } else {
-            let newChild = ref?.child("entries").childByAutoId()
-            newChild?.setValue(vals)
+            child = ref?.child("entries").childByAutoId()
+            child?.setValue(vals)
         }
+        return child
     }
     
     func toDictionary(vals: JournalEntry) -> NSMutableDictionary {
