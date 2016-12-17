@@ -52,7 +52,15 @@ class AudioViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.recording {
+            self.recorder.stop()
+        } else if self.playing {
+            self.player.stop()
+        }
+    }
     // MARK: - IBActions
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
@@ -112,7 +120,7 @@ class AudioViewController: UIViewController {
             self.playButton.setImage(self.playImage, for: .normal)
             self.recordButton.isEnabled = true
             self.playing = false
-            self.player.pause()
+            self.player.stop()
         } else {
             self.playButton.setImage(self.stopImage, for: .normal)
             self.recordButton.isEnabled = false
@@ -191,7 +199,6 @@ class AudioViewController: UIViewController {
             print("File \(audioFileUrl.absoluteString) already exists!")
         }
         
-        
         let recordSettings:[String : AnyObject] = [
             AVFormatIDKey:             NSNumber(value: kAudioFormatMPEG4AAC),
             AVEncoderAudioQualityKey : NSNumber(value:AVAudioQuality.max.rawValue),
@@ -199,7 +206,6 @@ class AudioViewController: UIViewController {
             AVNumberOfChannelsKey:     NSNumber(value:2),
             AVSampleRateKey :          NSNumber(value:44100.0)
         ]
-        
         
         do {
             recorder = try AVAudioRecorder(url: audioFileUrl, settings: recordSettings)
@@ -210,7 +216,6 @@ class AudioViewController: UIViewController {
             recorder = nil
             print(error.localizedDescription)
         }
-        
     }
 
     
