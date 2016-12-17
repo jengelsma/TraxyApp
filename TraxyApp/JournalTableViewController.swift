@@ -91,12 +91,13 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
                     print ("entry=\(entry)")
                     let key = val.0
                     let caption : String? = entry["caption"] as! String?
-                    let url : String? = entry["url"] as! String?
+                    var url : String? = entry["url"] as? String
+                    if url == nil {
+                        url = ""
+                    }
                     var thumbnailUrl : String? = entry["thumbnailUrl"] as? String
                     if thumbnailUrl == nil {
                         thumbnailUrl = ""
-                    } else {
-                        print(thumbnailUrl!)
                     }
                     let dateStr  = entry["date"] as! String?
                     let lat = entry["lat"] as! Double?
@@ -104,13 +105,13 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
                     let typeRaw = entry["type"] as! Int?
                     let type = EntryType(rawValue: typeRaw!)
                     
-                    tmpItems.append(JournalEntry(key: key, type: type, caption: caption, url: url, thumbnailUrl: thumbnailUrl!, date: dateStr?.dateFromISO8601, lat: lat, lng: lng))
+                    tmpItems.append(JournalEntry(key: key, type: type, caption: caption, url: url!, thumbnailUrl: thumbnailUrl!, date: dateStr?.dateFromISO8601, lat: lat, lng: lng))
                 }
                 strongSelf.entries = tmpItems
+                strongSelf.entries.sort {$0.date! > $1.date! }
                 strongSelf.tableView.reloadData()
             }
         })
-        
     }
     
     // MARK: - IBActions and helpers
@@ -130,9 +131,9 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
             case .photo:
                 self.performSegue(withIdentifier: "viewPhoto", sender: self)
             case.video:
-                self.showContentOfUrlWithAVPlayer(url: entry.url!)
+                self.showContentOfUrlWithAVPlayer(url: entry.url)
             case .audio:
-                self.showContentOfUrlWithAVPlayer(url: entry.url!)
+                self.showContentOfUrlWithAVPlayer(url: entry.url)
             default: break
             }
         }
@@ -184,15 +185,7 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
         alertController.addAction(addCameraAction)
         
         let selectCameraRollAction = UIAlertAction(title: "Select from Camera Roll", style: .default) { (action) in
-            let picker = UIImagePickerController()
-            picker.allowsEditing = false
-            picker.sourceType = .photoLibrary
-            picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
-            picker.modalPresentationStyle = .fullScreen
-            picker.delegate = self
-            self.present(picker, animated: true, completion: {
-                print("picture selected")
-            })
+            self.displayImagePicker(type: .photoLibrary)
         }
         alertController.addAction(selectCameraRollAction)
         
@@ -216,7 +209,7 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
         case .denied:
             self.displaySettingsAppAlert()
         case .authorized:
-            self.displayImagePicker()
+            self.displayImagePicker(type: .camera)
         case .restricted:
             self.displaySettingsAppAlert()
         case .notDetermined:
@@ -224,7 +217,7 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
             AVCaptureDevice.requestAccess(forMediaType: cameraMediaType) { granted in
                 if granted {
                     DispatchQueue.main.async {
-                        self.displayImagePicker()
+                        self.displayImagePicker(type: .camera)
                     }
                 } else {
                     print("Denied access to \(cameraMediaType)")
@@ -233,11 +226,11 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
         }
     }
     
-    func displayImagePicker()
+    func displayImagePicker(type: UIImagePickerControllerSourceType)
     {
         let picker = UIImagePickerController()
         picker.allowsEditing = false
-        picker.sourceType = .camera
+        picker.sourceType = type
         picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
         picker.modalPresentationStyle = .fullScreen
         picker.delegate = self
@@ -334,11 +327,9 @@ extension JournalTableViewController  {
         }
         switch(entry.type!) {
         case .photo:
-            if let imageURL = entry.url {
-                let url = URL(string: imageURL)
-                cell.thumbnailImage.kf.indicatorType = .activity
-                cell.thumbnailImage.kf.setImage(with: url)
-            }
+            let url = URL(string: entry.url)
+            cell.thumbnailImage.kf.indicatorType = .activity
+            cell.thumbnailImage.kf.setImage(with: url)
             cell.playButton.isHidden = true
         case .video:
                 let url = URL(string: entry.thumbnailUrl)
@@ -397,14 +388,29 @@ extension JournalTableViewController : UIImagePickerControllerDelegate {
             return nil
         }
     }
-
 }
-
-
 
 // MARK: - AddJournalEntryDelegate and helpers
 
 extension JournalTableViewController : AddJournalEntryDelegate {
+    
+    func save(entry: JournalEntry, isCover: Bool) {
+        
+        switch(entry.type!) {
+        case .photo:
+            self.savePhoto(entry: entry, isCover: isCover)
+        case .video:
+            print("video")
+            self.saveVideo(entry: entry)
+        case .text:
+            let vals = self.toDictionary(vals: entry)
+            vals["url"]  = ""
+            _ = self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
+        case .audio:
+            self.saveAudio(entry: entry)
+        }
+        
+    }
     
     func updateJournalCoverPhoto(coverPhotoUrl : String?)
     {
@@ -508,8 +514,9 @@ extension JournalTableViewController : AddJournalEntryDelegate {
         let mime : String = entry.type! == .audio ? "audio/mp4" : "video/mp4"
         
         do {
-            if let urlStr = entry.url {
-                let url = URL(string: urlStr)
+            
+            if  entry.url != ""  {
+                let url = URL(string: entry.url)
                 let media = try Data(contentsOf: url!)
                 print("got data")
                 let mediaPath = "\(self.userId!)/\(type)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).\(ext)"
@@ -524,7 +531,6 @@ extension JournalTableViewController : AddJournalEntryDelegate {
                             }
                             
                             saveRefClosure((metadata?.downloadURL()!.absoluteString)!)
-                            
                     }
                 }
             }
@@ -556,24 +562,6 @@ extension JournalTableViewController : AddJournalEntryDelegate {
     }
     
     
-    func save(entry: JournalEntry, isCover: Bool) {
-        
-        switch(entry.type!) {
-        case .photo:
-            self.savePhoto(entry: entry, isCover: isCover)
-        case .video:
-            print("video")
-            self.saveVideo(entry: entry)
-        case .text:
-            let vals = self.toDictionary(vals: entry)
-            vals["url"]  = ""
-            _ = self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
-        case .audio:
-            self.saveAudio(entry: entry)
-        }
-        
-    }
-    
     func saveEntryToFireBase(key: String?, ref : FIRDatabaseReference?, vals: NSMutableDictionary) -> FIRDatabaseReference? {
         var child : FIRDatabaseReference?
         if let k = key {
@@ -587,17 +575,15 @@ extension JournalTableViewController : AddJournalEntryDelegate {
     }
     
     func toDictionary(vals: JournalEntry) -> NSMutableDictionary {
-        
         return [
             "caption": vals.caption! as NSString,
             "lat": vals.lat! as NSNumber,
             "lng": vals.lng! as NSNumber,
             "date" : NSString(string: (vals.date?.iso8601)!) ,
             "type" : NSNumber(value: vals.type!.rawValue),
-            "url" : vals.url! as NSString,
+            "url" : vals.url as NSString,
             "thumbnailUrl" : vals.thumbnailUrl as NSString
         ]
-        
     }
     
 }

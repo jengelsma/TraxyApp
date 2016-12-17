@@ -473,7 +473,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="249" id="aiK-7d-dYd" customClass="JournalEntryPhotoTableViewCell" customModule="TraxyApp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="249" id="aiK-7d-dYd" customClass="JournalEntryTableViewCell" customModule="TraxyApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="99.333333333333343" width="414" height="249"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aiK-7d-dYd" id="wLb-yP-4ur">
@@ -577,7 +577,7 @@
                                     <outlet property="thumbnailImage" destination="cz8-AR-fQw" id="kmb-TC-rsl"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextCell" rowHeight="150" id="c30-U9-knm" customClass="JournalEntryTextTableViewCell" customModule="TraxyApp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextCell" rowHeight="150" id="c30-U9-knm" customClass="JournalEntryTableViewCell" customModule="TraxyApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="348.33333333333337" width="414" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c30-U9-knm" id="9EL-I5-cic">

@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Add photos/videos from your camera roll.</string>
+	<string>Add photos/videos to your journal from your camera roll.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Add video and audio entries to your journal. </string>
 	<key>NSCameraUsageDescription</key>
-	<string>Add photo entries to your journal. </string>
+	<string>Add photo and video entries to your journal. </string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>CFBundleDevelopmentRegion</key>
