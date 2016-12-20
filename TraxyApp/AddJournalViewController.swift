@@ -17,9 +17,12 @@ protocol AddJournalDelegate : class {
 class AddJournalViewController: FormViewController {
 
     weak var delegate : AddJournalDelegate?
+    var journal : Journal?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+
         
         let textRowValidationUpdate : (TextRow.Cell, TextRow) -> ()  = { cell, row in
             if !row.isValid {
@@ -92,7 +95,12 @@ class AddJournalViewController: FormViewController {
             }
             <<< DateRow(){ row in
                 row.title = "End Date"
-                row.value = Date(timeIntervalSinceNow: 86401)
+                if let j = self.journal {
+                    row.value = j.endDate
+                } else {
+                    row.value = Date(timeIntervalSinceNow: 86401) 
+                }
+
                 row.tag = "EndDateTag"
                 row.validationOptions = .validatesOnChange
                 var rules = RuleSet<Date>()
@@ -117,6 +125,9 @@ class AddJournalViewController: FormViewController {
         let saveButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(AddJournalViewController.savePressed))
         self.navigationItem.rightBarButtonItem = saveButton
         
+        if self.journal == nil {
+            self.journal = Journal()
+        }
 
     }
 
@@ -146,7 +157,12 @@ class AddJournalViewController: FormViewController {
             let startDate = startDateRow.value! as Date
             let endDate = endDateRow.value! as Date
             
-            self.delegate?.save(journal: Journal(name: title, location: location, startDate: startDate, endDate: endDate, lat: -1, lng: -1, placeId: ""))
+            self.journal?.name = title
+            self.journal?.location = location
+            self.journal?.startDate = startDate
+            self.journal?.endDate = endDate
+            
+            self.delegate?.save(journal: self.journal!)
            _ = self.navigationController?.popViewController(animated: true)
         }
     }
@@ -162,19 +178,19 @@ extension AddJournalViewController: GMSAutocompleteViewControllerDelegate {
     
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Place name: ", place.name)
-        print("PlaceId: ", place.placeID)
-        print("Place address: ", place.formattedAddress)
-        print("Place attributions: ", place.attributions)
-        //        self.fieldValues[0] = place.name
-        //        self.fieldValues[1] = place.formattedAddress!
-        //        self.loadFirstPhotoForPlace(placeID: place.placeID, imageView:self.coverPhoto)
-        //        self.place = place
-        //        self.tableView.reloadData()
+//        print("Place name: ", place.name)
+//        print("PlaceId: ", place.placeID)
+//        print("Place address: ", place.formattedAddress)
+//        print("Place attributions: ", place.attributions)
         
         let row: LabelRow? = form.rowBy(tag: "LocTag")
         row?.value = place.name
         row?.validate()
+        
+        self.journal?.placeId = place.placeID
+        self.journal?.lat = place.coordinate.latitude
+        self.journal?.lng = place.coordinate.longitude
+        
         self.dismiss(animated: true, completion: nil)
     }
     

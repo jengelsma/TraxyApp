@@ -43,5 +43,8 @@ struct Journal {
         self.init(key: nil, name: name, location: location, startDate: startDate, endDate: endDate, lat: lat, lng: lng, placeId: placeId, coverPhotoUrl: nil)
     }
     
+    init() {
+        self.init(key: nil, name: nil, location: nil, startDate: nil, endDate: nil, lat: nil, lng: nil, placeId: nil, coverPhotoUrl: nil)
+    }
     
 }

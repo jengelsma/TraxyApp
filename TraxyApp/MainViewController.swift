@@ -223,8 +223,8 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             "address": vals.location! as NSString,
             "startDate" : NSString(string: (vals.startDate?.iso8601)!) ,
             "endDate": NSString(string: (vals.endDate?.iso8601)!),
-            "lat" : NSNumber(value: 0.0),
-            "lng" : NSNumber(value: 0.0),
+            "lat" : NSNumber(value: vals.lat!),
+            "lng" : NSNumber(value: vals.lng!),
             "placeId" : vals.placeId! as NSString
         ]
         

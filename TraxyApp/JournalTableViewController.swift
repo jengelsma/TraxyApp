@@ -146,7 +146,7 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
             self.tableViewData?.append((sectionHeader: key, entries: val))
         }
         self.tableViewData?.sort {
-            $0.sectionHeader > $1.sectionHeader
+            $0.sectionHeader.dateFromShort! > $1.sectionHeader.dateFromShort!
         }
         self.tableView.reloadData()
         
@@ -346,7 +346,7 @@ extension JournalTableViewController  {
             
             headerCell.headerText?.text = self.tableViewData![section].sectionHeader
             headerCell.temperatureLabel.text = ""
-            self.weatherService.getWeatherForDate(date: date.addingTimeInterval(12*60*60), forLocation:  (43.076592, -85.992981), completion: { (weather) in
+            self.weatherService.getWeatherForDate(date: date.addingTimeInterval(12*60*60), forLocation:  (self.journal.lat!, self.journal.lng!), completion: { (weather) in
                 if let weather = weather {
                     DispatchQueue.main.async {
                         headerCell.temperatureLabel.text = "\(Int(weather.temperature))°"
