@@ -37,6 +37,9 @@
 		9EE39ED61DDD0BAF00F7180A /* TraxyLoginLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE39ED51DDD0BAF00F7180A /* TraxyLoginLabel.swift */; };
 		9EE39ED81DDD0C5C00F7180A /* TraxyLoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE39ED71DDD0C5C00F7180A /* TraxyLoginTextField.swift */; };
 		9EE39EDB1DDDF2D100F7180A /* TraxyMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE39EDA1DDDF2D100F7180A /* TraxyMainTableViewCell.swift */; };
+		9EFBF9FA1E08878600F6FD79 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFBF9F91E08878600F6FD79 /* WeatherService.swift */; };
+		9EFBF9FC1E0888A200F6FD79 /* DarkSkyWeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFBF9FB1E0888A200F6FD79 /* DarkSkyWeatherService.swift */; };
+		9EFBF9FE1E089CF100F6FD79 /* CustomJournalSectionHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFBF9FD1E089CF100F6FD79 /* CustomJournalSectionHeaderTableViewCell.swift */; };
 		AA7B197299AFE843346D11FA /* Pods_TraxyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EB50ED7D2073F08D9AE7A1 /* Pods_TraxyApp.framework */; };
 		E636FC13A77E8F35E8701750 /* Pods_TraxyAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B594B1F20AAD6D04D9407EBD /* Pods_TraxyAppUITests.framework */; };
 /* End PBXBuildFile section */
@@ -100,6 +103,9 @@
 		9EE39ED51DDD0BAF00F7180A /* TraxyLoginLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginLabel.swift; sourceTree = "<group>"; };
 		9EE39ED71DDD0C5C00F7180A /* TraxyLoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginTextField.swift; sourceTree = "<group>"; };
 		9EE39EDA1DDDF2D100F7180A /* TraxyMainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyMainTableViewCell.swift; sourceTree = "<group>"; };
+		9EFBF9F91E08878600F6FD79 /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		9EFBF9FB1E0888A200F6FD79 /* DarkSkyWeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkSkyWeatherService.swift; sourceTree = "<group>"; };
+		9EFBF9FD1E089CF100F6FD79 /* CustomJournalSectionHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomJournalSectionHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		B594B1F20AAD6D04D9407EBD /* Pods_TraxyAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TraxyAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF1E29C66ACAB0122BEB3EAA /* Pods-TraxyAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraxyAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TraxyAppTests/Pods-TraxyAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C61DEE7D658E37AC5C92F6E2 /* Pods-TraxyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraxyApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TraxyApp/Pods-TraxyApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -174,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				9EA5ECE71DF61BCC0085069A /* GoogleService-Info.plist */,
+				9EFBF9F71E08875B00F6FD79 /* Services */,
 				9EE39ED91DDD108200F7180A /* Utils */,
 				9ED5618B1DDCCDBB004EAC43 /* Models */,
 				9ED5618A1DDCCDAC004EAC43 /* Views */,
@@ -230,6 +237,7 @@
 				9EE39ED71DDD0C5C00F7180A /* TraxyLoginTextField.swift */,
 				9EE39EDA1DDDF2D100F7180A /* TraxyMainTableViewCell.swift */,
 				9EA5ECEB1DF6436D0085069A /* JournalEntryTableViewCell.swift */,
+				9EFBF9FD1E089CF100F6FD79 /* CustomJournalSectionHeaderTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -251,6 +259,23 @@
 				9EE2D0831DE4DB3600614160 /* APIKeys.swift */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		9EFBF9F71E08875B00F6FD79 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9EFBF9F81E08876900F6FD79 /* DarkSkyWeatherAPI */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		9EFBF9F81E08876900F6FD79 /* DarkSkyWeatherAPI */ = {
+			isa = PBXGroup;
+			children = (
+				9EFBF9F91E08878600F6FD79 /* WeatherService.swift */,
+				9EFBF9FB1E0888A200F6FD79 /* DarkSkyWeatherService.swift */,
+			);
+			name = DarkSkyWeatherAPI;
 			sourceTree = "<group>";
 		};
 		AD9F3DA24A36B930DEBDF60A /* Frameworks */ = {
@@ -552,10 +577,12 @@
 			files = (
 				9ED5618F1DDCCEFF004EAC43 /* JournalModel.swift in Sources */,
 				9EE39ED81DDD0C5C00F7180A /* TraxyLoginTextField.swift in Sources */,
+				9EFBF9FA1E08878600F6FD79 /* WeatherService.swift in Sources */,
 				9EE2D0841DE4DB3600614160 /* APIKeys.swift in Sources */,
 				9E2855201DD10DE500224A11 /* MainViewController.swift in Sources */,
 				9E2855241DD1136300224A11 /* UIViewcontroller+Validation.swift in Sources */,
 				9E6541161DCA358C009254CF /* LoginViewController.swift in Sources */,
+				9EFBF9FE1E089CF100F6FD79 /* CustomJournalSectionHeaderTableViewCell.swift in Sources */,
 				9EA7FF231DF1BDD0004A5E19 /* JournalEntry.swift in Sources */,
 				9EA7FF211DF0DC07004A5E19 /* JournalEntryConfirmationViewController.swift in Sources */,
 				9ED5618D1DDCCDF0004EAC43 /* Journal.swift in Sources */,
@@ -569,6 +596,7 @@
 				9E2F52DF1DF8B12D00FEA931 /* AudioViewController.swift in Sources */,
 				9EE2D0C61DE638E700614160 /* Date+ISO8601.swift in Sources */,
 				9EA5ECEC1DF6436D0085069A /* JournalEntryTableViewCell.swift in Sources */,
+				9EFBF9FC1E0888A200F6FD79 /* DarkSkyWeatherService.swift in Sources */,
 				9E6541141DCA358C009254CF /* AppDelegate.swift in Sources */,
 				9EA5ECEE1DF8526F0085069A /* PhotoViewController.swift in Sources */,
 			);

@@ -27,6 +27,13 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
     var journal: Journal!
     var entries : [JournalEntry] = []
     var entryToEdit : JournalEntry?
+    var tableViewData: [(sectionHeader: String, entries: [JournalEntry])]? {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    
+    var weatherService = DarkSkyWeatherService.getInstance()
     
     fileprivate var ref : FIRDatabaseReference?
     fileprivate var storageRef : FIRStorageReference?
@@ -40,6 +47,8 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 200
         self.clearsSelectionOnViewWillAppear = true
+        self.navigationItem.title = self.journal.name
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -109,18 +118,48 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
                 }
                 strongSelf.entries = tmpItems
                 strongSelf.entries.sort {$0.date! > $1.date! }
+                strongSelf.partitionIntoDailySections(entries: tmpItems)
                 strongSelf.tableView.reloadData()
             }
         })
+    }
+    
+    func partitionIntoDailySections(entries: [JournalEntry])
+    {
+        // We assume the model already provides them ascending date order.
+        var data : Dictionary<String,[JournalEntry]> = [:]
+        
+        for e in entries {
+            let date = e.date!
+            let dateStr = date.short
+            if var container = data[dateStr] {
+                container.append(e)
+                data[dateStr] = container
+            } else {
+                data[dateStr] = [e]
+            }
+
+        }
+
+        self.tableViewData = []
+        for (key, val) in data {
+            self.tableViewData?.append((sectionHeader: key, entries: val))
+        }
+        self.tableViewData?.sort {
+            $0.sectionHeader > $1.sectionHeader
+        }
+        self.tableView.reloadData()
+        
     }
     
     // MARK: - IBActions and helpers
     
     @IBAction func imageButtonPressed(_ sender: UIButton) {
 
-        let row = Int(sender.tag)
-        print("Row \(row) image button pressed.")
-        let indexPath = IndexPath(row: row, section: 0)
+        let section = Int(sender.tag / 10)
+        let row = Int(sender.tag % 10)
+        print("Row \(section),\(row) image button pressed.")
+        let indexPath = IndexPath(row: row, section: section)
         let cell = self.tableView.cellForRow(at: indexPath) as! JournalEntryTableViewCell
         if let tnImg = cell.thumbnailImage {
             self.capturedImage = tnImg.image
@@ -151,9 +190,10 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
     }
     
     @IBAction func editButtonPressed(_ sender: UIButton) {
-        let row = Int(sender.tag)
-        print("Row \(row) edit button pressed.")
-        let indexPath = IndexPath(row: row, section: 0)
+        let section = Int(sender.tag / 10)
+        let row = Int(sender.tag % 10)
+        print("Row \(section),\(row) image button pressed.")
+        let indexPath = IndexPath(row: row, section: section)
         let cell = self.tableView.cellForRow(at: indexPath) as! JournalEntryTableViewCell
         if let tnImg = cell.thumbnailImage {
             self.capturedImage = tnImg.image
@@ -287,36 +327,87 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
 extension JournalTableViewController  {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.journal.name
+        if let data = self.tableViewData {
+            return data[section].sectionHeader
+        } else {
+            return nil
+        }
+        
     }
     
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = tableView.dequeueReusableCell(withIdentifier: "CustomHeader") as! CustomJournalSectionHeaderTableViewCell
         
+        headerCell.backgroundColor = THEME_COLOR3
+        headerCell.headerText?.textColor = THEME_COLOR2
+        headerCell.temperatureLabel?.textColor = THEME_COLOR2
+        
+        if let date = self.tableViewData?[section].sectionHeader.dateFromShort {
+            
+            headerCell.headerText?.text = self.tableViewData![section].sectionHeader
+            headerCell.temperatureLabel.text = ""
+            self.weatherService.getWeatherForDate(date: date.addingTimeInterval(12*60*60), forLocation:  (43.076592, -85.992981), completion: { (weather) in
+                if let weather = weather {
+                    DispatchQueue.main.async {
+                        headerCell.temperatureLabel.text = "\(Int(weather.temperature))°"
+                        headerCell.weatherIcon.image = UIImage(named: weather.iconName)
+                        headerCell.setNeedsDisplay()
+                    }
+                }
+            })
+        }
+        return headerCell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60.0
+    }
+    
+    
+  //  override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+
+        /*
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = THEME_COLOR2
         header.contentView.backgroundColor = THEME_COLOR3
-    }
+        */
+        
+/*
+    DarkSkyWeatherService.getInstance().getWeatherForDate(date: Date(), forLocation: (43.076592, -85.992981)) { (weather) -> () in
+            print("weather summary = \(weather?.summary) temp = \(weather?.temperature)")
+        }
+         */
+        
+ //   }
     
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        if let data = self.tableViewData {
+            return data.count
+        } else {
+            return 0
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return self.entries.count
+        if let data = self.tableViewData {
+            return data[section].entries.count
+        } else {
+            return 0
+        }
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let entry = self.entries[indexPath.row]
+        //let entry = self.entries[indexPath.row]
+        let entry = (self.tableViewData?[indexPath.section].entries[indexPath.row])!
         var cellIds = ["NA", "TextCell", "PhotoCell", "AudioCell", "PhotoCell"]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIds[entry.type!.rawValue], for: indexPath) as! JournalEntryTableViewCell
         
-        cell.editButton?.tag = indexPath.row
+        cell.editButton?.tag = indexPath.section * 10 + indexPath.row
         if let imgButton = cell.imageButton {
             imgButton.tag = cell.editButton!.tag
         }
@@ -336,7 +427,7 @@ extension JournalTableViewController  {
                 cell.thumbnailImage.kf.indicatorType = .activity
                 cell.thumbnailImage.kf.setImage(with: url)
                 cell.playButton.isHidden = false
-                cell.playButton.tag = indexPath.row
+                cell.playButton.tag = indexPath.section * 10 + indexPath.row
         default: break
         }
         
