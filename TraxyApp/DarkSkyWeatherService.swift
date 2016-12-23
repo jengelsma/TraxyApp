@@ -29,29 +29,22 @@ class DarkSkyWeatherService: WeatherService {
             if let error = error {
                 print(error.localizedDescription)
             } else if let _ = response {
-                let parsedObj : Dictionary<String,AnyObject>?
+                let parsedObj : Dictionary<String,AnyObject>!
                 do {
                     parsedObj = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? Dictionary<String,AnyObject>
                     
-                    var summary : String?
-                    var iconName : String?
-                    var temperature : Double?
-                    if let topLevelObj = parsedObj {
-                        if let currently = topLevelObj["currently"] {
-                            summary = currently["summary"] as? String
-                            iconName = currently["icon"] as? String
-                            temperature = currently["temperature"] as? Double
-                        }
+                    guard let currently = parsedObj["currently"],
+                        let summary = currently["summary"] as? String,
+                        let iconName = currently["icon"] as? String,
+                        let temperature = currently["temperature"] as? Double
+                        else {
+                            completion(nil)
+                            return
                     }
                     
-                    if let s=summary, let i=iconName, let t=temperature {
-                        let weather = Weather(iconName: i, temperature: t, summary: s)
-                        completion(weather)
-                    } else {
-                        completion(nil)
-                    }
-                    
-                    
+                    let weather = Weather(iconName: iconName, temperature: temperature, summary: summary)
+                    completion(weather)
+
                 }  catch {
                     completion(nil)
                 }

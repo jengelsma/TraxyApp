@@ -27,11 +27,7 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
     var journal: Journal!
     var entries : [JournalEntry] = []
     var entryToEdit : JournalEntry?
-    var tableViewData: [(sectionHeader: String, entries: [JournalEntry])]? {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
+    var tableViewData: [(sectionHeader: String, entries: [JournalEntry])]?
     
     var weatherService = DarkSkyWeatherService.getInstance()
     
@@ -119,7 +115,6 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
                 strongSelf.entries = tmpItems
                 strongSelf.entries.sort {$0.date! > $1.date! }
                 strongSelf.partitionIntoDailySections(entries: tmpItems)
-                strongSelf.tableView.reloadData()
             }
         })
     }
@@ -325,16 +320,7 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
 // MARK: - UITableViewDelegate and UITableViewDataSource
 
 extension JournalTableViewController  {
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if let data = self.tableViewData {
-            return data[section].sectionHeader
-        } else {
-            return nil
-        }
-        
-    }
-    
+
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerCell = tableView.dequeueReusableCell(withIdentifier: "CustomHeader") as! CustomJournalSectionHeaderTableViewCell
         
@@ -363,23 +349,26 @@ extension JournalTableViewController  {
         return 60.0
     }
     
-    
-  //  override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+
+    /*
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
 
-        /*
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = THEME_COLOR2
         header.contentView.backgroundColor = THEME_COLOR3
-        */
         
-/*
-    DarkSkyWeatherService.getInstance().getWeatherForDate(date: Date(), forLocation: (43.076592, -85.992981)) { (weather) -> () in
-            print("weather summary = \(weather?.summary) temp = \(weather?.temperature)")
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if let data = self.tableViewData {
+            return data[section].sectionHeader
+        } else {
+            return nil
         }
-         */
         
- //   }
+    }
+    */
     
 
     override func numberOfSections(in tableView: UITableView) -> Int {

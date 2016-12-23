@@ -13,6 +13,7 @@ class CustomJournalSectionHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var headerText: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.weatherIcon.layer.cornerRadius = 5.0
@@ -21,8 +22,6 @@ class CustomJournalSectionHeaderTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
