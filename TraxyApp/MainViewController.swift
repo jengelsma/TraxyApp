@@ -69,11 +69,23 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
             }
         }
         
-        let cs  = (sectionHeader: "CURRENT", journals: currentSection)
-        let fs = (sectionHeader: "FUTURE", journals: futureSection)
-        let ps = (sectionHeader: "PAST", journals: pastSection)
+        var tmpData: [(sectionHeader: String, journals: [Journal])] = []
+        if currentSection.count > 0 {
+            tmpData.append((sectionHeader: "CURRENT", journals: currentSection))
+        }
+        if futureSection.count > 0 {
+           tmpData.append((sectionHeader: "FUTURE", journals: futureSection))
+        }
+        if pastSection.count > 0 {
+            tmpData.append((sectionHeader: "PAST", journals: pastSection))
+        }
         
-        self.tableViewData = [cs,fs,ps]
+        self.tableViewData = tmpData
+//        let cs  = (sectionHeader: "CURRENT", journals: currentSection)
+//        let fs = (sectionHeader: "FUTURE", journals: futureSection)
+//        let ps = (sectionHeader: "PAST", journals: pastSection)
+//        
+//        self.tableViewData = [cs,fs,ps]
         
     }
 

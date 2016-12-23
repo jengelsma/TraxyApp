@@ -13,7 +13,7 @@ import FirebaseDatabase
 
 class TraxyTopLevelViewController: UIViewController {
 
-    
+    var shouldLoad = true
     var userEmail : String?
     var journals : [Journal]? {
         didSet {
@@ -35,8 +35,10 @@ class TraxyTopLevelViewController: UIViewController {
                         }
                     }
                 }
-                self.ref = FIRDatabase.database().reference()
-                self.registerForFireBaseUpdates()
+                if self.shouldLoad {
+                    self.ref = FIRDatabase.database().reference()
+                    self.registerForFireBaseUpdates()
+                }
             }
         }
     }

@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import FSCalendar
 
 class CalendarViewController: TraxyTopLevelViewController {
 
+    var journalView : MainViewController?
+    
+    @IBOutlet weak var calendar: FSCalendar!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,15 +25,79 @@ class CalendarViewController: TraxyTopLevelViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func journalsDidLoad() {
+        
+        if let j = self.journals, let jv = self.journalView{
+            jv.sortIntoSections(journals: j)
+        } else if let jv = self.journalView {
+            jv.tableViewData?.removeAll()
+        }
+    }
 
-    /*
+    func filterJournalsByDisplayDate() -> [Journal]
+    {
+        var filteredJournals : [Journal] = []
+        return filteredJournals
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "embeddedJournalViewSegue" {
+            self.journalView = segue.destination as? MainViewController
+            self.journalView?.shouldLoad = false
+        }
     }
-    */
 
+
+}
+
+extension CalendarViewController : FSCalendarDelegate {
+    
+    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
+        self.view.layoutIfNeeded()
+//        self.calendarHeightConstraint.constant = bounds.height
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date) {
+//        self.dateLabel.text = "TRIPS ON \(date.short)"
+//        self.viewModel?.dateWasSelected(date: date)
+    }
+    
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        print("page change \(self.calendar.currentPage)")
+    }
+    
+}
+
+extension CalendarViewController : FSCalendarDataSource {
+    
+    func numberOfJournalsOnDate(date: Date) -> Int {
+        var cnt = 0
+        if let items = self.journals {
+            for j in items {
+                guard let startDate = j.startDate, let endDate = j.endDate else {
+                    continue
+                }
+                if date >= startDate && date <= endDate {
+                    cnt+=1
+                }
+            }
+        }
+        return cnt
+    }
+    
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        return self.numberOfJournalsOnDate(date: date)
+    }
+    
+    
+    @objc(calendar:shouldSelectDate:) func calendar(_ calendar: FSCalendar, shouldSelect date: Date) -> Bool {
+        if self.numberOfJournalsOnDate(date: date) > 0 {
+            return true
+        } else {
+            return false
+        }
+    }
 }
