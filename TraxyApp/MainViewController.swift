@@ -11,19 +11,16 @@ import Firebase
 import FirebaseDatabase
 import Kingfisher
 
-class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddJournalDelegate {
+class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UITableViewDelegate, AddJournalDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var userEmail : String?
-    var journals : [Journal]?
-    
-    fileprivate var ref : FIRDatabaseReference?
-    fileprivate var userId : String? = ""
     
     var tableViewData: [(sectionHeader: String, journals: [Journal])]? {
         didSet {
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -35,90 +32,23 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 //        self.sortIntoSections(journals: self.journals!)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
-            if let user = user {
-                self.userId = user.uid
-                self.ref = FIRDatabase.database().reference()
-                self.registerForFireBaseUpdates()
-            } else {
-                // No user is signed in.
-                self.performSegue(withIdentifier: "logoutSegue", sender: self)
-            }
-        }
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // unregister from listeners here.
-        if let r = self.ref {
-            r.removeAllObservers()
-        }
-        
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
     
-
-
-
-    fileprivate func registerForFireBaseUpdates()
-    {
-        
-        self.ref!.child(self.userId!).observe(.value, with: { [weak self] snapshot in
-            guard let strongSelf = self else { return }
-            
-            if let postDict = snapshot.value as? [String : AnyObject] {
-                var tmpItems = [Journal]()
-                for (_,val) in postDict.enumerated() {
-                    //print("key = \(key) and val = \(val)")
-                    let entry = val.1 as! Dictionary<String,AnyObject>
-                    print ("entry=\(entry)")
-                    let key = val.0
-                    let name : String? = entry["name"] as! String?
-                    let location : String?  = entry["address"] as! String?
-                    let startDateStr  = entry["startDate"] as! String?
-                    let endDateStr = entry["endDate"] as! String?
-                    let lat = entry["lat"] as! Double?
-                    let lng = entry["lng"] as! Double?
-                    let placeId = entry["placeId"] as! String?
-                    var coverPhotoUrl = entry["coverPhotoUrl"] as! String?
-
-                    
-                    // if no photo is marked as cover, we will use first photo, if any.
-                    if coverPhotoUrl == nil || coverPhotoUrl == "" {
-                        if let entries = entry["entries"] as? [String : AnyObject] {
-                            for (_,val) in entries.enumerated() {
-                                let entry = val.1 as! Dictionary<String,AnyObject>
-                                print ("entry=\(entry)")
-                                let typeRaw = entry["type"] as! Int?
-                                let type = EntryType(rawValue: typeRaw!)
-                                if type == .photo {
-                                    let url : String? = entry["url"] as! String?
-                                    coverPhotoUrl = url
-                                    print("Will use \(url) as assumed cover photo")
-                                    break
-                                }
-
-                            }
-                        }
-                    }
-                    
-                    tmpItems.append(Journal(key: key, name: name, location: location, startDate: startDateStr?.dateFromISO8601, endDate: endDateStr?.dateFromISO8601, lat: lat, lng: lng, placeId: placeId, coverPhotoUrl: coverPhotoUrl))
-                    
-                }
-                strongSelf.journals = tmpItems
-                strongSelf.sortIntoSections(journals: strongSelf.journals!)
-            }
-        })
-        
+    @IBAction func logoutFromNavStack(segue: UIStoryboardSegue) {
+        // we end up here when a downstream child we pushed to detects no user session
+        print("reset main's nav stack to top")
     }
-
+    
+    override func journalsDidLoad() {
+        if let j = self.journals {
+            self.sortIntoSections(journals: j)
+        } else {
+            self.tableViewData?.removeAll()
+        }
+    }
 
     func sortIntoSections(journals: [Journal]) {
         
@@ -241,6 +171,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let indexPath = self.tableView.indexPathForSelectedRow
                 let values = self.tableViewData?[indexPath!.section]
                 destVC.journal  = values?.journals[indexPath!.row]
+                destVC.userId = self.userId
             }
          }
      }

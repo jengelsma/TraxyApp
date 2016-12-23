@@ -52,7 +52,8 @@ class SignUpViewController: TraxyLoginViewController {
         if self.validateFields() {
             FIRAuth.auth()?.createUser(withEmail: self.emailField.text!, password: self.passwordField.text!) { (user, error) in
                 if let  _ = user {
-                   self.performSegue(withIdentifier: "segueToMainFromSignUp", sender: self)
+                   self.performSegue(withIdentifier: "unwindToMainFromSignUp", sender: self)
+                    //self.dismiss(animated: true, completion: nil)
                 } else {
                     self.passwordField.text = ""
                     self.verifyPasswordField.text = ""

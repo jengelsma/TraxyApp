@@ -62,7 +62,8 @@ class LoginViewController: TraxyLoginViewController {
             print("Congratulations!  You entered correct values.")
             FIRAuth.auth()?.signIn(withEmail: self.emailField.text!, password: self.passwordField.text!) { (user, error) in
                 if let _ = user {
-                    self.performSegue(withIdentifier: "segueToMain", sender: self)
+                    //self.performSegue(withIdentifier: "segueToMain", sender: self)
+                    self.dismiss(animated: true, completion: nil)
                 } else {
                     self.reportError(msg: (error?.localizedDescription)!)
                     self.passwordField.text = ""
@@ -74,16 +75,7 @@ class LoginViewController: TraxyLoginViewController {
         }
     }
     
-    @IBAction func logout(segue : UIStoryboardSegue) {
-        do {
-            try FIRAuth.auth()?.signOut()
-            print("Logged out")
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-        
-        self.passwordField.text = ""
-    }
+
 /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToMain" {

@@ -14,6 +14,10 @@
 		9E29EF211DDB9C7F00A1E622 /* TraxyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E29EF201DDB9C7F00A1E622 /* TraxyLoginViewController.swift */; };
 		9E29EF231DDB9D9D00A1E622 /* TraxyLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E29EF221DDB9D9D00A1E622 /* TraxyLoginButton.swift */; };
 		9E2F52DF1DF8B12D00FEA931 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2F52DE1DF8B12D00FEA931 /* AudioViewController.swift */; };
+		9E373AC81E0D92FC005B0320 /* TraxyTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E373AC71E0D92FC005B0320 /* TraxyTabBarViewController.swift */; };
+		9E373ACA1E0DB36B005B0320 /* TraxyTopLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E373AC91E0DB36B005B0320 /* TraxyTopLevelViewController.swift */; };
+		9E373ACC1E0DB827005B0320 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E373ACB1E0DB827005B0320 /* CalendarViewController.swift */; };
+		9E373ACE1E0DB836005B0320 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E373ACD1E0DB836005B0320 /* MapViewController.swift */; };
 		9E6541141DCA358C009254CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6541131DCA358C009254CF /* AppDelegate.swift */; };
 		9E6541161DCA358C009254CF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6541151DCA358C009254CF /* LoginViewController.swift */; };
 		9E6541191DCA358C009254CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6541171DCA358C009254CF /* Main.storyboard */; };
@@ -74,6 +78,10 @@
 		9E29EF201DDB9C7F00A1E622 /* TraxyLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginViewController.swift; sourceTree = "<group>"; };
 		9E29EF221DDB9D9D00A1E622 /* TraxyLoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginButton.swift; sourceTree = "<group>"; };
 		9E2F52DE1DF8B12D00FEA931 /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
+		9E373AC71E0D92FC005B0320 /* TraxyTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyTabBarViewController.swift; sourceTree = "<group>"; };
+		9E373AC91E0DB36B005B0320 /* TraxyTopLevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyTopLevelViewController.swift; sourceTree = "<group>"; };
+		9E373ACB1E0DB827005B0320 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		9E373ACD1E0DB836005B0320 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		9E6541101DCA358C009254CF /* TraxyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraxyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6541131DCA358C009254CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E6541151DCA358C009254CF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -212,6 +220,8 @@
 		9ED561891DDCCD91004EAC43 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9E373AC71E0D92FC005B0320 /* TraxyTabBarViewController.swift */,
+				9E373AC91E0DB36B005B0320 /* TraxyTopLevelViewController.swift */,
 				9E6541151DCA358C009254CF /* LoginViewController.swift */,
 				9E28551F1DD10DE500224A11 /* MainViewController.swift */,
 				9E2855211DD10DF800224A11 /* SignUpViewController.swift */,
@@ -222,6 +232,8 @@
 				9EA7FF201DF0DC07004A5E19 /* JournalEntryConfirmationViewController.swift */,
 				9EA5ECED1DF8526F0085069A /* PhotoViewController.swift */,
 				9E2F52DE1DF8B12D00FEA931 /* AudioViewController.swift */,
+				9E373ACB1E0DB827005B0320 /* CalendarViewController.swift */,
+				9E373ACD1E0DB836005B0320 /* MapViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -589,16 +601,20 @@
 				9EE39ED61DDD0BAF00F7180A /* TraxyLoginLabel.swift in Sources */,
 				9EE39EDB1DDDF2D100F7180A /* TraxyMainTableViewCell.swift in Sources */,
 				9E2855221DD10DF800224A11 /* SignUpViewController.swift in Sources */,
+				9E373ACA1E0DB36B005B0320 /* TraxyTopLevelViewController.swift in Sources */,
 				9EE2D0C81DEF510A00614160 /* JournalTableViewController.swift in Sources */,
 				9E29EF231DDB9D9D00A1E622 /* TraxyLoginButton.swift in Sources */,
 				9EE2D0801DE3941E00614160 /* AddJournalViewController.swift in Sources */,
 				9E29EF211DDB9C7F00A1E622 /* TraxyLoginViewController.swift in Sources */,
+				9E373AC81E0D92FC005B0320 /* TraxyTabBarViewController.swift in Sources */,
 				9E2F52DF1DF8B12D00FEA931 /* AudioViewController.swift in Sources */,
 				9EE2D0C61DE638E700614160 /* Date+ISO8601.swift in Sources */,
 				9EA5ECEC1DF6436D0085069A /* JournalEntryTableViewCell.swift in Sources */,
 				9EFBF9FC1E0888A200F6FD79 /* DarkSkyWeatherService.swift in Sources */,
+				9E373ACC1E0DB827005B0320 /* CalendarViewController.swift in Sources */,
 				9E6541141DCA358C009254CF /* AppDelegate.swift in Sources */,
 				9EA5ECEE1DF8526F0085069A /* PhotoViewController.swift in Sources */,
+				9E373ACE1E0DB836005B0320 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

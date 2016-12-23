@@ -25,6 +25,7 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
     var captureType : EntryType = .photo
     
     var journal: Journal!
+    var userId : String!
     var entries : [JournalEntry] = []
     var entryToEdit : JournalEntry?
     var tableViewData: [(sectionHeader: String, entries: [JournalEntry])]?
@@ -33,7 +34,7 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
     
     fileprivate var ref : FIRDatabaseReference?
     fileprivate var storageRef : FIRStorageReference?
-    fileprivate var userId : String?
+
     
     // MARK: - UIViewController overrides and their helpers
     
@@ -54,18 +55,22 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        self.ref = FIRDatabase.database().reference().child(self.userId).child(self.journal.key!)
+        self.configureStorage()
+        self.registerForFireBaseUpdates()
         
-        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
-            if let user = user {
-                self.userId = user.uid
-                self.ref = FIRDatabase.database().reference().child(self.userId!).child(self.journal.key!)
-                self.configureStorage()
-                self.registerForFireBaseUpdates()
-            } else {
-                // No user is signed in.
-                self.performSegue(withIdentifier: "logoutSegue", sender: self)
-            }
-        }
+//        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+//            if let user = user {
+//                self.userId = user.uid
+//                self.ref = FIRDatabase.database().reference().child(self.userId!).child(self.journal.key!)
+//                self.configureStorage()
+//                self.registerForFireBaseUpdates()
+//            } else {
+//                // No user is signed in.
+//                self.performSegue(withIdentifier: "logoutSegue", sender: self)
+//            }
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
