@@ -22,7 +22,9 @@ class AddJournalViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-
+        if self.journal == nil {
+            self.journal = Journal()
+        }
         
         let textRowValidationUpdate : (TextRow.Cell, TextRow) -> ()  = { cell, row in
             if !row.isValid {
@@ -61,13 +63,18 @@ class AddJournalViewController: FormViewController {
             <<< TextRow(){ row in
                 row.title = "Journal Title"
                 row.placeholder = "Descriptive title"
+                row.value = self.journal?.name
                 row.tag = "TitleTag"
                 row.add(rule: RuleRequired())
             }
             
             <<< LabelRow () { row in
                 row.title = "General Location"
-                row.value = "Tap to search"
+                if let loc = journal?.location {
+                    row.value = loc
+                } else {
+                    row.value = "Tap to search"
+                }
                 row.tag = "LocTag"
                 var rules = RuleSet<String>()
                 rules.add(rule: RuleClosure(closure: { (loc) -> ValidationError? in
@@ -89,16 +96,20 @@ class AddJournalViewController: FormViewController {
             +++ Section("Trip Dates")
             <<< DateRow(){ row in
                 row.title = "Start Date"
-                row.value = Date()
+                if let date = journal?.startDate {
+                    row.value = date
+                } else {
+                    row.value = Date()
+                }
                 row.tag = "StartDateTag"
                 row.add(rule: RuleRequired())
             }
             <<< DateRow(){ row in
                 row.title = "End Date"
-                if let j = self.journal {
-                    row.value = j.endDate
+                if let date = journal?.endDate {
+                    row.value = date
                 } else {
-                    row.value = Date(timeIntervalSinceNow: 86401) 
+                    row.value = Date(timeIntervalSinceNow: 86401)
                 }
 
                 row.tag = "EndDateTag"
@@ -125,9 +136,7 @@ class AddJournalViewController: FormViewController {
         let saveButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(AddJournalViewController.savePressed))
         self.navigationItem.rightBarButtonItem = saveButton
         
-        if self.journal == nil {
-            self.journal = Journal()
-        }
+
 
     }
 

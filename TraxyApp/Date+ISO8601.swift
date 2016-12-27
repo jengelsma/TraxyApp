@@ -17,6 +17,12 @@ extension Date {
             return formatter
         }()
         
+        static let monthYear: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM"
+            return formatter
+        }()
+        
         static let short: DateFormatter = {
             let formatter = DateFormatter()
             formatter.dateFormat = "MM-dd-yyyy"
@@ -37,6 +43,10 @@ extension Date {
     
     var shortWithTime: String {
         return Formatter.shortWithTime.string(from: self)
+    }
+    
+    var monthYear: String {
+        return Formatter.monthYear.string(from: self)
     }
     
     var iso8601: String {

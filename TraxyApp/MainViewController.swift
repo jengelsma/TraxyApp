@@ -14,7 +14,7 @@ import Kingfisher
 class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UITableViewDelegate, AddJournalDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    
+    var journalToEdit : Journal?
     
     var tableViewData: [(sectionHeader: String, journals: [Journal])]? {
         didSet {
@@ -89,6 +89,15 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
         
     }
 
+    @IBAction func editButtonPressed(_ sender: UIButton) {
+        let section = Int(sender.tag / 10)
+        let row = Int(sender.tag % 10)
+        if let j = self.tableViewData?[section].journals[row] {
+            self.journalToEdit = j
+            self.performSegue(withIdentifier: "editJournalSegue", sender: self)
+        }
+        
+    }
     // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -108,7 +117,7 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
         
         cell.name?.text = journal.name
         cell.subName?.text = journal.location
-        
+        cell.editButton.tag = indexPath.section * 10 + indexPath.row
         if let coverUrl = journal.coverPhotoUrl {
             let url = URL(string: coverUrl)
             cell.coverImage?.kf.indicatorType = .activity
@@ -151,8 +160,13 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
 
     // MARK: - AddJournalDelegate
     func save(journal: Journal) {
-        let newChild = self.ref?.child(self.userId!).childByAutoId()
-        newChild?.setValue(self.toDictionary(vals: journal))
+        if let k = journal.key {
+            let child = self.ref?.child(self.userId!).child(k)
+            child?.setValue(self.toDictionary(vals: journal))
+        } else {
+            let newChild = self.ref?.child(self.userId!).childByAutoId()
+            newChild?.setValue(self.toDictionary(vals: journal))
+        }
         
         //self.journals?.append(journal)
         //self.sortIntoSections(journals: self.journals!)
@@ -185,7 +199,12 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
                 destVC.journal  = values?.journals[indexPath!.row]
                 destVC.userId = self.userId
             }
-         }
+        } else if segue.identifier == "editJournalSegue" {
+            if let destVC = segue.destination as? AddJournalViewController {
+                destVC.delegate = self
+                destVC.journal = self.journalToEdit
+            }
+        }
      }
 }
 

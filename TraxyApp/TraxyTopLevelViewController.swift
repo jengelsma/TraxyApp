@@ -35,8 +35,8 @@ class TraxyTopLevelViewController: UIViewController {
                         }
                     }
                 }
+                self.ref = FIRDatabase.database().reference()
                 if self.shouldLoad {
-                    self.ref = FIRDatabase.database().reference()
                     self.registerForFireBaseUpdates()
                 }
             }

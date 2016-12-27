@@ -27,8 +27,9 @@ class CalendarViewController: TraxyTopLevelViewController {
     
     override func journalsDidLoad() {
         
-        if let j = self.journals, let jv = self.journalView{
-            jv.sortIntoSections(journals: j)
+        if let _ = self.journals, let jv = self.journalView{
+            let fj = filterJournalsByDisplayDate()
+            jv.sortIntoSections(journals: fj)
         } else if let jv = self.journalView {
             jv.tableViewData?.removeAll()
         }
@@ -37,6 +38,15 @@ class CalendarViewController: TraxyTopLevelViewController {
     func filterJournalsByDisplayDate() -> [Journal]
     {
         var filteredJournals : [Journal] = []
+        // TODO: write code to filter so it only returns journals for currnet month. 
+        if let journals = self.journals {
+            let date = self.calendar.currentPage
+            for j in journals {
+                if date.monthYear >= j.startDate!.monthYear && date.monthYear <= j.endDate!.monthYear {
+                    filteredJournals.append(j)
+                }
+            }
+        }
         return filteredJournals
     }
     
@@ -47,6 +57,10 @@ class CalendarViewController: TraxyTopLevelViewController {
         if segue.identifier == "embeddedJournalViewSegue" {
             self.journalView = segue.destination as? MainViewController
             self.journalView?.shouldLoad = false
+        } else  if segue.identifier == "addJournalSegue" {
+            if let destVC = segue.destination as? AddJournalViewController {
+                destVC.delegate = self.journalView
+            }
         }
     }
 
@@ -67,6 +81,7 @@ extension CalendarViewController : FSCalendarDelegate {
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         print("page change \(self.calendar.currentPage)")
+        self.journalsDidLoad()
     }
     
 }
