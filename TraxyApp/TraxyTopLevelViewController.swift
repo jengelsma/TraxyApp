@@ -95,11 +95,12 @@ class TraxyTopLevelViewController: UIViewController {
                     let placeId = entry["placeId"] as! String?
                     var coverPhotoUrl = entry["coverPhotoUrl"] as! String?
                     
-                    
-                    // if no photo is marked as cover, we will use first photo, if any.
-                    if coverPhotoUrl == nil || coverPhotoUrl == "" {
-                        if let entries = entry["entries"] as? [String : AnyObject] {
-                            for (_,val) in entries.enumerated() {
+                    var entries : [String : AnyObject]? = nil
+                    if let e = entry["entries"] as? [String : AnyObject] {
+                        entries = e
+                        // if no photo is marked as cover, we will use first photo, if any.
+                        if coverPhotoUrl == nil || coverPhotoUrl == "" {
+                            for (_,val) in e.enumerated() {
                                 let entry = val.1 as! Dictionary<String,AnyObject>
                                 print ("entry=\(entry)")
                                 let typeRaw = entry["type"] as! Int?
@@ -110,12 +111,12 @@ class TraxyTopLevelViewController: UIViewController {
                                     print("Will use \(url) as assumed cover photo")
                                     break
                                 }
-                                
                             }
                         }
                     }
+
                     
-                    tmpItems.append(Journal(key: key, name: name, location: location, startDate: startDateStr?.dateFromISO8601, endDate: endDateStr?.dateFromISO8601, lat: lat, lng: lng, placeId: placeId, coverPhotoUrl: coverPhotoUrl))
+                    tmpItems.append(Journal(key: key, name: name, location: location, startDate: startDateStr?.dateFromISO8601, endDate: endDateStr?.dateFromISO8601, lat: lat, lng: lng, placeId: placeId, coverPhotoUrl: coverPhotoUrl, entries: entries))
                     
                 }
                 strongSelf.journals = tmpItems

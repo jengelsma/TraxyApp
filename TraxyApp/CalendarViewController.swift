@@ -58,7 +58,7 @@ class CalendarViewController: TraxyTopLevelViewController {
             self.journalView = segue.destination as? MainViewController
             self.journalView?.shouldLoad = false
         } else  if segue.identifier == "addJournalSegue" {
-            if let destVC = segue.destination as? AddJournalViewController {
+            if let destVC = segue.destination as? JournalEditorViewController {
                 destVC.delegate = self.journalView
             }
         }

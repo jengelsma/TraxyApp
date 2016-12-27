@@ -44,20 +44,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pca-H9-zDK" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="16" y="20" width="343" height="21"/>
+                                <rect key="frame" x="16" y="20" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="UFz-fh-AHi">
-                                <rect key="frame" x="68" y="56" width="240" height="128"/>
+                                <rect key="frame" x="68" y="55.5" width="240" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="A4N-W6-L5l"/>
                                     <constraint firstAttribute="width" constant="240" id="GVT-VX-Nzo"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cQk-sD-9NV">
-                                <rect key="frame" x="16" y="192" width="343" height="68"/>
+                                <rect key="frame" x="16" y="191.5" width="343" height="68"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email " textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jXh-ZN-32q" customClass="TraxyLoginTextField" customModule="TraxyApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -74,7 +74,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tca-bs-CXg" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="125" y="268" width="125" height="30"/>
+                                <rect key="frame" x="125" y="267.5" width="125" height="30"/>
                                 <state key="normal" title="Sign In"/>
                                 <connections>
                                     <action selector="signupButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fjd-KQ-f8L"/>
@@ -88,7 +88,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account? " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6Q-xM-R90" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="17" y="588" width="343" height="21"/>
+                                <rect key="frame" x="17" y="588.5" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -168,7 +168,7 @@
                                         <rect key="frame" x="0.0" y="82" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u3x-OV-1LG" id="s1t-B1-tqE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="Fp5-EV-8VC">
@@ -270,25 +270,129 @@
             </objects>
             <point key="canvasLocation" x="2180" y="-33"/>
         </scene>
-        <!--Add New Journal-->
+        <!--Journal Information-->
         <scene sceneID="WLb-Yn-OxA">
             <objects>
-                <viewController title="Add New Journal" id="if8-jk-I5g" customClass="AddJournalViewController" customModule="TraxyApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Journal Information" id="if8-jk-I5g" customClass="JournalEditorViewController" customModule="TraxyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OGO-mX-GqM"/>
                         <viewControllerLayoutGuide type="bottom" id="kM7-vU-So2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5mc-3E-Xyn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wfq-zS-e52" userLabel="Form Container">
+                                <rect key="frame" x="0.0" y="64" width="375" height="280"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="280" id="EUj-32-H7d"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="Hp1-kZ-BYL" kind="embed" identifier="formSegue" id="4Hk-9r-aYa"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B4C-Ve-IhQ" userLabel="Cover Photo Container">
+                                <rect key="frame" x="0.0" y="344" width="375" height="279"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="JZ9-kS-WPT" kind="embed" identifier="coverSegue" id="WLh-Bg-q2C"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Wfq-zS-e52" secondAttribute="trailing" id="32x-vT-yg1"/>
+                            <constraint firstItem="Wfq-zS-e52" firstAttribute="top" secondItem="OGO-mX-GqM" secondAttribute="bottom" id="5WV-mR-GX3"/>
+                            <constraint firstItem="B4C-Ve-IhQ" firstAttribute="leading" secondItem="5mc-3E-Xyn" secondAttribute="leading" id="BEG-Mm-osm"/>
+                            <constraint firstItem="kM7-vU-So2" firstAttribute="top" secondItem="B4C-Ve-IhQ" secondAttribute="bottom" id="P3Y-T0-dGh"/>
+                            <constraint firstItem="Wfq-zS-e52" firstAttribute="leading" secondItem="5mc-3E-Xyn" secondAttribute="leading" id="QN3-Zt-2tU"/>
+                            <constraint firstAttribute="trailing" secondItem="B4C-Ve-IhQ" secondAttribute="trailing" id="YMe-uk-5re"/>
+                            <constraint firstItem="B4C-Ve-IhQ" firstAttribute="top" secondItem="Wfq-zS-e52" secondAttribute="bottom" id="joy-Cg-JpI"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GkJ-2s-4rZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3105" y="-736"/>
+            <point key="canvasLocation" x="3120.8000000000002" y="-1018.7406296851575"/>
+        </scene>
+        <!--Cover Photo Collection View Controller-->
+        <scene sceneID="yP9-W7-hLz">
+            <objects>
+                <viewController storyboardIdentifier="coverSelect" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JZ9-kS-WPT" customClass="CoverPhotoCollectionViewController" customModule="TraxyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GqI-20-1Nh"/>
+                        <viewControllerLayoutGuide type="bottom" id="CE4-ed-2o9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="U8o-wE-ypj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="279"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Cover Photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6al-5Y-RfO">
+                                <rect key="frame" x="16" y="20" width="343" height="18"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oMh-NN-ZOp">
+                                <rect key="frame" x="0.0" y="46" width="375" height="233"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xAG-9h-OiY">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="s0j-uG-9kT" customClass="CoverPhotoCollectionViewCell" customModule="TraxyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="cez-Y1-Plo">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="cez-Y1-Plo" firstAttribute="leading" secondItem="s0j-uG-9kT" secondAttribute="leading" id="Dj4-uL-jLS"/>
+                                            <constraint firstAttribute="bottom" secondItem="cez-Y1-Plo" secondAttribute="bottom" id="HfU-Es-8Jf"/>
+                                            <constraint firstItem="cez-Y1-Plo" firstAttribute="top" secondItem="s0j-uG-9kT" secondAttribute="top" id="Kpm-jQ-JDf"/>
+                                            <constraint firstAttribute="trailing" secondItem="cez-Y1-Plo" secondAttribute="trailing" id="xnc-CI-O1b"/>
+                                        </constraints>
+                                        <size key="customSize" width="100" height="100"/>
+                                        <connections>
+                                            <outlet property="photo" destination="cez-Y1-Plo" id="pTb-Ff-FKU"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="JZ9-kS-WPT" id="nCv-aj-1FA"/>
+                                    <outlet property="delegate" destination="JZ9-kS-WPT" id="ZdP-Dg-vMV"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="oMh-NN-ZOp" firstAttribute="top" secondItem="6al-5Y-RfO" secondAttribute="bottom" constant="8" id="1EF-A3-UW3"/>
+                            <constraint firstItem="6al-5Y-RfO" firstAttribute="leading" secondItem="U8o-wE-ypj" secondAttribute="leadingMargin" id="Ti0-6b-ieQ"/>
+                            <constraint firstItem="6al-5Y-RfO" firstAttribute="trailing" secondItem="U8o-wE-ypj" secondAttribute="trailingMargin" id="V2z-oT-KcW"/>
+                            <constraint firstAttribute="trailing" secondItem="oMh-NN-ZOp" secondAttribute="trailing" id="byG-If-3vP"/>
+                            <constraint firstItem="oMh-NN-ZOp" firstAttribute="leading" secondItem="U8o-wE-ypj" secondAttribute="leading" id="cRK-hn-aKz"/>
+                            <constraint firstItem="6al-5Y-RfO" firstAttribute="top" secondItem="GqI-20-1Nh" secondAttribute="bottom" constant="20" id="rzz-dh-5DT"/>
+                            <constraint firstItem="CE4-ed-2o9" firstAttribute="top" secondItem="oMh-NN-ZOp" secondAttribute="bottom" id="ymM-vW-Eoo"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="oMh-NN-ZOp" id="MTx-jT-luE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SWq-fC-i4F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4062" y="-844"/>
         </scene>
         <!--Record Audio-->
         <scene sceneID="A58-Om-QqT">
@@ -299,18 +403,18 @@
                         <viewControllerLayoutGuide type="bottom" id="GBY-Ob-u2H"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="JD6-ng-y8g">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3vM-dd-7Er">
-                                <rect key="frame" x="0.0" y="-177" width="375" height="509"/>
+                                <rect key="frame" x="0.0" y="109" width="375" height="509"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <segue destination="FDz-04-ML4" kind="embed" identifier="setupAudioCaptionForm" id="JlF-tI-qyw"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IM0-0E-Yrc">
-                                <rect key="frame" x="12" y="13" width="65" height="63"/>
+                                <rect key="frame" x="12" y="77" width="65" height="63"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="63" id="M0g-wU-lJp"/>
                                     <constraint firstAttribute="width" constant="65" id="pMt-c3-Caw"/>
@@ -321,14 +425,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhv-cp-oLe">
-                                <rect key="frame" x="297" y="15" width="62" height="59"/>
+                                <rect key="frame" x="297" y="79" width="62" height="59"/>
                                 <state key="normal" image="play"/>
                                 <connections>
                                     <action selector="playButtonPressed:" destination="Rcd-ow-MUk" eventType="touchUpInside" id="wFX-Kr-McW"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANR-PA-ydE">
-                                <rect key="frame" x="93" y="13" width="189" height="61"/>
+                                <rect key="frame" x="93" y="77" width="189" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="ABC-QQ-ji3"/>
                                     <constraint firstAttribute="width" constant="189" id="nm9-Og-OVQ"/>
@@ -369,7 +473,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JrW-AU-ffq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4061.5999999999999" y="-681.40929535232385"/>
+            <point key="canvasLocation" x="4062" y="-383"/>
         </scene>
         <!--Confirm Entry-->
         <scene sceneID="sQo-oZ-ZTz">
@@ -380,7 +484,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Bfz-hl-Uje"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vOr-pq-ZMO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -410,11 +514,11 @@
                         <viewControllerLayoutGuide type="bottom" id="8xV-pB-Caq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="UdB-zM-UHr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="LAt-Ho-1Is">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="OAR-DH-ALe">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="420"/>
@@ -431,11 +535,11 @@
                                 </connections>
                             </scrollView>
                             <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ruV-bk-010">
-                                <rect key="frame" x="8" y="282.5" width="359" height="41.5"/>
+                                <rect key="frame" x="8" y="477" width="359" height="69"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQg-3F-mTB">
-                                <rect key="frame" x="16" y="290.5" width="343" height="25.5"/>
+                                <rect key="frame" x="16" y="485" width="343" height="53"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -473,14 +577,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jod-M3-bAu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3863.1999999999998" y="769.56521739130437"/>
+            <point key="canvasLocation" x="4062" y="424"/>
         </scene>
         <!--Journal-->
         <scene sceneID="qmS-nJ-rDn">
             <objects>
                 <tableViewController id="IEt-M0-lHH" customClass="JournalTableViewController" customModule="TraxyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="4Ai-u4-bwe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -816,13 +920,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signup for a new account! " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sC-mj-ICE" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="16" y="28" width="343" height="21"/>
+                                <rect key="frame" x="16" y="28" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ShB-h6-cHn">
-                                <rect key="frame" x="16" y="193" width="343" height="106"/>
+                                <rect key="frame" x="16" y="192.5" width="343" height="106"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email " textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mRr-Wk-R4X" customClass="TraxyLoginTextField" customModule="TraxyApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -845,21 +949,21 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="go8-gQ-fvN" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="234" y="307" width="125" height="30"/>
+                                <rect key="frame" x="234" y="306.5" width="125" height="30"/>
                                 <state key="normal" title="Sign Up!"/>
                                 <connections>
                                     <action selector="signUpButtonPressed:" destination="8Mp-mZ-fhv" eventType="touchUpInside" id="GcU-Kb-dYT"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="MXG-3f-x7T">
-                                <rect key="frame" x="68" y="57" width="240" height="128"/>
+                                <rect key="frame" x="68" y="56.5" width="240" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="6bR-Vc-gbA"/>
                                     <constraint firstAttribute="height" constant="128" id="xp0-Nk-y9s"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZQ-p0-Z6S" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="16" y="307" width="125" height="30"/>
+                                <rect key="frame" x="16" y="306.5" width="125" height="30"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
                                     <action selector="cancelButtonPressed:" destination="8Mp-mZ-fhv" eventType="touchUpInside" id="wdc-0v-kDS"/>
@@ -902,7 +1006,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="966-3t-G62" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Journals" image="journalTab" id="pk9-T3-UvH"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dwj-pi-rvB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dwj-pi-rvB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -920,7 +1024,7 @@
             <objects>
                 <navigationController id="L7v-FZ-CuD" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Calendar" image="calendarTab" id="zbf-N7-fGF"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eNe-XD-lIf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="eNe-XD-lIf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -952,7 +1056,7 @@
                                     <outlet property="delegate" destination="zl4-9W-Ba3" id="DES-Tb-CGa"/>
                                 </connections>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Dw-r1-ecE">
+                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Dw-r1-ecE">
                                 <rect key="frame" x="0.0" y="286" width="375" height="332"/>
                                 <connections>
                                     <segue destination="xv6-Pd-RKR" kind="embed" identifier="embeddedJournalViewSegue" id="AqJ-vs-tFK"/>
@@ -999,13 +1103,12 @@
                         <viewControllerLayoutGuide type="top" id="dhy-h7-AHQ"/>
                         <viewControllerLayoutGuide type="bottom" id="DgE-d2-u85"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="RqE-6g-Za4">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="RqE-6g-Za4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="143" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Ap-jx-POu">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="475"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="143" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Ap-jx-POu">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="6jh-58-ep7" detailTextLabel="SBl-6o-wD9" rowHeight="54" style="IBUITableViewCellStyleSubtitle" id="p87-zz-LEV">
@@ -1036,27 +1139,27 @@
                                         <rect key="frame" x="0.0" y="82" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mX1-Qa-g6M" id="SeW-f4-VAU">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="GrE-Vl-Wj9">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="GrE-Vl-Wj9">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
                                                 </imageView>
-                                                <view alpha="0.40000000596046448" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vs0-p7-2Lw">
+                                                <view clipsSubviews="YES" alpha="0.40000000596046448" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vs0-p7-2Lw">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="c7J-EA-CKu">
-                                                    <rect key="frame" x="8" y="71.5" width="359" height="57"/>
+                                                <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="c7J-EA-CKu">
+                                                    <rect key="frame" x="8" y="71" width="359" height="58"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEq-Bz-dqF" userLabel="Title">
-                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="33.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="34"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6N-oc-B5h" userLabel="SubTitle">
-                                                            <rect key="frame" x="0.0" y="36.5" width="359" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="37" width="359" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -1064,7 +1167,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="83Y-3R-n2I">
-                                                    <rect key="frame" x="313" y="153.5" width="46" height="30"/>
+                                                    <rect key="frame" x="313" y="153" width="46" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="LIu-FN-FXc"/>
                                                         <constraint firstAttribute="width" constant="46" id="tSx-7a-zfp"/>
@@ -1108,6 +1211,12 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2Ap-jx-POu" firstAttribute="leading" secondItem="RqE-6g-Za4" secondAttribute="leading" id="DQ3-h8-NNW"/>
+                            <constraint firstAttribute="bottom" secondItem="2Ap-jx-POu" secondAttribute="bottom" id="NKo-64-PGp"/>
+                            <constraint firstItem="2Ap-jx-POu" firstAttribute="top" secondItem="dhy-h7-AHQ" secondAttribute="bottom" id="g5A-mN-oiq"/>
+                            <constraint firstAttribute="trailing" secondItem="2Ap-jx-POu" secondAttribute="trailing" id="v8L-iY-iey"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="2Ap-jx-POu" id="xeT-cG-oRI"/>
@@ -1123,7 +1232,7 @@
             <objects>
                 <navigationController id="gPf-xt-Amq" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="mapTab" id="ptE-xQ-nXc"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zO3-EB-tRQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="zO3-EB-tRQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1176,7 +1285,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Uc-xN-lJm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4770" y="-610"/>
+            <point key="canvasLocation" x="4871" y="-383"/>
+        </scene>
+        <!--Add Journal View Controller-->
+        <scene sceneID="VC2-tF-Hiy">
+            <objects>
+                <viewController storyboardIdentifier="journalForm" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Hp1-kZ-BYL" customClass="AddJournalViewController" customModule="TraxyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pad-2B-pwb"/>
+                        <viewControllerLayoutGuide type="bottom" id="Isz-kL-oge"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="g00-O6-dPp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="280"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="17v-ry-TDR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3985" y="-1327"/>
         </scene>
     </scenes>
     <resources>
@@ -1191,7 +1318,7 @@
         <image name="stop" width="60" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="v4G-NQ-Thd"/>
-        <segue reference="txH-AM-19a"/>
+        <segue reference="ZQH-56-2yz"/>
+        <segue reference="ujb-v5-5IY"/>
     </inferredMetricsTieBreakers>
 </document>

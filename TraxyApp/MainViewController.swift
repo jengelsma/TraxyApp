@@ -11,7 +11,7 @@ import Firebase
 import FirebaseDatabase
 import Kingfisher
 
-class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UITableViewDelegate, AddJournalDelegate {
+class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UITableViewDelegate, JournalEditorDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     var journalToEdit : Journal?
@@ -26,7 +26,7 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tableView.layoutIfNeeded()
 //        let model = JournalModel()
 //        self.journals = model.getJournals()
 //        self.sortIntoSections(journals: self.journals!)
@@ -162,7 +162,7 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
     func save(journal: Journal) {
         if let k = journal.key {
             let child = self.ref?.child(self.userId!).child(k)
-            child?.setValue(self.toDictionary(vals: journal))
+            child?.updateChildValues(self.toDictionary(vals: journal))
         } else {
             let newChild = self.ref?.child(self.userId!).childByAutoId()
             newChild?.setValue(self.toDictionary(vals: journal))
@@ -172,7 +172,7 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
         //self.sortIntoSections(journals: self.journals!)
     }
 
-    func toDictionary(vals: Journal) -> NSDictionary {
+    func toDictionary(vals: Journal) -> [String : Any] {
 
         return [
             "name": vals.name! as NSString,
@@ -181,7 +181,8 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
             "endDate": NSString(string: (vals.endDate?.iso8601)!),
             "lat" : NSNumber(value: vals.lat!),
             "lng" : NSNumber(value: vals.lng!),
-            "placeId" : vals.placeId! as NSString
+            "placeId" : vals.placeId! as NSString,
+            "coverPhotoUrl" : vals.coverPhotoUrl! as NSString
         ]
         
     }
@@ -189,7 +190,7 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addJournalSegue" {
-            if let destVC = segue.destination as? AddJournalViewController {
+            if let destVC = segue.destination as? JournalEditorViewController {
                 destVC.delegate = self
             }
         } else if segue.identifier == "showJournalSegue" {
@@ -200,7 +201,7 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
                 destVC.userId = self.userId
             }
         } else if segue.identifier == "editJournalSegue" {
-            if let destVC = segue.destination as? AddJournalViewController {
+            if let destVC = segue.destination as? JournalEditorViewController {
                 destVC.delegate = self
                 destVC.journal = self.journalToEdit
             }

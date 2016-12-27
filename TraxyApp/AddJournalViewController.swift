@@ -10,21 +10,16 @@ import UIKit
 import Eureka
 import GooglePlacePicker
 
-protocol AddJournalDelegate : class {
-    func save(journal: Journal)
-}
+
 
 class AddJournalViewController: FormViewController {
 
-    weak var delegate : AddJournalDelegate?
+
     var journal : Journal?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        if self.journal == nil {
-            self.journal = Journal()
-        }
         
         let textRowValidationUpdate : (TextRow.Cell, TextRow) -> ()  = { cell, row in
             if !row.isValid {
@@ -56,8 +51,6 @@ class AddJournalViewController: FormViewController {
         LabelRow.defaultCellUpdate = labelRowValidationUpdate
         LabelRow.defaultOnRowValidationChanged = labelRowValidationUpdate
 
-
-        
         // Describe our beautiful eureka form
         form = Section("Trip Information")
             <<< TextRow(){ row in
@@ -67,7 +60,6 @@ class AddJournalViewController: FormViewController {
                 row.tag = "TitleTag"
                 row.add(rule: RuleRequired())
             }
-            
             <<< LabelRow () { row in
                 row.title = "General Location"
                 if let loc = journal?.location {
@@ -85,7 +77,6 @@ class AddJournalViewController: FormViewController {
                     }
                 }))
                 row.add(ruleSet:rules)
-                
             }.onCellSelection { cell, row in
                 // crank up Google's place picker when row is selected.
                 let autocompleteController = GMSAutocompleteViewController()
@@ -129,13 +120,13 @@ class AddJournalViewController: FormViewController {
 
             }
        
+        if self.journal == nil {
+            self.journal = Journal()
+        }
+
+
         
-        let cancelButton : UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(AddJournalViewController.cancelPressed))
-        self.navigationItem.leftBarButtonItem = cancelButton
-        
-        let saveButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(AddJournalViewController.savePressed))
-        self.navigationItem.rightBarButtonItem = saveButton
-        
+//        NSLayoutConstraint(item: self.tableView!, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.33, constant: 0.0).isActive = true
 
 
     }
@@ -145,36 +136,6 @@ class AddJournalViewController: FormViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func cancelPressed()
-    {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-    
-    func savePressed()
-    {
-       let errors = self.form.validate()
-        if errors.count > 0 {
-            print("fix ur errors!")
-        } else {
-            let titleRow: TextRow! = form.rowBy(tag: "TitleTag")
-            let locRow: LabelRow! = form.rowBy(tag: "LocTag")
-            let startDateRow : DateRow! = form.rowBy(tag: "StartDateTag")
-            let endDateRow : DateRow! = form.rowBy(tag: "EndDateTag")
-            
-            let title = titleRow.value! as String
-            let location = locRow.value! as String
-            let startDate = startDateRow.value! as Date
-            let endDate = endDateRow.value! as Date
-            
-            self.journal?.name = title
-            self.journal?.location = location
-            self.journal?.startDate = startDate
-            self.journal?.endDate = endDate
-            
-            self.delegate?.save(journal: self.journal!)
-           _ = self.navigationController?.popViewController(animated: true)
-        }
-    }
 
 }
 
@@ -195,6 +156,8 @@ extension AddJournalViewController: GMSAutocompleteViewControllerDelegate {
         let row: LabelRow? = form.rowBy(tag: "LocTag")
         row?.value = place.name
         row?.validate()
+        let indexPath = IndexPath(row: 1, section: 0)
+        self.tableView?.reloadRows(at: [indexPath], with: .none)
         
         self.journal?.placeId = place.placeID
         self.journal?.lat = place.coordinate.latitude

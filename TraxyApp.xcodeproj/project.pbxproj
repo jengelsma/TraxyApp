@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		387CE8B0F6DF17EFC83CD267 /* Pods_TraxyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A7378C1C73A90A5579F17D /* Pods_TraxyAppTests.framework */; };
+		9E119C1D1E12CF170095BF9F /* JournalEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E119C1C1E12CF170095BF9F /* JournalEditorViewController.swift */; };
+		9E119C1F1E12D2ED0095BF9F /* CoverPhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E119C1E1E12D2ED0095BF9F /* CoverPhotoCollectionViewController.swift */; };
+		9E119C211E12E7130095BF9F /* CoverPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E119C201E12E7130095BF9F /* CoverPhotoCollectionViewCell.swift */; };
 		9E2855201DD10DE500224A11 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E28551F1DD10DE500224A11 /* MainViewController.swift */; };
 		9E2855221DD10DF800224A11 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2855211DD10DF800224A11 /* SignUpViewController.swift */; };
 		9E2855241DD1136300224A11 /* UIViewcontroller+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2855231DD1136300224A11 /* UIViewcontroller+Validation.swift */; };
@@ -72,6 +75,9 @@
 		43A7378C1C73A90A5579F17D /* Pods_TraxyAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TraxyAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6177555F455CF49F2F71605F /* Pods-TraxyAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraxyAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TraxyAppTests/Pods-TraxyAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		973A22E9AD4F2304FAC71CCE /* Pods-TraxyAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraxyAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TraxyAppUITests/Pods-TraxyAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9E119C1C1E12CF170095BF9F /* JournalEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEditorViewController.swift; sourceTree = "<group>"; };
+		9E119C1E1E12D2ED0095BF9F /* CoverPhotoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverPhotoCollectionViewController.swift; sourceTree = "<group>"; };
+		9E119C201E12E7130095BF9F /* CoverPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E28551F1DD10DE500224A11 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9E2855211DD10DF800224A11 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		9E2855231DD1136300224A11 /* UIViewcontroller+Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewcontroller+Validation.swift"; sourceTree = "<group>"; };
@@ -234,6 +240,8 @@
 				9E2F52DE1DF8B12D00FEA931 /* AudioViewController.swift */,
 				9E373ACB1E0DB827005B0320 /* CalendarViewController.swift */,
 				9E373ACD1E0DB836005B0320 /* MapViewController.swift */,
+				9E119C1C1E12CF170095BF9F /* JournalEditorViewController.swift */,
+				9E119C1E1E12D2ED0095BF9F /* CoverPhotoCollectionViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -250,6 +258,7 @@
 				9EE39EDA1DDDF2D100F7180A /* TraxyMainTableViewCell.swift */,
 				9EA5ECEB1DF6436D0085069A /* JournalEntryTableViewCell.swift */,
 				9EFBF9FD1E089CF100F6FD79 /* CustomJournalSectionHeaderTableViewCell.swift */,
+				9E119C201E12E7130095BF9F /* CoverPhotoCollectionViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -592,6 +601,7 @@
 				9EFBF9FA1E08878600F6FD79 /* WeatherService.swift in Sources */,
 				9EE2D0841DE4DB3600614160 /* APIKeys.swift in Sources */,
 				9E2855201DD10DE500224A11 /* MainViewController.swift in Sources */,
+				9E119C211E12E7130095BF9F /* CoverPhotoCollectionViewCell.swift in Sources */,
 				9E2855241DD1136300224A11 /* UIViewcontroller+Validation.swift in Sources */,
 				9E6541161DCA358C009254CF /* LoginViewController.swift in Sources */,
 				9EFBF9FE1E089CF100F6FD79 /* CustomJournalSectionHeaderTableViewCell.swift in Sources */,
@@ -602,10 +612,12 @@
 				9EE39EDB1DDDF2D100F7180A /* TraxyMainTableViewCell.swift in Sources */,
 				9E2855221DD10DF800224A11 /* SignUpViewController.swift in Sources */,
 				9E373ACA1E0DB36B005B0320 /* TraxyTopLevelViewController.swift in Sources */,
+				9E119C1F1E12D2ED0095BF9F /* CoverPhotoCollectionViewController.swift in Sources */,
 				9EE2D0C81DEF510A00614160 /* JournalTableViewController.swift in Sources */,
 				9E29EF231DDB9D9D00A1E622 /* TraxyLoginButton.swift in Sources */,
 				9EE2D0801DE3941E00614160 /* AddJournalViewController.swift in Sources */,
 				9E29EF211DDB9C7F00A1E622 /* TraxyLoginViewController.swift in Sources */,
+				9E119C1D1E12CF170095BF9F /* JournalEditorViewController.swift in Sources */,
 				9E373AC81E0D92FC005B0320 /* TraxyTabBarViewController.swift in Sources */,
 				9E2F52DF1DF8B12D00FEA931 /* AudioViewController.swift in Sources */,
 				9EE2D0C61DE638E700614160 /* Date+ISO8601.swift in Sources */,
