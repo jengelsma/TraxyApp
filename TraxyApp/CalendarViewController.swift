@@ -17,7 +17,7 @@ class CalendarViewController: TraxyTopLevelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.calendar.backgroundColor = THEME_COLOR3
     }
 
     override func didReceiveMemoryWarning() {

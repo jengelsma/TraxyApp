@@ -44,20 +44,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pca-H9-zDK" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="16" y="20" width="343" height="20.5"/>
+                                <rect key="frame" x="16" y="20" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="UFz-fh-AHi">
-                                <rect key="frame" x="68" y="55.5" width="240" height="128"/>
+                                <rect key="frame" x="68" y="56" width="240" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="A4N-W6-L5l"/>
                                     <constraint firstAttribute="width" constant="240" id="GVT-VX-Nzo"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cQk-sD-9NV">
-                                <rect key="frame" x="16" y="191.5" width="343" height="68"/>
+                                <rect key="frame" x="16" y="192" width="343" height="68"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email " textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jXh-ZN-32q" customClass="TraxyLoginTextField" customModule="TraxyApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -74,7 +74,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tca-bs-CXg" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="125" y="267.5" width="125" height="30"/>
+                                <rect key="frame" x="125" y="268" width="125" height="30"/>
                                 <state key="normal" title="Sign In"/>
                                 <connections>
                                     <action selector="signupButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fjd-KQ-f8L"/>
@@ -88,7 +88,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account? " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6Q-xM-R90" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="17" y="588.5" width="343" height="20.5"/>
+                                <rect key="frame" x="17" y="588" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -168,7 +168,7 @@
                                         <rect key="frame" x="0.0" y="82" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u3x-OV-1LG" id="s1t-B1-tqE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="Fp5-EV-8VC">
@@ -920,13 +920,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signup for a new account! " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sC-mj-ICE" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="16" y="28" width="343" height="20.5"/>
+                                <rect key="frame" x="16" y="28" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ShB-h6-cHn">
-                                <rect key="frame" x="16" y="192.5" width="343" height="106"/>
+                                <rect key="frame" x="16" y="193" width="343" height="106"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email " textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mRr-Wk-R4X" customClass="TraxyLoginTextField" customModule="TraxyApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -949,21 +949,21 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="go8-gQ-fvN" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="234" y="306.5" width="125" height="30"/>
+                                <rect key="frame" x="234" y="307" width="125" height="30"/>
                                 <state key="normal" title="Sign Up!"/>
                                 <connections>
                                     <action selector="signUpButtonPressed:" destination="8Mp-mZ-fhv" eventType="touchUpInside" id="GcU-Kb-dYT"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="MXG-3f-x7T">
-                                <rect key="frame" x="68" y="56.5" width="240" height="128"/>
+                                <rect key="frame" x="68" y="57" width="240" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="6bR-Vc-gbA"/>
                                     <constraint firstAttribute="height" constant="128" id="xp0-Nk-y9s"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZQ-p0-Z6S" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
-                                <rect key="frame" x="16" y="306.5" width="125" height="30"/>
+                                <rect key="frame" x="16" y="307" width="125" height="30"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
                                     <action selector="cancelButtonPressed:" destination="8Mp-mZ-fhv" eventType="touchUpInside" id="wdc-0v-kDS"/>
@@ -1006,7 +1006,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="966-3t-G62" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Journals" image="journalTab" id="pk9-T3-UvH"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dwj-pi-rvB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dwj-pi-rvB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1024,7 +1024,7 @@
             <objects>
                 <navigationController id="L7v-FZ-CuD" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Calendar" image="calendarTab" id="zbf-N7-fGF"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="eNe-XD-lIf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eNe-XD-lIf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1049,7 +1049,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sdp-ue-97p" customClass="FSCalendar">
-                                <rect key="frame" x="20" y="72" width="339" height="206"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="206"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="zl4-9W-Ba3" id="iTg-ZC-rGm"/>
@@ -1057,7 +1057,7 @@
                                 </connections>
                             </view>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Dw-r1-ecE">
-                                <rect key="frame" x="0.0" y="286" width="375" height="332"/>
+                                <rect key="frame" x="0.0" y="270" width="375" height="348"/>
                                 <connections>
                                     <segue destination="xv6-Pd-RKR" kind="embed" identifier="embeddedJournalViewSegue" id="AqJ-vs-tFK"/>
                                 </connections>
@@ -1067,12 +1067,12 @@
                         <constraints>
                             <constraint firstItem="sdp-ue-97p" firstAttribute="height" secondItem="vB6-b3-gZH" secondAttribute="height" multiplier="1:3" id="707-qV-YJU"/>
                             <constraint firstAttribute="trailing" secondItem="5Dw-r1-ecE" secondAttribute="trailing" id="KGy-AX-z67"/>
-                            <constraint firstItem="sdp-ue-97p" firstAttribute="leading" secondItem="vB6-b3-gZH" secondAttribute="leadingMargin" constant="4" id="OyL-Mo-rzr"/>
+                            <constraint firstItem="sdp-ue-97p" firstAttribute="leading" secondItem="vB6-b3-gZH" secondAttribute="leading" id="OyL-Mo-rzr"/>
                             <constraint firstAttribute="bottom" secondItem="5Dw-r1-ecE" secondAttribute="bottom" id="QY4-fx-1h6"/>
                             <constraint firstItem="5Dw-r1-ecE" firstAttribute="leading" secondItem="vB6-b3-gZH" secondAttribute="leading" id="Sqp-Cs-d29"/>
-                            <constraint firstItem="sdp-ue-97p" firstAttribute="top" secondItem="BNT-NN-sXS" secondAttribute="bottom" constant="8" id="dxX-fW-XRj"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="sdp-ue-97p" secondAttribute="trailing" id="pZ5-cf-USf"/>
-                            <constraint firstItem="5Dw-r1-ecE" firstAttribute="top" secondItem="sdp-ue-97p" secondAttribute="bottom" constant="8" id="uZd-bH-d2r"/>
+                            <constraint firstItem="sdp-ue-97p" firstAttribute="top" secondItem="BNT-NN-sXS" secondAttribute="bottom" id="dxX-fW-XRj"/>
+                            <constraint firstAttribute="trailing" secondItem="sdp-ue-97p" secondAttribute="trailing" id="pZ5-cf-USf"/>
+                            <constraint firstItem="5Dw-r1-ecE" firstAttribute="top" secondItem="sdp-ue-97p" secondAttribute="bottom" id="uZd-bH-d2r"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mcs-bN-GZv">
@@ -1104,11 +1104,11 @@
                         <viewControllerLayoutGuide type="bottom" id="DgE-d2-u85"/>
                     </layoutGuides>
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="RqE-6g-Za4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="348"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="143" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Ap-jx-POu">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="348"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="6jh-58-ep7" detailTextLabel="SBl-6o-wD9" rowHeight="54" style="IBUITableViewCellStyleSubtitle" id="p87-zz-LEV">
@@ -1139,7 +1139,7 @@
                                         <rect key="frame" x="0.0" y="82" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mX1-Qa-g6M" id="SeW-f4-VAU">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="GrE-Vl-Wj9">
@@ -1232,7 +1232,7 @@
             <objects>
                 <navigationController id="gPf-xt-Amq" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="mapTab" id="ptE-xQ-nXc"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="zO3-EB-tRQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zO3-EB-tRQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1318,7 +1318,7 @@
         <image name="stop" width="60" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZQH-56-2yz"/>
+        <segue reference="Srr-Cl-RtN"/>
         <segue reference="ujb-v5-5IY"/>
     </inferredMetricsTieBreakers>
 </document>
