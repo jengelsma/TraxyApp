@@ -10,7 +10,7 @@ import UIKit
 import Eureka
 
 protocol AddJournalEntryDelegate : class {
-    func save(entry: JournalEntry, isCover: Bool)
+    func save(entry: JournalEntry)
 }
 
 var previewImage : UIImage?
@@ -118,23 +118,6 @@ class JournalEntryConfirmationViewController: FormViewController {
                     print("TODO: will finish this next chapter!")
         }
         
-        
-        if self.type! == .photo {
-            let firstSection = form.sectionBy(tag: "FirstSection")
-            let switchRow = SwitchRow() { row in
-                    row.title = "Use as Cover Photo"
-                    row.tag = "CoverTag"
-                
-                if self.journal.coverPhotoUrl != "" && self.journal.coverPhotoUrl == entry?.url {
-                    row.value = true
-                }
-            }.onChange({ (row) in
-                print("row value = \(row.value)")
-            })
-            
-            firstSection?.append(switchRow)
-        }
-
     }
  
 
@@ -150,18 +133,18 @@ class JournalEntryConfirmationViewController: FormViewController {
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         if let del = self.delegate {
 
-            let (caption,date,_,coverPhoto) = self.extractFormValues()
+            let (caption,date,_) = self.extractFormValues()
 
             if var e = self.entry {
                 e.caption = caption
                 e.date = date
-                del.save(entry: e, isCover: coverPhoto)
+                del.save(entry: e)
             }
         }
         _ = self.navigationController?.popViewController(animated: true)
     }
     
-    func extractFormValues() -> (String, Date, String, Bool)
+    func extractFormValues() -> (String, Date, String)
     {
         let captionRow: TextAreaRow! = form.rowBy(tag: "CaptionTag")
         //let locRow: LabelRow! = form.rowBy(tag: "LocTag")
@@ -173,16 +156,7 @@ class JournalEntryConfirmationViewController: FormViewController {
         let date = dateRow.value! as Date
         let loc = locationRow.value! as String
         
-        var coverPhoto = false
-        if self.type! == .photo {
-            if let switchRow: SwitchRow = form.rowBy(tag: "CoverTag") as? SwitchRow {
-                if let val : Bool = switchRow.value {
-                    coverPhoto = val
-                }
-            }
-        }
-        
-        return (caption,date,loc,coverPhoto)
+        return (caption,date,loc)
     }
     
     /*
@@ -233,9 +207,6 @@ class JournalEntryConfirmationViewController: FormViewController {
             fatalError("init(coder:) has not been implemented")
         }
     }
-    
-
-
 }
 
 

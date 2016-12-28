@@ -55,22 +55,9 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         self.ref = FIRDatabase.database().reference().child(self.userId).child(self.journal.key!)
         self.configureStorage()
         self.registerForFireBaseUpdates()
-        
-//        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
-//            if let user = user {
-//                self.userId = user.uid
-//                self.ref = FIRDatabase.database().reference().child(self.userId!).child(self.journal.key!)
-//                self.configureStorage()
-//                self.registerForFireBaseUpdates()
-//            } else {
-//                // No user is signed in.
-//                self.performSegue(withIdentifier: "logoutSegue", sender: self)
-//            }
-//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -479,11 +466,11 @@ extension JournalTableViewController : UIImagePickerControllerDelegate {
 
 extension JournalTableViewController : AddJournalEntryDelegate {
     
-    func save(entry: JournalEntry, isCover: Bool) {
+    func save(entry: JournalEntry) {
         
         switch(entry.type!) {
         case .photo:
-            self.savePhoto(entry: entry, isCover: isCover)
+            self.savePhoto(entry: entry)
         case .video:
             print("video")
             self.saveVideo(entry: entry)
@@ -497,35 +484,11 @@ extension JournalTableViewController : AddJournalEntryDelegate {
         
     }
     
-    func updateJournalCoverPhoto(coverPhotoUrl : String?)
-    {
-        let vals = [
-            "coverPhotoUrl" : coverPhotoUrl! as NSString
-        ]
-        self.ref?.updateChildValues(vals)
-    }
-    
-    func savePhoto(entry: JournalEntry, isCover: Bool) {
-        if let key = entry.key {
-            if isCover {
-                self.journal.coverPhotoUrl = entry.url
-                self.updateJournalCoverPhoto(coverPhotoUrl: self.journal.coverPhotoUrl)
-            } else {
-                // if we turned off and it is current the cover we update as well.
-                if entry.url == self.journal.coverPhotoUrl {
-                    self.journal.coverPhotoUrl = ""
-                    self.updateJournalCoverPhoto(coverPhotoUrl: self.journal.coverPhotoUrl)
-                }
-            }
-            let vals = self.toDictionary(vals: entry)
-            _ = self.saveEntryToFireBase(key: key, ref: self.ref, vals: vals)
-        } else {
-            
-            let vals = self.toDictionary(vals: entry)
-            let entryRef = self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
-        
+    func savePhoto(entry: JournalEntry) {
+        let vals = self.toDictionary(vals: entry)
+        let entryRef = self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
+        if entry.key == nil {
             self.saveImageToFirebase(imageToSave: self.capturedImage, saveRefClosure: { (downloadUrl) in
-                
                 // store the image URL
                 let vals = [
                     "url" : downloadUrl as NSString
@@ -645,7 +608,6 @@ extension JournalTableViewController : AddJournalEntryDelegate {
             }
         }
     }
-    
     
     func saveEntryToFireBase(key: String?, ref : FIRDatabaseReference?, vals: NSMutableDictionary) -> FIRDatabaseReference? {
         var child : FIRDatabaseReference?
