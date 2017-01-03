@@ -18,7 +18,7 @@ class TraxyTabBarViewController: UITabBarController {
         super.viewDidLoad()
         
         UITabBar.appearance().isTranslucent = false
-        UITabBar.appearance().barTintColor = THEME_COLOR1
+        UITabBar.appearance().barTintColor = THEME_COLOR2
         UITabBar.appearance().tintColor = THEME_COLOR3
         
         FIRAuth.auth()?.addStateDidChangeListener { auth, user in
@@ -26,7 +26,8 @@ class TraxyTabBarViewController: UITabBarController {
                 self.userId = user.uid
                 for child in self.childViewControllers {
                     if let nc = child as? UINavigationController {
-                        if let c = nc.childViewControllers[0] as? TraxyTopLevelViewController {
+                        if let c = nc.childViewControllers[0]
+                          as? TraxyTopLevelViewController {
                             c.userId = self.userId
                         }
                     }
@@ -39,11 +40,11 @@ class TraxyTabBarViewController: UITabBarController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        print("tab appeared")
+        super.viewWillAppear(animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
+        super.viewWillDisappear(animated)
     }
     
     @IBAction func unwindFromSignup(segue: UIStoryboardSegue) {
@@ -51,21 +52,7 @@ class TraxyTabBarViewController: UITabBarController {
         print("unwind to TabBarController")
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

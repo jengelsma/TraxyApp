@@ -23,34 +23,22 @@ class JournalEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         if self.journal == nil {
             self.journal = Journal()
         }
-        
-        let cancelButton : UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(JournalEditorViewController.cancelPressed))
-        self.navigationItem.leftBarButtonItem = cancelButton
-        
-        let saveButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(JournalEditorViewController.savePressed))
-        self.navigationItem.rightBarButtonItem = saveButton
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    
-    
-    func cancelPressed()
+    @IBAction func cancelPressed(_ sender: UIBarButtonItem)
     {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
-    func savePressed()
+    @IBAction func savePressed(_ sender: UIBarButtonItem)
     {
-        
         let form = self.journalForm.form
         let errors = form.validate()
         if errors.count > 0 {
@@ -80,11 +68,7 @@ class JournalEditorViewController: UIViewController {
         }
     }
 
-
-
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "formSegue" {
             self.journalForm = segue.destination as! AddJournalViewController
@@ -94,6 +78,4 @@ class JournalEditorViewController: UIViewController {
             self.coverSelect.journal = journal
         }
     }
-
-
 }

@@ -8,8 +8,7 @@
 
 import UIKit
 
-
-class CoverPhotoCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class CoverPhotoCollectionViewController: UIViewController {
     
     fileprivate let insets = UIEdgeInsets(top: 18.0, left: 18.0, bottom: 18.0, right: 18.0)
     fileprivate let ROW_SIZE : CGFloat  = 4.0
@@ -34,41 +33,22 @@ class CoverPhotoCollectionViewController: UIViewController, UICollectionViewDele
         }
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.allowsMultipleSelection = false
         if self.journal == nil {
             self.journal = Journal()
         }
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        //self.collectionView.register(CoverPhotoCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+}
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
-
+// MARK: UICollectionViewDataSource
+extension CoverPhotoCollectionViewController : UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -84,10 +64,7 @@ class CoverPhotoCollectionViewController: UIViewController, UICollectionViewDele
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CoverPhotoCollectionViewCell
-    
-        
         cell.photo.image = UIImage(named: "landscape")
-        
         if let entry = self.entries?[indexPath.row] {
             if let url = entry["url"] as? String {
                 cell.photo?.kf.indicatorType = .activity
@@ -98,82 +75,22 @@ class CoverPhotoCollectionViewController: UIViewController, UICollectionViewDele
                 } 
             }
         }
-
-        // Configure the cell
-        //cell.backgroundColor = UIColor.brown
         return cell
     }
+}
 
-    // MARK: UICollectionViewDelegate
-
-    
-
+// MARK: UICollectionViewDelegate
+extension CoverPhotoCollectionViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         if let entry = self.entries?[indexPath.row] {
             self.journal?.coverPhotoUrl = entry["url"] as? String
         }
-        
-        /*
-        // unfortunately, we need to manually deselect the other one! 
-        if var indexPaths = self.collectionView.indexPathsForSelectedItems {
-            indexPaths.remove(at: indexPaths.index(of: indexPath)!)
-            for ip in indexPaths {
-                self.collectionView.deselectItem(at: ip, animated: true)
-            }
-        }
- */
-        
     }
- 
-    
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        
-
-        
-        return false
-    }
-
-*/
-    
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if let entry = self.entries?[indexPath.row] {
-            if self.journal?.coverPhotoUrl == (entry["url"] as? String)! {
-                return true
-            } else {
-                return false
-            }
-        }
-        return false
-    }
- */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
 }
 
-
+// MARK: UICollectionViewDelegateFlowLayout
 extension CoverPhotoCollectionViewController : UICollectionViewDelegateFlowLayout {
     
-
-
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -184,7 +101,6 @@ extension CoverPhotoCollectionViewController : UICollectionViewDelegateFlowLayou
         
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
-    
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -192,7 +108,6 @@ extension CoverPhotoCollectionViewController : UICollectionViewDelegateFlowLayou
         return self.insets
     }
     
-
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {

@@ -37,11 +37,6 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
         
     }
     
-    @IBAction func logoutFromNavStack(segue: UIStoryboardSegue) {
-        // we end up here when a downstream child we pushed to detects no user session
-        print("reset main's nav stack to top")
-    }
-    
     override func journalsDidLoad() {
         if let j = self.journals {
             self.sortIntoSections(journals: j)
@@ -96,7 +91,6 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
             self.journalToEdit = j
             self.performSegue(withIdentifier: "editJournalSegue", sender: self)
         }
-        
     }
     // MARK: - UITableViewDataSource
     
@@ -158,7 +152,7 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
         print("Selected \(journal.name)")
     }
 
-    // MARK: - AddJournalDelegate
+    // MARK: - JournalEditorDelegate
     func save(journal: Journal) {
         if let k = journal.key {
             let child = self.ref?.child(self.userId!).child(k)
