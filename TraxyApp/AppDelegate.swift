@@ -8,6 +8,7 @@
 
 import UIKit
 import GooglePlaces
+import GoogleMaps
 import Firebase
 
 
@@ -39,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navAppearance.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
         GMSPlacesClient.provideAPIKey(GOOGLE_PLACES_API_KEY)
+        GMSServices.provideAPIKey(GOOGLE_PLACES_API_KEY)
         FIRApp.configure()
         
         return true

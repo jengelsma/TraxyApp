@@ -21,11 +21,21 @@ class SignUpViewController: TraxyLoginViewController {
         self.emailField.delegate = self
         self.passwordField.delegate = self
         self.verifyPasswordField.delegate = self
+        
+        // dismiss keyboard when tapping outside of text fields
+        let detectTouch = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        self.view.addGestureRecognizer(detectTouch)
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func dismissKeyboard()
+    {
+        self.view.endEditing(true)
     }
     
     func validateFields() -> Bool {

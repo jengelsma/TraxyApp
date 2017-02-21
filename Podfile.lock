@@ -64,6 +64,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - FSCalendar
+  - GoogleMaps
   - GooglePlacePicker
   - Kingfisher (~> 3.0)
 
@@ -86,6 +87,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   Kingfisher: 821466474ad7ffc375a4aecadfa05068cfed67b3
 
-PODFILE CHECKSUM: 706535c50044de3870e10951dc28c74e159dd4cd
+PODFILE CHECKSUM: f9db4518a9504636b57cc2b319f1d22270a8af6b
 
 COCOAPODS: 1.1.1
