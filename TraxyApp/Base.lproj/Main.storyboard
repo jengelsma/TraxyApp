@@ -1018,7 +1018,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="966-3t-G62" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Trips" image="journalTab" id="pk9-T3-UvH"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dwj-pi-rvB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dwj-pi-rvB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1277,6 +1277,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="E0b-vP-gVe"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="IEt-M0-lHH" kind="show" identifier="showJournalSegue" id="Qlz-nM-seg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W3o-YV-YCe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1331,7 +1334,7 @@
         <image name="stop" width="60" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZQH-56-2yz"/>
-        <segue reference="ujb-v5-5IY"/>
+        <segue reference="Srr-Cl-RtN"/>
+        <segue reference="Qlz-nM-seg"/>
     </inferredMetricsTieBreakers>
 </document>
