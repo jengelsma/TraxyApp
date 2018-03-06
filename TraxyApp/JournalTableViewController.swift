@@ -31,9 +31,10 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
     var tableViewData: [(sectionHeader: String, entries: [JournalEntry])]?
     
     var weatherService = DarkSkyWeatherService.getInstance()
+    var journalEditorDelegate : JournalEditorDelegate!
     
-    fileprivate var ref : FIRDatabaseReference?
-    fileprivate var storageRef : FIRStorageReference?
+    fileprivate var ref : DatabaseReference?
+    fileprivate var storageRef : StorageReference?
 
     
     // MARK: - UIViewController overrides and their helpers
@@ -55,7 +56,7 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.ref = FIRDatabase.database().reference().child(self.userId).child(self.journal.key!)
+        self.ref = Database.database().reference().child(self.userId).child(self.journal.key!)
         self.configureStorage()
         self.registerForFireBaseUpdates()
     }
@@ -71,8 +72,8 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
     }
 
     func configureStorage() {
-        let storageUrl = FIRApp.defaultApp()?.options.storageBucket
-        self.storageRef = FIRStorage.storage().reference(forURL: "gs://" + storageUrl!)
+        let storageUrl = FirebaseApp.app()?.options.storageBucket
+        self.storageRef = Storage.storage().reference(forURL: "gs://" + storageUrl!)
     }
     
     func registerForFireBaseUpdates()
@@ -301,6 +302,11 @@ class JournalTableViewController: UITableViewController, UINavigationControllerD
                 destCtrl.entry = self.entryToEdit // will be nil if new item.
                 destCtrl.delegate = self
                 destCtrl.journal = self.journal
+            }
+        }else if segue.identifier == "editJournalSegue" {
+            if let destVC = segue.destination as? JournalEditorViewController {
+                destVC.delegate = self.journalEditorDelegate
+                destVC.journal = self.journal
             }
         }
     }
@@ -568,11 +574,11 @@ extension JournalTableViewController : AddJournalEntryDelegate {
                 let media = try Data(contentsOf: url!)
                 print("got data")
                 let mediaPath = "\(self.userId!)/\(type)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).\(ext)"
-                let metadata = FIRStorageMetadata()
+                let metadata = StorageMetadata()
                 metadata.contentType = mime
                 if let sr = self.storageRef {
                     sr.child(mediaPath)
-                        .put(media, metadata: metadata) {(metadata, error) in
+                        .putData(media, metadata: metadata) {(metadata, error) in
                             if let error = error {
                                 print("Error uploading: \(error)")
                                 return
@@ -592,11 +598,11 @@ extension JournalTableViewController : AddJournalEntryDelegate {
         if let image = imageToSave {
             let imageData = UIImageJPEGRepresentation(image, 0.8)
             let imagePath = "\(self.userId!)/photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
-            let metadata = FIRStorageMetadata()
+            let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             if let sr = self.storageRef {
                 sr.child(imagePath)
-                    .put(imageData!, metadata: metadata) { (metadata, error) in
+                    .putData(imageData!, metadata: metadata) { (metadata, error) in
                         if let error = error {
                             print("Error uploading: \(error)")
                             return
@@ -609,8 +615,8 @@ extension JournalTableViewController : AddJournalEntryDelegate {
         }
     }
     
-    func saveEntryToFireBase(key: String?, ref : FIRDatabaseReference?, vals: NSMutableDictionary) -> FIRDatabaseReference? {
-        var child : FIRDatabaseReference?
+    func saveEntryToFireBase(key: String?, ref : DatabaseReference?, vals: NSMutableDictionary) -> DatabaseReference? {
+        var child : DatabaseReference?
         if let k = key {
             child = ref?.child("entries").child(k)
             child?.setValue(vals)

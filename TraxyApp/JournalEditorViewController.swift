@@ -24,10 +24,13 @@ class JournalEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if self.journal == nil {
+            self.navigationItem.title = "Add Journal"
             self.journal = Journal()
+        } else {
+            self.navigationItem.title = "Edit Journal"
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

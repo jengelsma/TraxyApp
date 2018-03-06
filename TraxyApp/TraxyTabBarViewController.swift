@@ -21,7 +21,7 @@ class TraxyTabBarViewController: UITabBarController {
         UITabBar.appearance().barTintColor = THEME_COLOR2
         UITabBar.appearance().tintColor = THEME_COLOR3
         
-        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+        Auth.auth().addStateDidChangeListener { auth, user in
             if let user = user {
                 self.userId = user.uid
                 for child in self.childViewControllers {

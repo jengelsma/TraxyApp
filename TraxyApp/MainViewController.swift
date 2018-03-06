@@ -84,14 +84,15 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
         
     }
 
-    @IBAction func editButtonPressed(_ sender: UIButton) {
-        let section = Int(sender.tag / 10)
-        let row = Int(sender.tag % 10)
-        if let j = self.tableViewData?[section].journals[row] {
-            self.journalToEdit = j
-            self.performSegue(withIdentifier: "editJournalSegue", sender: self)
-        }
-    }
+//    @IBAction func editButtonPressed(_ sender: UIButton) {
+//        let section = Int(sender.tag / 10)
+//        let row = Int(sender.tag % 10)
+//        if let j = self.tableViewData?[section].journals[row] {
+//            self.journalToEdit = j
+//            self.performSegue(withIdentifier: "editJournalSegue", sender: self)
+//        }
+//    }
+    
     // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -111,7 +112,7 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
         
         cell.name?.text = journal.name
         cell.subName?.text = journal.location
-        cell.editButton.tag = indexPath.section * 10 + indexPath.row
+        //cell.editButton.tag = indexPath.section * 10 + indexPath.row
         if let coverUrl = journal.coverPhotoUrl {
             let url = URL(string: coverUrl)
             cell.coverImage?.kf.indicatorType = .activity
@@ -149,7 +150,7 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
         guard let journal = tableViewData?[indexPath.section].journals[indexPath.row] else {
             return
         }
-        print("Selected \(journal.name)")
+        print("Selected \(String(describing: journal.name))")
     }
 
     // MARK: - JournalEditorDelegate
@@ -193,11 +194,7 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
                 let values = self.tableViewData?[indexPath!.section]
                 destVC.journal  = values?.journals[indexPath!.row]
                 destVC.userId = self.userId
-            }
-        } else if segue.identifier == "editJournalSegue" {
-            if let destVC = segue.destination as? JournalEditorViewController {
-                destVC.delegate = self
-                destVC.journal = self.journalToEdit
+                destVC.journalEditorDelegate = self
             }
         }
      }
